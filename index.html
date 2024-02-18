@@ -134,6 +134,7 @@
 
     let currentSectionIndex = 0;
     let isScrolling = false;
+    let touchStartY = 0;
 
     function updateActiveSection() {
       let scrollPosition = window.scrollY;
@@ -169,20 +170,18 @@
     window.addEventListener("scroll", updateActiveSection);
 
     window.addEventListener("wheel", function(event) {
-      event.preventDefault(); // Evitar el desplazamiento predeterminado
+      event.preventDefault();
       if (!isScrolling) {
         isScrolling = true;
         setTimeout(function() {
           isScrolling = false;
-        }, 1000); // Establecer un retraso de 1 segundo entre desplazamientos para evitar la sobrecarga
+        }, 1000);
         if (event.deltaY > 0) {
-          // Mover hacia abajo
           if (currentSectionIndex < sections.length - 1) {
             currentSectionIndex++;
             sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
           }
         } else {
-          // Mover hacia arriba
           if (currentSectionIndex > 0) {
             currentSectionIndex--;
             sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
@@ -190,8 +189,6 @@
         }
       }
     });
-
-    let touchStartY = 0;
 
     window.addEventListener("touchstart", function(event) {
       touchStartY = event.touches[0].clientY;
@@ -201,17 +198,27 @@
       let touchEndY = event.touches[0].clientY;
       let touchMoveDiff = touchEndY - touchStartY;
 
-      if (touchMoveDiff < -50) {
-        // Desplazamiento hacia arriba
-        if (currentSectionIndex > 0) {
-          currentSectionIndex--;
-          sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
-        }
-      } else if (touchMoveDiff > 50) {
-        // Desplazamiento hacia abajo
-        if (currentSectionIndex < sections.length - 1) {
-          currentSectionIndex++;
-          sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+      if (!isScrolling) {
+        if (touchMoveDiff > 50) {
+          event.preventDefault(); // Evitar el desplazamiento predeterminado
+          if (currentSectionIndex > 0) {
+            isScrolling = true;
+            setTimeout(function() {
+              isScrolling = false;
+            }, 1000);
+            currentSectionIndex--;
+            sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+          }
+        } else if (touchMoveDiff < -50) {
+          event.preventDefault(); // Evitar el desplazamiento predeterminado
+          if (currentSectionIndex < sections.length - 1) {
+            isScrolling = true;
+            setTimeout(function() {
+              isScrolling = false;
+            }, 1000);
+            currentSectionIndex++;
+            sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+          }
         }
       }
     });
