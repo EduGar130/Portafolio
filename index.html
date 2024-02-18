@@ -200,7 +200,7 @@
 
       if (!isScrolling) {
         if (touchMoveDiff > 50) {
-          event.preventDefault(); // Evitar el desplazamiento predeterminado
+          event.preventDefault();
           if (currentSectionIndex > 0) {
             isScrolling = true;
             setTimeout(function() {
@@ -210,7 +210,7 @@
             sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
           }
         } else if (touchMoveDiff < -50) {
-          event.preventDefault(); // Evitar el desplazamiento predeterminado
+          event.preventDefault();
           if (currentSectionIndex < sections.length - 1) {
             isScrolling = true;
             setTimeout(function() {
