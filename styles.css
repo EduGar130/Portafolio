@@ -164,6 +164,7 @@ main {
     }
 
     .certificate-title {
+      min-width: 0px;
       width: 150px;
     }
 
