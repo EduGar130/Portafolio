@@ -78,38 +78,38 @@
           <h3> Mis Certificados</h3>
         </div>
         <div class="certificate-tile">
-          <a href="https://drive.google.com/file/d/1WBxUkNupd7Lg411U7Z9I8mg5cDCFmkAK/view?usp=drive_link">
+          <a href="https://drive.google.com/file/d/1WBxUkNupd7Lg411U7Z9I8mg5cDCFmkAK/view?usp=drive_link" target="_blank">
             <h3>JavaScript Certification Course</h3>
           </a>
         </div>
         <div class="certificate-tile">
-          <a href="https://drive.google.com/file/d/1MfHT8Hgdyvd6IfvIsDPb_QN_CoUh4ah5/view?usp=sharing">
+          <a href="https://drive.google.com/file/d/1MfHT8Hgdyvd6IfvIsDPb_QN_CoUh4ah5/view?usp=sharing" target="_blank">
             <h3>SEO Certification Course</h3>
 
           </a>
         </div>
         <div class="certificate-tile">
-          <a href="https://drive.google.com/file/d/1oDkuwPiNiego9cFbtIvWOCkySIYgPC4F/view?usp=sharing">
+          <a href="https://drive.google.com/file/d/1oDkuwPiNiego9cFbtIvWOCkySIYgPC4F/view?usp=sharing" target="_blank">
             <h3>SQL Certification Course</h3>
           </a>
         </div>
         <div class="certificate-tile">
-          <a href="https://drive.google.com/file/d/1bmq9S2oNE1EwikTX2l0fj_hGw7Vcit3X/view?usp=sharing">
+          <a href="https://drive.google.com/file/d/1bmq9S2oNE1EwikTX2l0fj_hGw7Vcit3X/view?usp=sharing" target="_blank">
             <h3>Social Media Marketing Certification Course</h3>
           </a>
         </div>
         <div class="certificate-tile">
-          <a href="https://cert.efset.org/x5rYuS">
+          <a href="https://cert.efset.org/x5rYuS" target="_blank">
             <h3>EF SET English Certificate 83/100 (C2 Proficient)</h3>
           </a>
         </div>
         <div class="certificate-tile">
-          <a href="https://platzi.com/p/EduGar02/ruta/7-arquitecto-frontend-old/diploma/detalle/">
+          <a href="https://platzi.com/p/EduGar02/ruta/7-arquitecto-frontend-old/diploma/detalle/" target="_blank">
             <h3>Arquitectura Frontend</h3>
           </a>
         </div>
         <div class="certificate-tile">
-          <a href="https://platzi.com/p/EduGar02/curso/1557-git-github/diploma/detalle/">
+          <a href="https://platzi.com/p/EduGar02/curso/1557-git-github/diploma/detalle/" target="_blank">
             <h3>Curso Profesional de Git y GitHub</h3>
           </a>
         </div>
@@ -169,18 +169,20 @@
     window.addEventListener("scroll", updateActiveSection);
 
     window.addEventListener("wheel", function(event) {
-      event.preventDefault();
+      event.preventDefault(); // Evitar el desplazamiento predeterminado
       if (!isScrolling) {
         isScrolling = true;
         setTimeout(function() {
           isScrolling = false;
-        }, 1000); 
+        }, 1000); // Establecer un retraso de 1 segundo entre desplazamientos para evitar la sobrecarga
         if (event.deltaY > 0) {
+          // Mover hacia abajo
           if (currentSectionIndex < sections.length - 1) {
             currentSectionIndex++;
             sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
           }
         } else {
+          // Mover hacia arriba
           if (currentSectionIndex > 0) {
             currentSectionIndex--;
             sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
@@ -188,6 +190,32 @@
         }
       }
     });
+
+    let touchStartY = 0;
+
+    window.addEventListener("touchstart", function(event) {
+      touchStartY = event.touches[0].clientY;
+    });
+
+    window.addEventListener("touchmove", function(event) {
+      let touchEndY = event.touches[0].clientY;
+      let touchMoveDiff = touchEndY - touchStartY;
+
+      if (touchMoveDiff < -50) {
+        // Desplazamiento hacia arriba
+        if (currentSectionIndex > 0) {
+          currentSectionIndex--;
+          sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+        }
+      } else if (touchMoveDiff > 50) {
+        // Desplazamiento hacia abajo
+        if (currentSectionIndex < sections.length - 1) {
+          currentSectionIndex++;
+          sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
+
   });
 </script>
 </body>
