@@ -164,7 +164,7 @@ main {
     }
 
     .certificate-title {
-      min-width: 150px;
+      width: 150px;
     }
 
     #sidebar {
@@ -205,6 +205,22 @@ main {
     #sidebar svg {
       width: 25px;
       height: auto;
+    }
+
+    #welcome-section,
+    #about,
+    #skills,
+    #projects,
+    #certificates,
+    #contact {
+      height: 92vh;
+      color: #0CABA8;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
     }
 }
 
