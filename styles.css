@@ -169,26 +169,31 @@ main {
 
     #sidebar {
       position: fixed;
+      transform: translateY(-100%);
       top: 100%;
       left: 0%;
       z-index: 1000;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
+      align-items: center;
+      height: 8vh;
       width: 100%;
       background-color: #015958;
     }
 
     #sidebar ul{
       display: flex;
+      justify-content: center;
       align-items: center;
       list-style-type: none;
-      margin: 0;
-      padding: 0;
     }
 
     #sidebar li{
-      padding: 10px 20px 40px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      margin: 0px;
     }
 
     main {
