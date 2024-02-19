@@ -28,7 +28,11 @@
   <section id="welcome-section">
     <div class="container">
       <h1>Bienvenido a mi Portafolio</h1>
-      <p>¡Hola! Soy Eduardo García Romera, un apasionado de la tecnología y el desarrollo web. Aquí encontrarás una muestra de mis proyectos y habilidades.</p>
+      <p>¡Hola! Soy Eduardo García Romera, un apasionado de la tecnología y el desarrollo web. Aquí encontrarás una muestra de mis proyectos y habilidades.</p>  
+    </div>
+    <div class="bubble-container" onclick="explodeBubble()">
+      <img class="image" src="https://i.imgur.com/CoaNp2y.png" alt="Imagen cuadrada">
+      <img class="bubble" src="https://i.imgur.com/M53QYun.png" alt="Burbuja">
     </div>
   </section>
 
@@ -128,6 +132,11 @@
   <h4>Aquí hay muy poco espacio</h4>
 </div>
 <script>
+  function explodeBubble() {
+  const bubbleContainer = document.querySelector('.bubble-container');
+  bubbleContainer.classList.add('exploded');
+}
+
   document.addEventListener("DOMContentLoaded", function() {
     const sections = document.querySelectorAll("section");
     const sidebarLinks = document.querySelectorAll("#sidebar a");
@@ -151,13 +160,13 @@
               link.classList.add("active-section");
               const svg = link.querySelector("svg");
               if (svg) {
-                svg.style.fill = "#012E40";
+                svg.style.fill = "var(--tiles-color)";
               }
             } else {
               link.classList.remove("active-section");
               const svg = link.querySelector("svg");
               if (svg) {
-                svg.style.fill = "#026773";
+                svg.style.fill = "var(--icons-color)";
               }
             }
           });
