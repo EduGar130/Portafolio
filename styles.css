@@ -1,8 +1,9 @@
 :root {
   --sidebar-color: #03a9f4; /* Azul claro */
   --main-bg-color: #f5f5f5; /* Gris claro */
-  --tiles-color: #ff9800; /* Naranja */
-  --text-color: #212121; /* Negro */
+  --icons-hover: #ff9800;
+  --tiles-color: #ffc97f; /* Naranja */
+  --text-color: #303030; /* Negro */
   --icons-color: #ffffff; /* Blanco */
 }
 
@@ -80,6 +81,14 @@ body {
   overflow: hidden;
 }
 
+a {
+    transition: transform 1s ease;
+}
+
+a:hover {
+  transform: scale(1.1);
+}
+
 .container {
   width: 80%;
   margin: 0 auto;
@@ -104,9 +113,9 @@ body {
 
 .project-tile {
   background-color: var(--tiles-color);
-  padding: 10px;
+  padding: 15px;
   margin-bottom: 15px;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 .project-tile a {
@@ -140,12 +149,18 @@ body {
   padding: 10px;
   border-radius: 8px;
   text-align: center;
+  color: var(--text-color);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 1s ease;
+}
+
+.certificate-tile:hover {
+  transform: scale(1.02);
 }
 
 #certificates a {
-  text-decoration: none;
   color: var(--text-color);
+  text-decoration: none;
 }
 
 
@@ -160,6 +175,11 @@ body {
   margin: 20px;
   width: 40px;
   height: auto;
+  transition: transform 1s ease;
+}
+
+#social img:hover {
+  transform: scale(1.1);
 }
 
 #navbar {
@@ -204,6 +224,11 @@ main {
 #sidebar svg {
   width: 25px;
   height: auto;
+  transition: transform 1s ease;
+}
+
+#sidebar svg:hover {
+  transform: scale(1.1);
 }
 
 @keyframes deform {
