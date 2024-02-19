@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #015958;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #3CA6A6;
   overflow: hidden;
 }
 
@@ -17,17 +17,17 @@ body {
 #certificates,
 #contact {
   height: 100vh;
-  color: #0CABA8;
+  color: #3CA6A6;
   background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0px 15px rgba(0, 0, 0, 0.6);
 }
 
 .project-tile {
-  background-color: #effffa;
+  background-color: #F2E3D5;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -36,7 +36,7 @@ body {
 .project-tile a {
   display: block;
   text-align: center;
-  color: #0CABA8;
+  color: #3CA6A6;
 }
 
 .certificates-container {
@@ -48,25 +48,28 @@ body {
 
 .certificate-title {
   display: flex;
-  min-width: 185px;
+  min-width: 213px;
   justify-content: center;
   align-items: center;
-  background-color: #0b5454;
+  background-color: #3CA6A6;
+  color: #F2E3D5;
   padding: 10px;
   border-radius: 8px;
   text-align: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .certificate-tile {
-  background-color: #effffa;
+  background-color: #F2E3D5;
   padding: 10px;
   border-radius: 8px;
   text-align: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 #certificates a {
   text-decoration: none;
-  color: #0CABA8;
+  color: #3CA6A6;
 }
 
 
@@ -164,7 +167,6 @@ main {
     }
 
     .certificate-title {
-      min-width: 0px;
       width: 150px;
     }
 
@@ -179,7 +181,7 @@ main {
       align-items: center;
       height: 8vh;
       width: 100%;
-      background-color: #015958;
+      background-color: #3CA6A6;
     }
 
     #sidebar ul{
@@ -200,7 +202,7 @@ main {
     main {
       margin-left: 0px;
       transition: margin-left 0.3s ease;
-      background-color: #ffffff;
+      background-color: #fff;
     }
 
     #sidebar svg {
@@ -215,13 +217,11 @@ main {
     #certificates,
     #contact {
       height: 92vh;
-      color: #0CABA8;
-      background-color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0px 15px rgba(0, 0, 0, 0.6);
     }
 }
 
