@@ -216,7 +216,7 @@
               isScrolling = false;
             }, 500);
             currentSectionIndex--;
-            sections[currentSectionIndex+1].scrollIntoView({ behavior: "smooth" });
+            sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
           }
         } else if (touchMoveDiff < -50) {
           event.preventDefault();
@@ -226,7 +226,7 @@
               isScrolling = false;
             }, 500);
             currentSectionIndex++;
-            sections[currentSectionIndex+1].scrollIntoView({ behavior: "smooth" });
+            sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
           }
         }
       }
