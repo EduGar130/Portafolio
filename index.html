@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Portafolio</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
 
 </head>
 <body>
@@ -151,13 +151,13 @@
               link.classList.add("active-section");
               const svg = link.querySelector("svg");
               if (svg) {
-                svg.style.fill = "#023535";
+                svg.style.fill = "#012E40";
               }
             } else {
               link.classList.remove("active-section");
               const svg = link.querySelector("svg");
               if (svg) {
-                svg.style.fill = "#008F8C";
+                svg.style.fill = "#026773";
               }
             }
           });
@@ -205,9 +205,9 @@
             isScrolling = true;
             setTimeout(function() {
               isScrolling = false;
-            }, 1000);
+            }, 500);
             currentSectionIndex--;
-            sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+            sections[currentSectionIndex+1].scrollIntoView({ behavior: "smooth" });
           }
         } else if (touchMoveDiff < -50) {
           event.preventDefault();
@@ -215,9 +215,9 @@
             isScrolling = true;
             setTimeout(function() {
               isScrolling = false;
-            }, 1000);
+            }, 500);
             currentSectionIndex++;
-            sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+            sections[currentSectionIndex+1].scrollIntoView({ behavior: "smooth" });
           }
         }
       }
