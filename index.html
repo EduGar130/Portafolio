@@ -30,10 +30,6 @@
       <h1>Bienvenid@ a mi Portafolio</h1>
       <p>¡Hola! Soy Eduardo García Romera, un apasionado de la tecnología y el desarrollo web. Aquí encontrarás una muestra de mis proyectos y habilidades.</p>  
     </div>
-    <div class="bubble-container" onclick="explodeBubble()">
-      <img class="image" src="https://i.imgur.com/CoaNp2y.png" alt="Imagen cuadrada">
-      <img class="bubble" src="https://i.imgur.com/M53QYun.png" alt="Burbuja">
-    </div>
   </section>
 
   <section id="about">
@@ -160,7 +156,7 @@
               link.classList.add("active-section");
               const svg = link.querySelector("svg");
               if (svg) {
-                svg.style.fill = "var(--tiles-color)";
+                svg.style.fill = "var(--icons-hover)";
               }
             } else {
               link.classList.remove("active-section");
