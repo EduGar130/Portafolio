@@ -1,10 +1,10 @@
 :root {
-  --sidebar-color: #03a9f4; /* Azul claro */
-  --main-bg-color: #f5f5f5; /* Gris claro */
+  --sidebar-color: #03a9f4;
+  --main-bg-color: #f5f5f5;
   --icons-hover: #ff9800;
-  --tiles-color: #ffc97f; /* Naranja */
-  --text-color: #303030; /* Negro */
-  --icons-color: #ffffff; /* Blanco */
+  --tiles-color: #ffc97f;
+  --text-color: #303030;
+  --icons-color: #ffffff;
 }
 
 .bubble-container {
@@ -100,7 +100,8 @@ a:hover {
 #skills,
 #projects,
 #certificates,
-#contact {
+#contact,
+#experience {
   height: 100vh;
   color: var(--text-color);
   background-color: var(--main-bg-color);
@@ -223,7 +224,7 @@ main {
 
 #sidebar svg {
   width: 25px;
-  height: auto;
+  height: 25px;
   transition: transform 1s ease;
 }
 
@@ -302,11 +303,6 @@ main {
     main {
       margin-left: 0px;
       transition: margin-left 0.3s ease;
-    }
-
-    #sidebar svg {
-      width: 25px;
-      height: auto;
     }
 
     #welcome-section,
