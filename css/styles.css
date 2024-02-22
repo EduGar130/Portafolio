@@ -222,13 +222,13 @@ main {
   transition: margin-left 0.3s ease;
 }
 
-#sidebar svg {
+#sidebar img {
   width: 25px;
   height: 25px;
   transition: transform 1s ease;
 }
 
-#sidebar svg:hover {
+#sidebar img:hover {
   transform: scale(1.1);
 }
 
@@ -244,11 +244,11 @@ main {
     }
 }
 
-#sidebar a svg {
+#sidebar a img {
     transition: fill 0.3s ease, transform 0.3s ease;
   }
 
-#sidebar a.active-section svg {
+#sidebar a.active-section img {
     animation: deform 0.5s ease;
 }
 
