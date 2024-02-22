@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
       }
-    });
+    }, { passive: false });
 
     window.addEventListener("touchstart", function(event) {
       touchStartY = event.touches[0].clientY;
