@@ -309,7 +309,7 @@ main {
     #certificates,
     #contact,
     #experience {
-      height: 100vh;
+      height: 92vh;
       display: flex;
       justify-content: center;
       align-items: center;
