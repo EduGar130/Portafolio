@@ -18,17 +18,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
           sidebarLinks.forEach(link => {
             const linkId = link.getAttribute("href").slice(1);
-            const img = link.querySelector("img");
+            const svg = link.querySelector("svg");
 
             if (linkId === sectionId) {
               link.classList.add("active-section");
-              if (img) {
-                img.style.fill = "var(--icons-hover)";
+              if (svg) {
+                svg.style.fill = "var(--icons-hover)";
               }
             } else {
               link.classList.remove("active-section");
-              if (img) {
-                img.style.fill = "var(--icons-color)";
+              if (svg) {
+                svg.style.fill = "var(--icons-color)";
               }
             }
           });
