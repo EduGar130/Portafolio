@@ -79,3 +79,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
   });
+
+  let darkMode = false;
+  let degree = 0;
+  const modeWheel = document.getElementById("modeWheel");
+  const twitter = document.getElementById("twitter");
+  
+  document.getElementById("modeWheel").addEventListener("click", function() {
+    if (darkMode) {
+      document.documentElement.classList.remove("dark-mode");
+      twitter.src = "img/png/X.png"
+    } else {
+      document.documentElement.classList.add("dark-mode");
+      twitter.src = "img/png/X_DarkMode.png"
+    }
+    degree += 180;
+    modeWheel.style.transform = `rotate(${degree}deg)`;
+    darkMode = !darkMode;
+  });
+  
