@@ -84,14 +84,17 @@ document.addEventListener("DOMContentLoaded", function() {
   let degree = 0;
   const modeWheel = document.getElementById("modeWheel");
   const twitter = document.getElementById("twitter");
+  const cvImage = document.getElementById("cvImage");
   
   document.getElementById("modeWheel").addEventListener("click", function() {
     if (darkMode) {
       document.documentElement.classList.remove("dark-mode");
       twitter.src = "img/png/X.png"
+      cvImage.src = "img/svg/pdfLight.svg"
     } else {
       document.documentElement.classList.add("dark-mode");
       twitter.src = "img/png/X_DarkMode.png"
+      cvImage.src = "img/svg/pdfDark.svg"
     }
     degree += 180;
     modeWheel.style.transform = `rotate(${degree}deg)`;

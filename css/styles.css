@@ -57,6 +57,39 @@ body {
   transition: background-color 0.5s ease;
 }
 
+.cv-link {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--tiles-color);
+  padding: 10px 15px; /* Ajustar el padding para reducir el ancho */
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-color);
+  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+  max-width: 200px; /* Establecer un ancho máximo */
+  width: 100%; /* Para asegurar que ocupe el ancho máximo permitido */
+}
+
+.cv-container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center; /* Centrar el contenido del contenedor */
+}
+
+.cv-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cv-link img {
+  width: 20px;
+  height: auto;
+  margin-left: 15px;
+}
+
 a svg,
 a img{
     transition: transform 1s ease;
