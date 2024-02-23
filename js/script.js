@@ -62,21 +62,22 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener("touchmove", function(event) {
       const touchEndY = event.touches[0].clientY;
       const touchMoveDiff = touchEndY - touchStartY;
-
+    
       if (!isScrolling) {
         if (touchMoveDiff > 50 && currentSectionIndex > 0) {
           isScrolling = true;
           setTimeout(() => { isScrolling = false; }, 500);
           currentSectionIndex--;
-          sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+          window.scrollTo({ top: sections[currentSectionIndex].offsetTop, behavior: "smooth" });
         } else if (touchMoveDiff < -50 && currentSectionIndex < sections.length - 1) {
           isScrolling = true;
           setTimeout(() => { isScrolling = false; }, 500);
           currentSectionIndex++;
-          sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+          window.scrollTo({ top: sections[currentSectionIndex].offsetTop, behavior: "smooth" });
         }
       }
     });
+    
 
   });
 

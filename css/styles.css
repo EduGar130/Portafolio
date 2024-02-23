@@ -326,13 +326,13 @@ main {
       padding-bottom: 5px;
     }
 
+    #welcome-section i {
+      font-size: 35px;
+    }
+
     .certificates-container {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         margin: 0px 15px;
-    }
-
-    .bubble-container {
-      left: calc(50% - 100px);
     }
 
     #sidebar {
