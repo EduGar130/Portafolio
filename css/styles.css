@@ -319,8 +319,7 @@ main {
 
 @media screen and (max-width: 768px) {
   #root {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
   }
     #welcome-section ul {
       flex-wrap: wrap;

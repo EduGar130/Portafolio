@@ -1,5 +1,3 @@
-let currentSectionIndex = 0;
-
 document.addEventListener("DOMContentLoaded", function() {
   if (verifyMax768pxWidth()) {
     horizontalMovement();
@@ -21,6 +19,7 @@ function verifyMax768pxWidth() {
 }
 
 function verticalMovement(){
+  let currentSectionIndex = 0;
   const sections = document.querySelectorAll("section");
   const sidebarLinks = document.querySelectorAll("#sidebar a");
   let isScrolling = false;
@@ -80,6 +79,7 @@ function verticalMovement(){
 }
 
 function horizontalMovement(){
+  let currentSectionIndex = 0;
   const sections = document.querySelectorAll("section");
   const sidebarLinks = document.querySelectorAll("#sidebar a");
   let isScrolling = false;
@@ -125,6 +125,22 @@ function horizontalMovement(){
   }
 
   updateActiveSection();
+
+  window.addEventListener("wheel", function(event) {
+    event.preventDefault();
+    if (!isScrolling) {
+      isScrolling = true;
+      setTimeout(() => { isScrolling = false; }, 1000);
+
+      if (event.deltaY > 0 && currentSectionIndex < sections.length - 1) {
+        currentSectionIndex++;
+      } else if (event.deltaY < 0 && currentSectionIndex > 0) {
+        currentSectionIndex--;
+      }
+      sections[currentSectionIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+      updateActiveSection();
+    }
+  }, { passive: false });
 
   window.addEventListener("touchstart", function(event) {
     touchStartX = event.touches[0].clientX;
