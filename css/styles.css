@@ -25,6 +25,8 @@
   --icons-color: var(--icons-color-dark);
 }
 
+
+
 .light-dark {
   position: fixed;
   bottom: -35px;
@@ -61,6 +63,7 @@ body {
   margin-top: 40px;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: var(--tiles-color);
   padding: 10px 15px;
   border-radius: 8px;
@@ -201,6 +204,8 @@ a img:hover {
 
 .certificate-tile {
   background-color: var(--tiles-color);
+  display: flex;
+  align-items: center;
   padding: 10px;
   border-radius: 8px;
   text-align: center;
@@ -309,15 +314,13 @@ main {
 }
 
 #too-small{
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--dark-text-color);
-  text-align: center;
+  display:none;
 }
 
 @media screen and (max-width: 768px) {
+  #root {
+    overflow: hidden;
+  }
     #welcome-section ul {
       flex-wrap: wrap;
     }
@@ -337,15 +340,16 @@ main {
 
     #sidebar {
       position: fixed;
-      transform: translateY(-100%);
       top: 100%;
-      left: 0%;
-      z-index: 1000;
+      left: 0;
+      transform: translateY(-100%);
+      z-index: 2;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 8vh;
       width: 100%;
+      box-shadow: 0 0px 15px rgba(0, 0, 0, 0.6);
       background-color: var(--sidebar-color);
     }
 
@@ -365,6 +369,8 @@ main {
     }
 
     main {
+      display: flex;
+      width: 700vw;
       margin-left: 0px;
     }
 
@@ -373,8 +379,11 @@ main {
     #skills,
     #projects,
     #certificates,
-    #contact,
-    #experience {
+    #experience,
+    #contact {
+      position: relative;
+      top: 0;
+      width: 100vw;
       height: 92vh;
       display: flex;
       justify-content: center;
@@ -423,10 +432,23 @@ main {
     p {
       font-size: medium;
     }
+
+    a{
+      font-size: small;
+    }
 }
 
 @media screen and (max-width: 200px) {
   #root{
     display: none;
+  }
+
+  #too-small{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark-text-color);
+    text-align: center;
   }
 }
