@@ -432,10 +432,6 @@ main {
     p {
       font-size: medium;
     }
-
-    a{
-      font-size: small;
-    }
 }
 
 @media screen and (max-width: 200px) {
