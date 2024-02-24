@@ -319,6 +319,7 @@ main {
 
 @media screen and (max-width: 768px) {
   #root {
+    overflow-x: auto;
     overflow-y: hidden;
   }
     #welcome-section ul {
