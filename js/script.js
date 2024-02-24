@@ -1,3 +1,5 @@
+let currentSectionIndex = 0;
+
 document.addEventListener("DOMContentLoaded", function() {
   if (verifyMax768pxWidth()) {
     horizontalMovement();
@@ -19,7 +21,6 @@ function verifyMax768pxWidth() {
 }
 
 function verticalMovement(){
-  let currentSectionIndex = 0;
   const sections = document.querySelectorAll("section");
   const sidebarLinks = document.querySelectorAll("#sidebar a");
   let isScrolling = false;
@@ -79,7 +80,6 @@ function verticalMovement(){
 }
 
 function horizontalMovement(){
-  let currentSectionIndex = 0;
   const sections = document.querySelectorAll("section");
   const sidebarLinks = document.querySelectorAll("#sidebar a");
   let isScrolling = false;
