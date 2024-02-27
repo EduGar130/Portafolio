@@ -431,7 +431,7 @@
     #swipeIndicator {
       display: block;
       position: absolute;
-      bottom: 5vh;
+      bottom: 12vh;
       right: 4vw;
       font-size: 25px;
       color: var(--text-color);
@@ -440,9 +440,6 @@
 
     #swipeIndicator {
       display: block;
-      position: absolute;
-      bottom: 5vh;
-      right: 4vw;
       font-size: 25px;
       color: var(--text-color);
       z-index: 1000;
