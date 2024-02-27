@@ -40,14 +40,8 @@ function verticalMovement(){
 
           if (linkId === sectionId) {
             link.classList.add("active-section");
-            if (svg) {
-              svg.style.fill = "var(--icons-hover)";
-            }
           } else {
             link.classList.remove("active-section");
-            if (svg) {
-              svg.style.fill = "var(--icons-color)";
-            }
           }
         });
       }
@@ -94,7 +88,6 @@ function horizontalMovement(){
   });
 
   function updateActiveSection() {
-    console.log("man llamao")
     const scrollPosition = window.scrollX;
     let i = 0;
 
@@ -172,18 +165,12 @@ function horizontalMovement(){
   let darkMode = false;
   let degree = 0;
   const modeWheel = document.getElementById("modeWheel");
-  const twitter = document.getElementById("twitter");
-  const cvImage = document.getElementById("cvImage");
   
   document.getElementById("modeWheel").addEventListener("click", function() {
     if (darkMode) {
       document.documentElement.classList.remove("dark-mode");
-      twitter.src = "img/png/X.png"
-      cvImage.src = "img/svg/pdfLight.svg"
     } else {
       document.documentElement.classList.add("dark-mode");
-      twitter.src = "img/png/X_DarkMode.png"
-      cvImage.src = "img/svg/pdfDark.svg"
     }
     degree += 180;
     modeWheel.style.transform = `rotate(${degree}deg)`;
