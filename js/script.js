@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
+  const idiomaPreferido = navigator.language;
+  if(idiomaPreferido === "es-ES"){
+    loadLanguage("es");
+  }else{
+    loadLanguage("en");
+  }
+
   if (verifyMax768pxWidth()) {
     horizontalMovement();
   } else {
@@ -162,18 +169,64 @@ function horizontalMovement(){
 }
 
 
-  let darkMode = false;
-  let degree = 0;
-  const modeWheel = document.getElementById("modeWheel");
-  
-  document.getElementById("modeWheel").addEventListener("click", function() {
-    if (darkMode) {
-      document.documentElement.classList.remove("dark-mode");
-    } else {
-      document.documentElement.classList.add("dark-mode");
-    }
-    degree += 180;
-    modeWheel.style.transform = `rotate(${degree}deg)`;
-    darkMode = !darkMode;
-  });
+let darkMode = false;
+let degree = 0;
+const modeWheel = document.getElementById("modeWheel");
+
+document.getElementById("modeWheel").addEventListener("click", function() {
+  if (darkMode) {
+    document.documentElement.classList.remove("dark-mode");
+  } else {
+    document.documentElement.classList.add("dark-mode");
+  }
+  degree += 180;
+  modeWheel.style.transform = `rotate(${degree}deg)`;
+  darkMode = !darkMode;
+});
+
+function loadLanguage(lang) {
+  fetch(`assets/${lang}.json`)
+    .then(response => response.json())
+    .then(data => {
+      applyTranslations(data);
+    }).catch(error => {
+      console.error('Error loading the language file:', error);
+    });
+}
+
+function applyTranslations(data) {
+  document.querySelector('#welcome-section h1').textContent = data.welcome_section;
+  document.querySelector('#welcome-section p').textContent = data.hello;
+  document.querySelector('#cv_text').textContent = data.download_cv;
+  document.querySelector('#about h2').textContent = data.about_title;
+  document.querySelector('#about p').textContent = data.about_content;
+  document.querySelector('#skills h2').textContent = data.skills_title;
+  document.querySelector('#skills p').innerHTML = data.skills_content;
+  document.querySelectorAll('#projects .tile h3')[0].textContent = data.personal_portfolio_title;
+  document.querySelectorAll('#projects .tile p')[0].textContent = data.personal_portfolio;
+  document.querySelectorAll('#projects .tile h3')[1].textContent = data.coming_soon_title;
+  document.querySelectorAll('#projects .tile p')[1].textContent = data.coming_soon;
+  document.querySelector('#certificates .certificate-title h3').textContent = data.certificates_title;
+  document.querySelector('#certificate-1 h3').textContent = data.js;
+  document.querySelector('#certificate-2 h3').textContent = data.seo;
+  document.querySelector('#certificate-3 h3').textContent = data.sql;
+  document.querySelector('#certificate-4 h3').textContent = data.smm;
+  document.querySelector('#certificate-5 h3').textContent = data.rwd;
+  document.querySelector('#certificate-6 h3').textContent = data.jsfbc;
+  document.querySelector('#certificate-7 h3').textContent = data.english;
+  document.querySelector('#certificate-8 h3').textContent = data.frontend;
+  document.querySelector('#certificate-9 h3').textContent = data.git;
+  document.querySelector('#experience h2').textContent = data.work_experience_title;
+  document.querySelectorAll('#experience .tile h3')[0].textContent = data.internship_title;
+  document.querySelectorAll('#experience .tile p')[0].textContent = data.internship;
+  document.querySelectorAll('#experience .tile a')[0].textContent = data.internship_link;
+  document.querySelectorAll('#experience .tile h3')[1].textContent = data.sales_representative_title;
+  document.querySelectorAll('#experience .tile p')[1].textContent = data.sales_representative;
+  document.querySelectorAll('#experience .tile h3')[2].textContent = data.store_clerk_title;
+  document.querySelectorAll('#experience .tile p')[2].textContent = data.store_clerk;
+  document.querySelector('#contact h2').textContent = data.contact_title;
+  document.querySelector('#contact p').textContent = data.contact_content;
+  document.querySelector('#too-small h3').textContent = data.too_small;
+}
+
   
