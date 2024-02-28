@@ -172,9 +172,10 @@
   
   .certificates-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: 32% 32% 32%;
       grid-gap: 20px;
       justify-items: center;
+      margin-inline: 10px;
   }
   
   .certificate-title {
@@ -194,6 +195,8 @@
   .certificate-tile {
     background-color: var(--tiles-color);
     display: flex;
+    width: 91%;
+    justify-content: center;
     align-items: center;
     padding: 10px;
     border-radius: 8px;
