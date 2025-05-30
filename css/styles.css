@@ -58,6 +58,12 @@ body {
   overflow: hidden;
   transition: background-color 0.5s ease;
 }
+
+@media (max-width: 600px) {
+  body {
+    overflow: visible;
+  }
+}
   
 .cv-link {
   margin-top: 40px;
