@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", function() {
   const idiomaPreferido = navigator.language;
   const enlaceCV = document.getElementById('cvLink');
 
-  if(idiomaPreferido === "es-ES"){
-    enlaceCV.href = 'assets/CV_Eduardo.pdf';
-    loadLanguage("es");
-  }else{
-    enlaceCV.href = 'assets/CV_Eduardo_En.pdf';
-    loadLanguage("en");
-  }
+  // if(idiomaPreferido === "es-ES"){
+  //   enlaceCV.href = 'assets/CV_Eduardo.pdf';
+  //   loadLanguage("es");
+  // }else{
+  //   enlaceCV.href = 'assets/CV_Eduardo_En.pdf';
+  //   loadLanguage("en");
+  // }
 
   if (verifyMax768pxWidth()) {
     horizontalMovement();
