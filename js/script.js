@@ -74,7 +74,7 @@ function verticalMovement(){
       } else if (event.deltaY < 0 && currentSectionIndex > 0) {
         currentSectionIndex--;
       }
-      sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+      //sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
     }
   }, { passive: false });
 
