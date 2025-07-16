@@ -9,11 +9,15 @@ const sections = [
   { id: 'contact-s', file: 'sections/contact.html' }
 ];
 
-sections.forEach(section => {
-  fetch(section.file)
+const loadPromises = sections.map(section => {
+  return fetch(section.file)
     .then(response => response.text())
     .then(html => {
       document.getElementById(section.id).innerHTML = html;
     })
     .catch(error => console.error(`Error loading ${section.file}:`, error));
+});
+
+Promise.all(loadPromises).then(() => {
+  document.dispatchEvent(new Event('sectionsLoaded'));
 });
