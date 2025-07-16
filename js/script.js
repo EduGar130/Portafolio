@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+function init(){
   const idiomaPreferido = navigator.language;
   const enlaceCV = document.getElementById('cvLink');
 
@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function() {
       verticalMovement();
     }
   });
-});
+}
+
+document.addEventListener('sectionsLoaded', init);
 
 function verifyMax768pxWidth() {
   return window.matchMedia("(max-width: 768px)").matches;
