@@ -199,6 +199,13 @@ section {
   }
 }
 
+.certificates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
 
 .contact-links {
   display: flex;
@@ -207,6 +214,7 @@ section {
   gap: 15px;
   margin-top: 20px;
   list-style: none;
+  padding: 0;
 }
 
 .contact-links a {
