@@ -68,15 +68,16 @@ function verticalMovement(){
   window.addEventListener("wheel", function(event) {
     event.preventDefault();
     if (!isScrolling) {
+      console.log(currentSectionIndex);
       isScrolling = true;
-      setTimeout(() => { isScrolling = false; }, 1000);
+      setTimeout(() => { isScrolling = false; }, 500);
 
       if (event.deltaY > 0 && currentSectionIndex < sections.length - 1) {
         currentSectionIndex++;
       } else if (event.deltaY < 0 && currentSectionIndex > 0) {
         currentSectionIndex--;
       }
-      //sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+      sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
     }
   }, { passive: false });
 
@@ -136,7 +137,7 @@ function horizontalMovement(){
     event.preventDefault();
     if (!isScrolling) {
       isScrolling = true;
-      setTimeout(() => { isScrolling = false; }, 1000);
+      setTimeout(() => { isScrolling = false; }, 500);
 
       if (event.deltaY > 0 && currentSectionIndex < sections.length - 1) {
         currentSectionIndex++;
