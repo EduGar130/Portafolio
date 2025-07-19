@@ -134,7 +134,7 @@ section {
   margin-bottom: 10px;
   margin-bottom: 10px;
   border-top-left-radius: 10px;
-  height: 100svh;
+  height: 100dvh;
   color: var(--text-color);
   background-color: var(--main-bg-color);
   display: flex;
@@ -424,7 +424,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 8svh;
+    height: 8dvh;
     width: 100%;
     box-shadow: 0 0px 15px rgba(0, 0, 0, 0.6);
     background-color: var(--sidebar-color);
@@ -458,7 +458,7 @@ main {
     margin-top: 0px;
     border-start-start-radius: 0px;
     border-end-start-radius: 0px;
-    height: 92svh;
+    height: 92dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -468,11 +468,11 @@ main {
 
   .light-dark {
     position: fixed;
-    bottom: 0.5svh;
+    bottom: 0.5dvh;
     left: 100vw;
     transform: translateX(-50%);
     z-index: 1001;
-    width: 8svh;
+    width: 8dvh;
     height: auto;
     cursor: pointer;
     display: flex;
@@ -489,7 +489,7 @@ main {
   
   .light-dark img {
     width: auto;
-    height: 7svh;
+    height: 7dvh;
     rotate: 0deg;
     transition: transform 1s ease;
   }
@@ -510,7 +510,7 @@ main {
   #swipeIndicator {
     display: block;
     position: absolute;
-    bottom: 12svh;
+    bottom: 12dvh;
     right: 4vw;
     font-size: 25px;
     color: var(--text-color);
@@ -562,7 +562,7 @@ main {
   }
 
   #too-small{
-    height: 100svh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
