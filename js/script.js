@@ -1,14 +1,16 @@
+let modalOpened = false;
+
 function init(){
   const idiomaPreferido = navigator.language;
-  const enlaceCV = document.getElementById('cvLink');
+  const enlaceCV = document.getElementById('cv-link');
 
-  // if(idiomaPreferido === "es-ES"){
-  //   enlaceCV.href = 'assets/CV_Eduardo.pdf';
-  //   loadLanguage("es");
-  // }else{
-  //   enlaceCV.href = 'assets/CV_Eduardo_En.pdf';
-  //   loadLanguage("en");
-  // }
+  if(idiomaPreferido === "es-ES"){
+    enlaceCV.href = 'assets/CV_Eduardo.pdf';
+    loadLanguage("es");
+  }else{
+    enlaceCV.href = 'assets/CV_Eduardo_En.pdf';
+    loadLanguage("en");
+  }
 
   if (verifyMax768pxWidth()) {
     horizontalMovement();
@@ -38,6 +40,9 @@ function verticalMovement(){
   let isScrolling = false;
 
   function updateActiveSection() {
+    if (modalOpened) {
+      return;
+    }
     const scrollPosition = window.scrollY;
 
     sections.forEach((section, index) => {
@@ -67,8 +72,7 @@ function verticalMovement(){
 
   window.addEventListener("wheel", function(event) {
     event.preventDefault();
-    if (!isScrolling) {
-      console.log(currentSectionIndex);
+    if (!isScrolling && !modalOpened) {
       isScrolling = true;
       setTimeout(() => { isScrolling = false; }, 500);
 
@@ -102,6 +106,9 @@ function horizontalMovement(){
   });
 
   function updateActiveSection() {
+    if (modalOpened) {
+      return;
+    }
     const scrollPosition = window.scrollX;
     let i = 0;
 
@@ -135,7 +142,8 @@ function horizontalMovement(){
 
   window.addEventListener("wheel", function(event) {
     event.preventDefault();
-    if (!isScrolling) {
+    console.log(modalOpened);
+    if (!isScrolling && !modalOpened) {
       isScrolling = true;
       setTimeout(() => { isScrolling = false; }, 500);
 
@@ -202,38 +210,76 @@ function loadLanguage(lang) {
 }
 
 function applyTranslations(data) {
-  document.querySelector('#welcome-section h1').textContent = data.welcome_section;
-  document.querySelector('#welcome-section p').textContent = data.hello;
-  document.querySelector('#cv_text').textContent = data.download_cv;
-  document.querySelector('#about h2').textContent = data.about_title;
-  document.querySelector('#about p').textContent = data.about_content;
-  document.querySelector('#skills h2').textContent = data.skills_title;
-  document.querySelector('#skills p').innerHTML = data.skills_content;
-  document.querySelectorAll('#projects .tile h3')[0].textContent = data.personal_portfolio_title;
-  document.querySelectorAll('#projects .tile p')[0].textContent = data.personal_portfolio;
-  document.querySelectorAll('#projects .tile h3')[1].textContent = data.coming_soon_title;
-  document.querySelectorAll('#projects .tile p')[1].textContent = data.coming_soon;
-  document.querySelector('#certificates .certificate-title h3').textContent = data.certificates_title;
-  document.querySelector('#certificate-1 h3').textContent = data.js;
-  document.querySelector('#certificate-2 h3').textContent = data.seo;
-  document.querySelector('#certificate-3 h3').textContent = data.sql;
-  document.querySelector('#certificate-4 h3').textContent = data.smm;
-  document.querySelector('#certificate-5 h3').textContent = data.rwd;
-  document.querySelector('#certificate-6 h3').textContent = data.jsfbc;
-  document.querySelector('#certificate-7 h3').textContent = data.english;
-  document.querySelector('#certificate-8 h3').textContent = data.frontend;
-  document.querySelector('#certificate-9 h3').textContent = data.git;
-  document.querySelector('#experience h2').textContent = data.work_experience_title;
-  document.querySelectorAll('#experience .tile h3')[0].textContent = data.internship_title;
-  document.querySelectorAll('#experience .tile p')[0].textContent = data.internship;
-  document.querySelectorAll('#experience .tile a')[0].textContent = data.internship_link;
-  document.querySelectorAll('#experience .tile h3')[1].textContent = data.sales_representative_title;
-  document.querySelectorAll('#experience .tile p')[1].textContent = data.sales_representative;
-  document.querySelectorAll('#experience .tile h3')[2].textContent = data.store_clerk_title;
-  document.querySelectorAll('#experience .tile p')[2].textContent = data.store_clerk;
-  document.querySelector('#contact h2').textContent = data.contact_title;
-  document.querySelector('#contact p').textContent = data.contact_content;
-  document.querySelector('#too-small h3').textContent = data.too_small;
+  // document.querySelector('#welcome-section h1').textContent = data.welcome_section;
+  // document.querySelector('#welcome-section p').textContent = data.hello;
+  // document.querySelector('#cv_text').textContent = data.download_cv;
+  // document.querySelector('#about h2').textContent = data.about_title;
+  // document.querySelector('#about p').textContent = data.about_content;
+  // document.querySelector('#skills h2').textContent = data.skills_title;
+  // document.querySelector('#skills p').innerHTML = data.skills_content;
+  // document.querySelectorAll('#projects .tile h3')[0].textContent = data.personal_portfolio_title;
+  // document.querySelectorAll('#projects .tile p')[0].textContent = data.personal_portfolio;
+  // document.querySelectorAll('#projects .tile h3')[1].textContent = data.coming_soon_title;
+  // document.querySelectorAll('#projects .tile p')[1].textContent = data.coming_soon;
+  // document.querySelector('#certificates .certificate-title h3').textContent = data.certificates_title;
+  // document.querySelector('#certificate-1 h3').textContent = data.js;
+  // document.querySelector('#certificate-2 h3').textContent = data.seo;
+  // document.querySelector('#certificate-3 h3').textContent = data.sql;
+  // document.querySelector('#certificate-4 h3').textContent = data.smm;
+  // document.querySelector('#certificate-5 h3').textContent = data.rwd;
+  // document.querySelector('#certificate-6 h3').textContent = data.jsfbc;
+  // document.querySelector('#certificate-7 h3').textContent = data.english;
+  // document.querySelector('#certificate-8 h3').textContent = data.frontend;
+  // document.querySelector('#certificate-9 h3').textContent = data.git;
+  // document.querySelector('#experience h2').textContent = data.work_experience_title;
+  // document.querySelectorAll('#experience .tile h3')[0].textContent = data.internship_title;
+  // document.querySelectorAll('#experience .tile p')[0].textContent = data.internship;
+  // document.querySelectorAll('#experience .tile a')[0].textContent = data.internship_link;
+  // document.querySelectorAll('#experience .tile h3')[1].textContent = data.sales_representative_title;
+  // document.querySelectorAll('#experience .tile p')[1].textContent = data.sales_representative;
+  // document.querySelectorAll('#experience .tile h3')[2].textContent = data.store_clerk_title;
+  // document.querySelectorAll('#experience .tile p')[2].textContent = data.store_clerk;
+  // document.querySelector('#contact h2').textContent = data.contact_title;
+  // document.querySelector('#contact p').textContent = data.contact_content;
+  // document.querySelector('#too-small h3').textContent = data.too_small;
 }
+
+// Funciones para controlar los modals
+function openModal(modalId) {
+  modalOpened = true;
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = 'block';
+  }
+}
+
+function closeModal(modalId) {
+  modalOpened = false;
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
+// Cerrar modal al hacer clic fuera de él
+window.addEventListener('click', function(event) {
+  if (event.target.classList.contains('modal')) {
+    event.target.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+});
+
+// Cerrar modal con la tecla Escape
+window.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+      if (modal.style.display === 'block') {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+  }
+});
 
   

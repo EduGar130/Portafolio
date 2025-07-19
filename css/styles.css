@@ -51,6 +51,14 @@
   transition: transform 1s ease;
 }
 
+.about, .skills, .welcome-container{
+  padding: 4vh;
+}
+
+body p {
+  text-align: justify;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -122,7 +130,12 @@ body {
   margin: 0 auto;
 }
 
-
+.projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
   
 section {
   margin-bottom: 10px;
@@ -253,7 +266,7 @@ section {
 
 .certificate-title {
   display: flex;
-  width: 91%;
+  width: 100%;
   justify-content: center;
   align-items: center;
   background-color: var(--text-color);
@@ -268,7 +281,7 @@ section {
 .certificate-tile {
   background-color: var(--tiles-color);
   display: flex;
-  width: 91%;
+  width: 100%;
   justify-content: center;
   align-items: center;
   padding: 10px;
@@ -295,6 +308,18 @@ section {
   list-style-type: none;
   padding: 30px;
   text-align: center;
+}
+
+.skill-icons ul{
+  padding-top: 30px;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  font-size: 40px;
+  list-style: none;
 }
 
 #social a {
@@ -562,5 +587,111 @@ main {
     align-items: center;
     color: var(--dark-text-color);
     text-align: center;
+  }
+}
+
+/* Estilos para el modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: var(--main-bg-color);
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease;
+  color: var(--text-color);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--sidebar-color);
+  padding-bottom: 15px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--sidebar-color);
+}
+
+.close {
+  color: var(--text-color);
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+  color: var(--icons-hover);
+  text-decoration: none;
+}
+
+.modal-body {
+  line-height: 1.2;
+}
+
+.modal-body h3 {
+  color: var(--sidebar-color);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.modal-body ul {
+  padding-left: 20px;
+}
+
+.modal-body li {
+  margin-bottom: 8px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Hacer los certificate-tile clickeables */
+.certificate-tile {
+  cursor: pointer;
+}
+
+.certificate-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    margin: 10% auto;
+    padding: 20px;
   }
 }

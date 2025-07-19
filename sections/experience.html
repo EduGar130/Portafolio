@@ -1,13 +1,80 @@
 <section id="experience">
-    <div>
-        <h2>Experiencia Laboral</h2>
-        <div class="tile">
-            <h3>Ingeniero de Software en Minsait</h3>
-            <p>Optimización de consultas, seguridad y desarrollo de microservicios para aplicaciones educativas de la Generalitat Valenciana.</p>
+    <div class="projects">
+        <div class="certificate-title">
+            <h3>Experiencia laboral</h3>
         </div>
-        <div class="tile">
-            <h3>Becario Full-Stack en Baleària</h3>
-            <p>Desarrollo web con Java y Spring Boot, colaborando en aplicaciones internas.</p>
+        <div class="certificate-tile" onclick="openModal('modal-minsait')">
+            <h3>Ingeniero de Software - Minsait</h3>
+        </div>
+        <div class="certificate-tile" onclick="openModal('modal-balearia')">
+            <h3>Becario Full-Stack - Baleària</h3>
+        </div>
+    </div>
+
+    <!-- Modal para Minsait -->
+    <div id="modal-minsait" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ingeniero de Software - Minsait</h2>
+                <span class="close" onclick="closeModal('modal-minsait')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>📅 Período</h3>
+                <p>Abril 2024 - Presente</p>
+                
+                <h3>📍 Ubicación</h3>
+                <p>Madrid, España</p>
+                
+                <h3>💼 Responsabilidades</h3>
+                <ul>
+                    <li>Desarrollo de aplicaciones web utilizando tecnologías modernas</li>
+                    <li>Implementación de soluciones backend y frontend</li>
+                    <li>Colaboración en equipos ágiles</li>
+                    <li>Mantenimiento y optimización de código existente</li>
+                    <li>Participación en la arquitectura de software</li>
+                </ul>
+                
+                <h3>🛠️ Tecnologías utilizadas</h3>
+                <ul>
+                    <li>JavaScript/TypeScript</li>
+                    <li>React/Angular</li>
+                    <li>Node.js</li>
+                    <li>Bases de datos SQL/NoSQL</li>
+                    <li>Git & Metodologías ágiles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Baleària -->
+    <div id="modal-balearia" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Becario Full-Stack - Baleària</h2>
+                <span class="close" onclick="closeModal('modal-balearia')">&times;</span>
+            </div>
+            <div class="modal-body">
+                
+                <h3>💼 Responsabilidades</h3>
+                <ul>
+                    <li>Desarrollo de aplicaciones web full-stack</li>
+                    <li>Implementación de APIs REST</li>
+                    <li>Desarrollo frontend con frameworks modernos</li>
+                    <li>Trabajo con bases de datos relacionales</li>
+                    <li>Testing y debugging de aplicaciones</li>
+                    <li>Documentación técnica</li>
+                </ul>
+                
+                <h3>🛠️ Tecnologías utilizadas</h3>
+                <ul>
+                    <li>HTML5, CSS3, JavaScript</li>
+                    <li>React.js y Angular</li>
+                    <li>Java y Spring Boot</li>
+                    <li>MySQL/PostgreSQL</li>
+                    <li>Git & GitLab</li>
+                    <li>Docker</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
