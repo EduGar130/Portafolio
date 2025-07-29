@@ -51,7 +51,7 @@
   transition: transform 1s ease;
 }
 
-.about, .skills, .welcome-container{
+.about, .skills, .welcome-container, .contact {
   padding: 4vh;
 }
 
@@ -119,10 +119,6 @@ body {
 
 #welcome-section i {
   font-size: 40px;
-}
-
-#welcome-section h1 {
-  padding-top: 50px;
 }
   
 .container {
