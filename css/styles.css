@@ -6,6 +6,7 @@
   --tiles-color: #BFE6F8; 
   --text-color: #133147;
   --accent-color: #03a9f4;
+  --tec-color: #f5f5f5;
   --icons-color: #ffffff;
 
   /* Dark mode */
@@ -127,7 +128,7 @@ body {
   background-color: var(--accent-color);
   padding: 8px 12px;
   border-radius: 5px;
-  color: var(--text-color);
+  color: var(--tec-color);
   font-size: 0.9rem;
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
@@ -782,20 +783,4 @@ main {
   align-items: center;
   margin: 10px 0;
   gap: 6px;
-}
-
-.retro-bar {
-  display: flex;
-  gap: 0;
-}
-
-.slot {
-  width: 40px;
-  height: 10px;  background-color: #ccc;
-  clip-path: polygon(35% 0%, 100% 0%, 65% 100%, 0% 100%);
-  transition: background-color 0.3s;
-}
-
-.slot.filled {
-  background-color: var(--sidebar-color);
 }
