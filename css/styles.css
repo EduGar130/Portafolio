@@ -5,6 +5,7 @@
   --icons-hover: #ff9800;
   --tiles-color: #BFE6F8; 
   --text-color: #133147;
+  --accent-color: #03a9f4;
   --icons-color: #ffffff;
 
   /* Dark mode */
@@ -13,6 +14,7 @@
   --icons-hover-dark: #FFB300;
   --tiles-color-dark: #2f5b99;
   --text-color-dark: #FFFFFF;
+  --accent-color-dark: #4272f7;
   --icons-color-dark: #CCCCCC;
 }
 
@@ -22,6 +24,7 @@
   --icons-hover: var(--icons-hover-dark);
   --tiles-color: var(--tiles-color-dark);
   --text-color: var(--text-color-dark);
+  --accent-color: var(--accent-color-dark);
   --icons-color: var(--icons-color-dark);
 }
   
@@ -51,7 +54,7 @@
   transition: transform 1s ease;
 }
 
-.about, .skills, .welcome-container, .contact {
+.about, .skills, .welcome-container, .contact, .languages {
   padding: 4vh;
 }
 
@@ -108,7 +111,34 @@ body {
   list-style-type: none;
   padding: 0px;
 }
+
+.modal-body ul{
+  list-style-type: none;
+}
+
+.tecnologias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+}
+
+.tecnologia {
+  background-color: var(--accent-color);
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
   
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 #welcome-section li {
   display: flex;
   justify-content: center;
@@ -590,10 +620,10 @@ main {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 1500;
   left: 0;
   top: 0;
-  width: 100%;
+  width:100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   animation: fadeIn 0.3s ease;
@@ -602,28 +632,30 @@ main {
 .modal-content {
   background-color: var(--main-bg-color);
   margin: 5% auto;
-  padding: 30px;
+  padding: 15px;
   border-radius: 15px;
   width: 80%;
   max-width: 600px;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  animation: slideIn 0.3s ease;
+  animation: slideIn 0.8s ease;
   color: var(--text-color);
 }
+
+
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid var(--sidebar-color);
+  border-bottom: 2px solid var(--accent-color);
   padding-bottom: 15px;
 }
 
 .modal-header h2 {
   margin: 0;
-  color: var(--sidebar-color);
+  color: var(--accent-color);
 }
 
 .close {
@@ -640,23 +672,17 @@ main {
   text-decoration: none;
 }
 
-.modal-body {
-  line-height: 1.2;
-}
 
 .modal-body h3 {
-  color: var(--sidebar-color);
-  margin-top: 20px;
-  margin-bottom: 10px;
+  color: var(--accent-color);
 }
 
 .modal-body ul {
   padding-left: 20px;
+  text-align: left
 }
 
-.modal-body li {
-  margin-bottom: 8px;
-}
+
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -665,7 +691,7 @@ main {
 
 @keyframes slideIn {
   from {
-    transform: translateY(-50px);
+    transform: translateY(100px);
     opacity: 0;
   }
   to {
@@ -686,8 +712,90 @@ main {
 
 @media (max-width: 768px) {
   .modal-content {
-    width: 95%;
-    margin: 10% auto;
-    padding: 20px;
+    width: 92%;
+    margin: 0;
+    height: 90%;
+    position: absolute;
+    bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
+
+  .modal-content h2 {
+    font-size: 1.2rem;
+  }
+}
+.language-card {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  color: var(--tiles-color);
+  transition: background-color 0.5s ease, box-shadow 0.3s ease;
+}
+
+.language-card h3 {
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.bar {
+  background-color: #ddd;
+  border-radius: 8px;
+  height: 10px;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.fill {
+  height: 100%;
+  background-color: var(--sidebar-color);
+  border-radius: 8px;
+  transition: width 0.5s ease;
+}
+
+.full {
+  width: 100%;
+}
+
+.medium {
+  width: 70%;
+}
+
+@media (max-width: 768px) {
+  .language-card {
+    padding: 15px;
+  }
+
+  .language-card h3 {
+    font-size: 1rem;
+  }
+
+  .language-card p {
+    font-size: 0.9rem;
+  }
+}
+
+.habilidad {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  gap: 6px;
+}
+
+.retro-bar {
+  display: flex;
+  gap: 0;
+}
+
+.slot {
+  width: 40px;
+  height: 10px;  background-color: #ccc;
+  clip-path: polygon(35% 0%, 100% 0%, 65% 100%, 0% 100%);
+  transition: background-color 0.3s;
+}
+
+.slot.filled {
+  background-color: var(--sidebar-color);
 }
