@@ -294,7 +294,7 @@ section {
 }
 
 
-#certificates a {
+#certificates a, #projects a {
   color: var(--text-color);
   text-decoration: none;
 }
