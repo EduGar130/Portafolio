@@ -461,6 +461,8 @@ main {
       margin: 0px 15px;
   }
 
+
+
   #sidebar {
     position: fixed;
     top: 100%;
@@ -783,4 +785,89 @@ main {
   align-items: center;
   margin: 10px 0;
   gap: 6px;
+}
+
+#welcome {
+  position: relative;
+}
+
+/* Indicador de swipe hacia la derecha */
+.swipe-indicator-right {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(45deg, var(--sidebar-color), var(--tiles-color));
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulseGrow 1.5s infinite ease-in-out 1s;
+  box-shadow: 0 0 10px rgba(3, 169, 244, 0.3);
+  cursor: pointer;
+  z-index: 100;
+}
+
+.swipe-indicator-right::before {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(3, 169, 244, 0.2);
+  animation: pulseGrow 1.5s infinite ease-in-out 1s;
+  z-index: -1;
+}
+
+.swipe-indicator-right::after {
+  content: '';
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(3, 169, 244, 0.1);
+  animation: pulseGrow 1.5s infinite ease-in-out 1s;
+  z-index: -2;
+}
+
+.swipe-indicator-right i {
+  color: white;
+  font-size: 14px !important;
+  animation: arrowBounce 1.5s infinite ease-in-out 1s;
+}
+
+@keyframes pulseGrow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+/* Estilos para modo oscuro del indicador */
+.dark-mode .swipe-indicator-right {
+  background: linear-gradient(45deg, var(--sidebar-color), var(--text-color));
+  box-shadow: 0 0 20px rgba(66, 114, 247, 0.4);
+}
+
+.dark-mode .swipe-indicator-right::before {
+  background: rgba(66, 114, 247, 0.2);
+}
+
+.dark-mode .swipe-indicator-right::after {
+  background: rgba(66, 114, 247, 0.1);
 }
