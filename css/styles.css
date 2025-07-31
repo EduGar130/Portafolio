@@ -713,7 +713,14 @@ main {
   box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
 }
 
+#swipeRight {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  #swipeRight {
+    display: flex;
+  }
   .modal-content {
     width: 92%;
     margin: 0;
