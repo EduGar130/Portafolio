@@ -200,6 +200,7 @@ document.getElementById("modeWheel").addEventListener("click", function() {
 });
 
 function loadLanguage(lang) {
+  console.log(lang);
   fetch(`assets/${lang}.json`)
     .then(response => response.json())
     .then(data => {
@@ -210,38 +211,64 @@ function loadLanguage(lang) {
 }
 
 function applyTranslations(data) {
-  // document.querySelector('#welcome-section h1').textContent = data.welcome_section;
-  // document.querySelector('#welcome-section p').textContent = data.hello;
-  // document.querySelector('#cv_text').textContent = data.download_cv;
-  // document.querySelector('#about h2').textContent = data.about_title;
-  // document.querySelector('#about p').textContent = data.about_content;
-  // document.querySelector('#skills h2').textContent = data.skills_title;
-  // document.querySelector('#skills p').innerHTML = data.skills_content;
-  // document.querySelectorAll('#projects .tile h3')[0].textContent = data.personal_portfolio_title;
-  // document.querySelectorAll('#projects .tile p')[0].textContent = data.personal_portfolio;
-  // document.querySelectorAll('#projects .tile h3')[1].textContent = data.coming_soon_title;
-  // document.querySelectorAll('#projects .tile p')[1].textContent = data.coming_soon;
-  // document.querySelector('#certificates .certificate-title h3').textContent = data.certificates_title;
-  // document.querySelector('#certificate-1 h3').textContent = data.js;
-  // document.querySelector('#certificate-2 h3').textContent = data.seo;
-  // document.querySelector('#certificate-3 h3').textContent = data.sql;
-  // document.querySelector('#certificate-4 h3').textContent = data.smm;
-  // document.querySelector('#certificate-5 h3').textContent = data.rwd;
-  // document.querySelector('#certificate-6 h3').textContent = data.jsfbc;
-  // document.querySelector('#certificate-7 h3').textContent = data.english;
-  // document.querySelector('#certificate-8 h3').textContent = data.frontend;
-  // document.querySelector('#certificate-9 h3').textContent = data.git;
-  // document.querySelector('#experience h2').textContent = data.work_experience_title;
-  // document.querySelectorAll('#experience .tile h3')[0].textContent = data.internship_title;
-  // document.querySelectorAll('#experience .tile p')[0].textContent = data.internship;
-  // document.querySelectorAll('#experience .tile a')[0].textContent = data.internship_link;
-  // document.querySelectorAll('#experience .tile h3')[1].textContent = data.sales_representative_title;
-  // document.querySelectorAll('#experience .tile p')[1].textContent = data.sales_representative;
-  // document.querySelectorAll('#experience .tile h3')[2].textContent = data.store_clerk_title;
-  // document.querySelectorAll('#experience .tile p')[2].textContent = data.store_clerk;
-  // document.querySelector('#contact h2').textContent = data.contact_title;
-  // document.querySelector('#contact p').textContent = data.contact_content;
-  // document.querySelector('#too-small h3').textContent = data.too_small;
+  console.log(data);
+  document.querySelector('#welcome-section h1').textContent = data.welcome.title;
+  document.querySelector('#welcome-section p').textContent = data.welcome.description;
+  document.getElementById('cv_text').textContent = data.welcome.cv;
+
+  document.querySelector('#about h2').textContent = data.about.title;
+  document.querySelector('#about p').textContent = data.about.description;
+
+  document.querySelector('#skills h2').textContent = data.skills.title;
+  document.querySelector('#skills p').textContent = data.skills.description;
+
+  document.querySelector('#projects h3').textContent = data.projects.title;
+  document.getElementById('tfg').textContent = data.projects.inventory;
+  document.getElementById('portafolio').textContent = data.projects.portfolio;
+  document.getElementById('compilador').textContent = data.projects.compiler;
+
+  document.getElementById('certificates-title').textContent = data.certificates.title;
+  document.getElementById('ef-set').textContent = data.certificates.efset;
+  document.getElementById('responsive-web-design').textContent = data.certificates.responsive;
+  document.getElementById('arquitectura-frontend').textContent = data.certificates.frontend;
+
+  document.getElementById('experience-title').textContent = data.experience.title;
+  document.getElementById('minsait-title').textContent = data.experience.minsait.title;
+  document.getElementById('minsait-title-modal').textContent = data.experience.minsait.title;
+  document.getElementById('minsait-period-text').textContent = data.experience.minsait.period;  
+  document.getElementById('minsait-period').textContent = data.experience.minsait.periodtitle;
+  document.getElementById('minsait-location-text').textContent = data.experience.minsait.location;
+  document.getElementById('minsait-location').textContent = data.experience.minsait.locationtitle;
+  document.getElementById('minsait-responsibilities').textContent = data.experience.minsait.responsibilities.title;
+  document.getElementById('responsabilidad-minsait1').textContent = data.experience.minsait.responsibilities.items[0];
+  document.getElementById('responsabilidad-minsait2').textContent = data.experience.minsait.responsibilities.items[1];
+  document.getElementById('responsabilidad-minsait3').textContent = data.experience.minsait.responsibilities.items[2];
+  document.getElementById('responsabilidad-minsait4').textContent = data.experience.minsait.responsibilities.items[3];
+  document.getElementById('minsait-technologies').textContent = data.experience.minsait.technologies.title;
+  document.getElementById('balearia-title').textContent = data.experience.balearia.title;
+  document.getElementById('balearia-title-modal').textContent = data.experience.balearia.title;
+  document.getElementById('balearia-period-text').textContent = data.experience.balearia.period;
+  document.getElementById('balearia-period').textContent = data.experience.minsait.periodtitle;
+  document.getElementById('balearia-location-text').textContent = data.experience.balearia.location;
+  document.getElementById('balearia-location').textContent = data.experience.minsait.locationtitle;
+  document.getElementById('agile-methodologies').textContent = data.experience.minsait.technologies.agile;
+  document.getElementById('balearia-responsibilities').textContent = data.experience.balearia.responsibilities.title;
+  document.getElementById('responsabilidad-balearia1').textContent = data.experience.balearia.responsibilities.items[0];
+  document.getElementById('responsabilidad-balearia2').textContent = data.experience.balearia.responsibilities.items[1];
+  document.getElementById('responsabilidad-balearia3').textContent = data.experience.balearia.responsibilities.items[2];
+  document.getElementById('responsabilidad-balearia4').textContent = data.experience.balearia.responsibilities.items[3];
+  document.getElementById('responsabilidad-balearia5').textContent = data.experience.balearia.responsibilities.items[4];
+  document.getElementById('responsabilidad-balearia6').textContent = data.experience.balearia.responsibilities.items[5];
+  document.getElementById('balearia-technologies').textContent = data.experience.balearia.technologies.title;
+  console.log(data.experience.minsait.technologies.agile);
+
+  document.querySelector('#contact h2').textContent = data.contact.title;
+  document.querySelector('#contact p').textContent = data.contact.description;
+  document.getElementById('phone-text').textContent = data.contact.call;
+  document.getElementById('whatsapp-text').textContent = data.contact.whatsapp;
+  document.getElementById('email-text').textContent = data.contact.email;
+  document.getElementById('linkedin-text').textContent = data.contact.linkedin;
+
 }
 
 // Funciones para controlar los modals

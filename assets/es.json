@@ -1,36 +1,95 @@
 {
-    "welcome_section": "Bienvenid@ a mi Portafolio",
-    "hello": "¡Hola! Soy Eduardo García Romera, estudiante de ingeniería informática y un apasionado de la tecnología y la creación de sitios web. Aquí encontrarás una muestra de mis proyectos y habilidades.",
-    "download_cv": "Descargar mi CV",
-    "about_title": "Sobre Mí",
-    "about_content": "Como estudiante de cuarto año de ingeniería informática en la UNED, estoy profundizando mis conocimientos en el campo mientras curso mis estudios a distancia. Además, me desempeño como desarrollador Junior Full-Stack, con experiencia en HTML, CSS, JavaScript, React.js, Java y SQL. Mi objetivo principal es fusionar diseño y funcionalidad de manera armoniosa para crear experiencias digitales efectivas y atractivas para los usuarios.",
-    "skills_title": "Habilidades",
-    "skills_content": "Mis habilidades son versátiles y abarcan desde el desarrollo back-end hasta la experiencia del usuario en el front-end. Mi conjunto de habilidades incluye el dominio de <strong>Java</strong>, <strong>SQL</strong>, <strong>JavaScript</strong>, <strong>TypeScript</strong>, <strong>CSS</strong>, <strong>Sass</strong> y <strong>HTML</strong>, junto con experiencia en librerias y frameworks como <strong>React.js</strong>, <strong>BootStrap</strong>, <strong>JQuery</strong>, <strong>Redux</strong> y <strong>SpringBoot</strong>. Además, tengo experiencia en la gestión de proyectos, desarrollo de <strong>APIs</strong>, <strong>SEO</strong> y <strong>marketing web</strong>, lo que me permite crear soluciones integrales y efectivas. También estoy familiarizado con lenguajes y herramientas como <strong>C++</strong>, <strong>MongoDB</strong>, <strong>Git</strong> y <strong>GitHub</strong>, así como plataformas de gestión de proyectos como Jira y comunicación como Slack. Estoy comprometido con el aprendizaje continuo y siempre estoy buscando oportunidades para mejorar y expandir mis habilidades en el campo del desarrollo web.",
-    "projects_title": "Proyectos Destacados",
-    "personal_portfolio_title": "Portafolio Personal",
-    "personal_portfolio": "Desarrollé este portafolio utilizando HTML, CSS y JavaScript para mostrar mis habilidades y proyectos.",
-    "coming_soon_title": "Próximamente",
-    "coming_soon": "A medida que complete la mejora y adaptación de los proyectos en los que trabajo, los agregaré a este portafolio. Actualmente, me concentro en optimizar y perfeccionar estos trabajos para garantizar que representen adecuadamente la calidad e innovación que deseo mostrar. Te invito a visitar mi GitHub para ver algunos de mis proyectos actuales y pasados, ofreciéndote una perspectiva más amplia de mi experiencia y habilidades mientras sigo enriqueciendo este portafolio.",
-    "certificates_title": "Mis Certificados",
-    "js": "JavaScript Certification Course",
-    "seo": "SEO Certification Course",
-    "sql": "SQL Certification Course",
-    "smm": "Social Media Marketing Certification Course",
-    "rwd": "Responsive Web Design",
-    "jsfbc": "JavaScript Algorithms and Data Structures",
-    "english": "EF SET English Certificate 83/100 (C2 Proficient)",
-    "frontend": "Arquitectura Frontend",
-    "git": "Curso Profesional de Git y GitHub",
-    "work_experience_title": "Experiencia laboral",
-    "internship_title": "Becario Desarrollo Full-Stack en Baleària",
-    "internship": "Desarrollé aplicaciones web utilizando HTML, CSS, JavaScript, y frameworks como React para el front-end, y trabajé en el back-end utilizando Java con Spring Boot.",
-    "internship_link": "Carta de recomendación",
-    "sales_representative_title": "Comercial de Ventas en TodoEmblemas.com (Trabajo Remoto)",
-    "sales_representative": "Gestioné ventas y relaciones con clientes de manera remota, utilizando herramientas digitales y plataformas de comunicación.",
-    "store_clerk_title": "Dependiente en ZARA",
-    "store_clerk": "Ofrecí atención al cliente, gestioné inventario y mantuve la presentación de la tienda.",
-    "contact_title": "Contacto",
-    "contact_content": "¡Hablemos! Estoy siempre interesado en nuevos proyectos y colaboraciones. Puedes contactarme mediante correo electrónico a edugar130@gmail.com",
-    "too_small": "Aquí hay muy poco espacio"
+  "about": {
+    "title": "Sobre Mí",
+    "description": "Soy ingeniero de software full-stack con experiencia en el desarrollo de aplicaciones empresariales usando Java, Spring Boot, Angular y microservicios, contribuyendo actualmente a la transformación digital del sector educativo en la Generalitat Valenciana a través de Minsait.",
+    "social": {
+      "linkedin": "Mi LinkedIn",
+      "github": "Mi GitHub"
+    }
+  },
+
+  "certificates": {
+    "title": "Mis Certificados",
+    "efset": "EF SET English C2",
+    "responsive": "Responsive Web Design",
+    "frontend": "Arquitectura Frontend"
+  },
+
+  "contact": {
+    "title": "Contacto",
+    "description": "¡Hablemos! Puedes contactarme por los siguientes medios:",
+    "call": "Llamarme: 634 437 545",
+    "whatsapp": "Enviarme un WhatsApp",
+    "email": "edugar130@gmail.com",
+    "linkedin": "Mi perfil en LinkedIn"
+  },
+
+  "experience": {
+    "title": "Experiencia laboral",
+    "minsait": {
+      "title": "Ingeniero de Software - Minsait",
+      "periodtitle": "Período",
+      "period": "Abril 2024 - Presente",
+      
+      "location": "Remoto",
+      "responsibilities": {
+        "title": "Responsabilidades",
+        "items": [
+          "Desarrollo de aplicaciones web utilizando tecnologías modernas",
+          "Implementación de soluciones backend y frontend",
+          "Colaboración en equipos ágiles",
+          "Mantenimiento y optimización de código existente"
+        ]
+      },
+      "technologies": {
+        "title": "Tecnologías utilizadas",
+        "items": [
+          "JavaScript",
+          "TypeScript",
+          "Angular",
+          "Java",
+          "SpringBoot",
+          "SQL",
+          "Metodologías ágiles"
+        ]
+      }
+    },
+
+  "balearia": {
+        "title": "Becario Full-Stack - Baleària",
+        "period": "Noviembre 2023 - Enero 2024",
+        "location": "Dénia (Alicante), España",
+        "responsibilities": {
+          "title": "Responsabilidades",
+          "items": [
+            "Desarrollo de aplicaciones web full-stack",
+          "Implementación de APIs REST",
+          "Desarrollo frontend con frameworks modernos",
+          "Trabajo con bases de datos relacionales",
+          "Testing y debugging de aplicaciones",
+          "Documentación técnica"
+        ]
+      },
+      "technologies": {
+        "title": "Tecnologías utilizadas"
+      }
+    }
+  },
+  "projects": {
+    "title": "Proyectos destacados",
+    "inventory": "Gestor de Inventario Web",
+    "portfolio": "Portafolio Personal",
+    "compiler": "Compilador ADA"
+  },
+
+  "skills" : {
+    "title": "Habilidades",
+    "description": "Experiencia en Java, Spring Boot, Angular, SQL, JavaScript, TypeScript, CSS, y HTML. Competente en React.js, Bootstrap, Redux y desarrollo de APIs RESTful. Familiarizado con Docker, Git, metodologías ágiles y herramientas como Jira y Slack."
+  },
+
+  "welcome": {
+    "title": "Bienvenid@ a mi Portafolio",
+    "description": "¡Hola! Soy Eduardo García Romera, ingeniero informático y apasionado por la tecnología. Aquí encontrarás una muestra de mis proyectos y habilidades.",
+    "cv": "Descargar mi CV"
   }
-  
+}
