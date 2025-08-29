@@ -1,0 +1,10 @@
+# robots.txt para https://eduardogr.com
+# Permitir a todos los bots indexar el sitio y proporcionar la ubicación del sitemap.
+# Actualiza el dominio si cambias de URL.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://eduardogr.com/sitemap.xml
+# Host directive is optional and not supported by all crawlers
+Host: https://eduardogr.com

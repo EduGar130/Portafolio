@@ -1,5 +1,48 @@
 let modalOpened = false;
 
+// --- SEO / SPA helpers ---------------------------------------------------
+function getCanonicalBase() {
+  const link = document.querySelector('link[rel="canonical"]');
+  return (link && link.href) ? link.href.replace(/\/$/, '') : window.location.origin;
+}
+
+function updateSEOForSection(sectionId) {
+  if (!sectionId) return;
+  const sectionEl = document.getElementById(sectionId);
+  // Title: usa el primer h1/h2/h3 dentro de la sección, o el id capitalizado
+  let titleText = '';
+  const heading = sectionEl && sectionEl.querySelector('h1, h2, h3');
+  if (heading && heading.textContent.trim()) {
+    titleText = heading.textContent.trim();
+  } else {
+    titleText = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+  }
+  document.title = `Eduardo García Romera — ${titleText}`;
+
+  // Meta description: si hay un párrafo descriptivo en la sección, úsalo
+  const metaDesc = document.querySelector('meta[name="description"]');
+  const descEl = sectionEl && sectionEl.querySelector('p');
+  if (metaDesc && descEl && descEl.textContent.trim()) {
+    metaDesc.setAttribute('content', descEl.textContent.trim());
+  }
+
+  // Open Graph url: usar canonical base + /section (pero mantener canonical si root)
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  const base = getCanonicalBase();
+  const newUrl = (sectionId === 'welcome' || sectionId === 'welcome-s') ? `${base}/` : `${base}/${sectionId.replace(/-s$/, '')}`;
+  if (ogUrl) ogUrl.setAttribute('content', newUrl);
+
+  // Update history with a hash (safe para hosting estático)
+  try {
+    const newHash = `#${sectionId}`;
+    if (location.hash !== newHash) {
+      history.replaceState(null, '', newHash);
+    }
+  } catch (e) {
+    // fall back silencioso
+  }
+}
+
 function init(){
   const idiomaPreferido = navigator.language;
   const enlaceCV = document.getElementById('cv-link');
@@ -18,6 +61,30 @@ function init(){
     verticalMovement();
   }
   
+  // Si la URL tiene hash al cargar, navegar a esa sección
+  if (location.hash) {
+    const targetId = location.hash.slice(1);
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      setTimeout(() => {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+        updateSEOForSection(targetId);
+      }, 50);
+    }
+  }
+
+  // Añadir listeners a los enlaces del sidebar para actualizar SEO al hacer click
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) {
+    const links = sidebar.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        const id = href.replace('#', '');
+        setTimeout(() => updateSEOForSection(id), 50);
+      });
+    });
+  }
   window.addEventListener("resize", function(){
     if (verifyMax768pxWidth()) {
       horizontalMovement();
@@ -62,6 +129,8 @@ function verticalMovement(){
             link.classList.remove("active-section");
           }
         });
+          // Actualizar SEO para la sección activa
+          updateSEOForSection(sectionId);
       }
     });
   }
@@ -133,6 +202,8 @@ function horizontalMovement(){
             }
           }
         });
+  // Actualizar SEO para la sección activa
+  updateSEOForSection(sectionId);
       }
       i++;
     });

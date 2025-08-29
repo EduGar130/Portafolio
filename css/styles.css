@@ -26,6 +26,16 @@
   --tiles-color: var(--tiles-color-dark);
   --text-color: var(--text-color-dark);
   --accent-color: var(--accent-color-dark);
+/* Explicit font-size for heading elements inside semantic sections to avoid future UA changes */
+section h1,
+article h1,
+nav h1,
+aside h1 {
+  font-size: 2rem; /* tamaño base para escritorio */
+  line-height: 1.1;
+  margin: 0.25em 0;
+}
+
   --icons-color: var(--icons-color-dark);
 }
   
