@@ -10,9 +10,13 @@
 
   "certificates": {
     "title": "My Certificates",
-    "efset": "EF SET English C2",
+    "efset": "Advanced English C1",
     "responsive": "Responsive Web Design",
     "frontend": "Frontend Architecture"
+    ,
+    "c1ModalTitle": "English Certificate — C1",
+    "c1ModalDesc": "Preview of my official C1 English certificate. If your browser can't display it, you can download it using the link below.",
+    "c1Download": "Download C1 certificate"
   },
 
   "contact": {

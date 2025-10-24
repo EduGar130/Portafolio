@@ -1,58 +1,48 @@
 let modalOpened = false;
 
-// --- SEO / SPA helpers ---------------------------------------------------
-function getCanonicalBase() {
-  const link = document.querySelector('link[rel="canonical"]');
-  return (link && link.href) ? link.href.replace(/\/$/, '') : window.location.origin;
-}
-
-function updateSEOForSection(sectionId) {
-  if (!sectionId) return;
-  const sectionEl = document.getElementById(sectionId);
-  // Title: usa el primer h1/h2/h3 dentro de la sección, o el id capitalizado
-  let titleText = '';
-  const heading = sectionEl && sectionEl.querySelector('h1, h2, h3');
-  if (heading && heading.textContent.trim()) {
-    titleText = heading.textContent.trim();
-  } else {
-    titleText = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
-  }
-  document.title = `Eduardo García Romera — ${titleText}`;
-
-  // Meta description: si hay un párrafo descriptivo en la sección, úsalo
-  const metaDesc = document.querySelector('meta[name="description"]');
-  const descEl = sectionEl && sectionEl.querySelector('p');
-  if (metaDesc && descEl && descEl.textContent.trim()) {
-    metaDesc.setAttribute('content', descEl.textContent.trim());
-  }
-
-  // Open Graph url: usar canonical base + /section (pero mantener canonical si root)
-  const ogUrl = document.querySelector('meta[property="og:url"]');
-  const base = getCanonicalBase();
-  const newUrl = (sectionId === 'welcome' || sectionId === 'welcome-s') ? `${base}/` : `${base}/${sectionId.replace(/-s$/, '')}`;
-  if (ogUrl) ogUrl.setAttribute('content', newUrl);
-
-  // Update history with a hash (safe para hosting estático)
-  try {
-    const newHash = `#${sectionId}`;
-    if (location.hash !== newHash) {
-      history.replaceState(null, '', newHash);
-    }
-  } catch (e) {
-    // fall back silencioso
-  }
-}
 
 function init(){
-  const idiomaPreferido = navigator.language;
   const enlaceCV = document.getElementById('cv-link');
 
-  if(idiomaPreferido === "es-ES"){
-    enlaceCV.href = 'assets/CV_Eduardo.pdf';
-    loadLanguage("es");
-  }else{
-    enlaceCV.href = 'assets/CV_Eduardo_En.pdf';
-    loadLanguage("en");
+  // Preferencia guardada en localStorage > navegador
+  const storedLang = (localStorage.getItem('preferredLang') || '').toLowerCase();
+  const navigatorLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  const initialLang = storedLang || (navigatorLang.startsWith('es') ? 'es' : 'en');
+
+  // Helper para aplicar idioma y persistir elección
+  function setLanguage(lang) {
+    lang = (lang || 'en').toLowerCase();
+    localStorage.setItem('preferredLang', lang);
+    if (enlaceCV) enlaceCV.href = (lang === 'es') ? 'assets/CV_Eduardo.pdf' : 'assets/CV_Eduardo_en.pdf';
+    // update lang wheel visual state
+    const langWheel = document.getElementById('langWheel');
+    if (langWheel) {
+      if (lang === 'en') langWheel.parentElement.classList.add('rotated');
+      else langWheel.parentElement.classList.remove('rotated');
+    }
+    loadLanguage(lang);
+  }
+
+  // Inicializar idioma
+  setLanguage(initialLang);
+  if(initialLang === 'en'){
+    degree += 180;
+    const langWheel = document.getElementById('langWheel');
+    if (langWheel.style) langWheel.style.transform = `rotate(${degree}deg)`;
+  }
+
+  // Añadir listener al lang wheel para alternar entre 'es' y 'en'
+  const langWheel = document.getElementById('langWheel');
+  if (langWheel) {
+    langWheel.addEventListener('click', () => {
+      const current = (localStorage.getItem('preferredLang') || initialLang).toLowerCase();
+      const next = current === 'es' ? 'en' : 'es';
+      setLanguage(next);
+      degree += 180;
+      // proteger acceso a style
+      if (langWheel.style) langWheel.style.transform = `rotate(${degree}deg)`;
+      darkMode = !darkMode;
+    });
   }
 
   if (verifyMax768pxWidth()) {
@@ -85,6 +75,55 @@ function init(){
       });
     });
   }
+
+  // Swipe indicator: click to go to next section (if any)
+  const swipeRight = document.getElementById('swipeRight');
+  if (swipeRight) {
+    swipeRight.addEventListener('click', () => {
+      try {
+        const sections = Array.from(document.querySelectorAll('section'));
+        const currentSection = swipeRight.closest('section');
+        if (!sections.length) return;
+        if (!currentSection) {
+          // fallback: go to second section if exists
+          if (sections.length > 1) {
+            sections[1].scrollIntoView({ behavior: 'smooth' });
+            updateSEOForSection(sections[1].id);
+            history.replaceState(null, '', '#' + (sections[1].id || ''));
+          }
+          return;
+        }
+        const idx = sections.indexOf(currentSection);
+        if (idx >= 0 && idx < sections.length - 1) {
+          const next = sections[idx + 1];
+          next.scrollIntoView({ behavior: 'smooth' });
+          updateSEOForSection(next.id);
+          history.replaceState(null, '', '#' + (next.id || ''));
+          // Update sidebar/navbar active link and svg color if present
+          try {
+            const sidebarLinks = document.querySelectorAll('#sidebar a[href^="#"]');
+            if (sidebarLinks && sidebarLinks.length) {
+              sidebarLinks.forEach(link => {
+                const linkId = (link.getAttribute('href') || '').replace('#','');
+                const svg = link.querySelector('svg');
+                if (linkId === next.id) {
+                  link.classList.add('active-section');
+                  if (svg) svg.style.fill = 'var(--icons-hover)';
+                } else {
+                  link.classList.remove('active-section');
+                  if (svg) svg.style.fill = 'var(--icons-color)';
+                }
+              });
+            }
+          } catch (e) {
+            console.warn('Error updating sidebar active state', e);
+          }
+        }
+      } catch (e) {
+        console.warn('swipeRight click handler error', e);
+      }
+    });
+  }
   window.addEventListener("resize", function(){
     if (verifyMax768pxWidth()) {
       horizontalMovement();
@@ -94,14 +133,13 @@ function init(){
   });
 }
 
-document.addEventListener('sectionsLoaded', init);
-
 function verifyMax768pxWidth() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
 
 function verticalMovement(){
   let currentSectionIndex = 0;
+  let touchStartY = 0;
   const sections = document.querySelectorAll("section");
   const sidebarLinks = document.querySelectorAll("#sidebar a");
   let isScrolling = false;
@@ -258,17 +296,19 @@ function horizontalMovement(){
 let darkMode = false;
 let degree = 0;
 const modeWheel = document.getElementById("modeWheel");
-
-document.getElementById("modeWheel").addEventListener("click", function() {
-  if (darkMode) {
-    document.documentElement.classList.remove("dark-mode");
-  } else {
-    document.documentElement.classList.add("dark-mode");
-  }
-  degree += 180;
-  modeWheel.style.transform = `rotate(${degree}deg)`;
-  darkMode = !darkMode;
-});
+if (modeWheel) {
+  modeWheel.addEventListener("click", function() {
+    if (darkMode) {
+      document.documentElement.classList.remove("dark-mode");
+    } else {
+      document.documentElement.classList.add("dark-mode");
+    }
+    degree += 180;
+    // proteger acceso a style
+    if (modeWheel.style) modeWheel.style.transform = `rotate(${degree}deg)`;
+    darkMode = !darkMode;
+  });
+}
 
 function loadLanguage(lang) {
   console.log(lang);
@@ -302,6 +342,19 @@ function applyTranslations(data) {
   document.getElementById('ef-set').textContent = data.certificates.efset;
   document.getElementById('responsive-web-design').textContent = data.certificates.responsive;
   document.getElementById('arquitectura-frontend').textContent = data.certificates.frontend;
+  // i18n for C1 modal
+  if (data.certificates.c1ModalTitle) {
+    const c1TitleEl = document.getElementById('c1-modal-title');
+    if (c1TitleEl) c1TitleEl.textContent = data.certificates.c1ModalTitle;
+  }
+  if (data.certificates.c1ModalDesc) {
+    const c1DescEl = document.getElementById('c1-modal-desc');
+    if (c1DescEl) c1DescEl.textContent = data.certificates.c1ModalDesc;
+  }
+  if (data.certificates.c1Download) {
+    const c1DownloadEl = document.getElementById('c1-download-link');
+    if (c1DownloadEl) c1DownloadEl.textContent = data.certificates.c1Download;
+  }
 
   document.getElementById('experience-title').textContent = data.experience.title;
   document.getElementById('minsait-title').textContent = data.experience.minsait.title;
@@ -379,4 +432,31 @@ window.addEventListener('keydown', function(event) {
     });
   }
 });
+
+// Safe fallback to avoid errors if not provided elsewhere.
+function updateSEOForSection(sectionId) {
+  if (!sectionId) return;
+  try {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+    const titleEl = section.querySelector('h1, h2, h3');
+    if (titleEl) {
+      document.title = titleEl.textContent + ' | Eduardo García Romera';
+    }
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && section.querySelector('p')) {
+      metaDesc.setAttribute('content', section.querySelector('p').textContent.slice(0, 150));
+    }
+  } catch (e) {
+    // no-op: don't break the page
+    console.warn('updateSEOForSection error', e);
+  }
+}
+
+// Init when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
   

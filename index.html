@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portafolio de Eduardo García Romera — desarrollador web y profesional. Aquí encontrarás CV, proyectos y contacto.">
-  <title>Eduardo García Romera — Portafolio profesional</title>
+  <meta name="description" content="Portafolio profesional de Eduardo García Romera, ingeniero informático y desarrollador web. Descubre mis proyectos, habilidades y experiencia laboral.">
+  <title>Eduardo García Romera | Mi carrera profesional</title>
   <link rel="canonical" href="https://eduardogr.com">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="img/ico/favicon.ico" type="image/x-icon">
@@ -12,17 +12,60 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .work-card { margin-top: 18px; display:flex; justify-content:center; }
+    .work-card-link {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      max-width:560px;
+      width:100%;
+      background: var(--card-background);
+      padding:12px 16px;
+      border-radius:12px;
+      text-decoration:none;
+      color: var(--text-color);
+      box-shadow: 0 8px 20px var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease;
+    }
+    .work-card-link:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,0.18); }
+  .work-card-icon { background: rgba(0,0,0,0.06); padding:10px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; }
+  .work-card-icon img { width:32px; height:32px; object-fit:cover; display:block; }
+  /* Make black logo appear white in dark mode */
+  .dark-mode .work-card-icon img { filter: invert(1) brightness(2); }
+    .work-card-content strong { display:block; font-size:1rem; }
+    .work-card-sub { display:block; font-size:0.86rem; opacity:0.9; margin-top:3px; }
+    .work-card-cta { margin-left:auto; background: rgba(0,0,0,0.06); padding:8px 12px; border-radius:999px; font-weight:700; color:var(--text-color); }
+    @media (max-width:768px) { .work-card-link{padding:10px;} .work-card-content strong{font-size:0.98rem;} }
+    /* Language wheel styles (mirrors .light-dark on the right) */
+    .lang-toggle {
+      position: fixed;
+      top: 50%;
+      right: 0px;
+      width: 70px;
+      height: auto;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1200;
+    }
+
+    .lang-toggle .shadow { border-radius: 100%; box-shadow: 0px 0px 10px rgba(0,0,0,0.8); }
+    .lang-toggle img { width: 60px; height: 60px; transition: transform 0.6s ease; }
+    .lang-toggle.rotated img { transform: rotate(180deg); }
+  </style>
   <!-- Open Graph / Social preview -->
   <meta property="og:locale" content="es_ES">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Eduardo García Romera — Portafolio profesional">
-  <meta property="og:description" content="Portafolio de Eduardo García Romera — desarrollador web y profesional. CV, proyectos y contacto.">
+  <meta property="og:title" content="Eduardo García Romera | Mi carrera profesional">
+  <meta property="og:description" content="Aquí encontrarás mis proyectos destacados y mi experiencia profesional como desarrollador web.">
   <meta property="og:url" content="/">
   <meta property="og:image" content="/img/LightDark.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Eduardo García Romera — Portafolio profesional">
-  <meta name="twitter:description" content="Portafolio de Eduardo García Romera — desarrollador web y profesional. CV, proyectos y contacto.">
-  <!-- JSON-LD Person schema: reemplaza url y mismos perfiles (sameAs) por tus enlaces reales -->
+  <meta name="twitter:title" content="Eduardo García Romera | Mi carrera profesional">
+  <meta name="twitter:description" content="Aquí encontrarás mis proyectos destacados y mi experiencia profesional como desarrollador web.">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -52,22 +95,278 @@
     </div>
   </div>
 
-  <nav>
-    <div id="sidebar-s"></div>
+  <div class="eng-es">
+    <div class="shadow-es">
+      <img id="langWheel" src="img/englishOrSpanish.webp" alt="Cambiar idioma English / Español">
+    </div>
+  </div>
+
+  <nav id="sidebar">
+    <ul>
+      <li><a aria-label="Bienvenida" href="#welcome-section"><i class="fas fa-home"></i></a></li>
+      <li><a aria-label="Sobre mí" href="#about"><i class="fas fa-user"></i></a></li>
+      <li><a aria-label="Habilidades" href="#skills"><i class="fa-solid fa-bolt"></i></a></li>
+      <li><a aria-label="Proyectos" href="#projects"><i class="fa-solid fa-rocket"></i></a></li>
+      <li><a aria-label="Certificados" href="#certificates"><i class="fa-solid fa-award"></i></a></li>
+      <li><a aria-label="Experiencia laboral" href="#experience"><i class="fa-solid fa-briefcase"></i></a></li>
+      <li><a aria-label="Contacto" href="#contact"><i class="fa-solid fa-phone"></i></a></li>
+    </ul>
   </nav>
 
   <main>
-    <div id="welcome-s"></div>
-    <div id="about-s"></div>
-    <div id="skills-s"></div>
-    <div id="projects-s"></div>
-    <div id="certificates-s"></div>
-    <div id="experience-s"></div>
-    <div id="contact-s"></div>
+    <section id="welcome-section">
+      <div class="welcome-container">
+        <div class="welcome-icons">
+          <ul>
+            <li><i class="devicon-sass-original"></i></li>
+            <li><i class="devicon-typescript-plain"></i></li>
+            <li><i class="devicon-postgresql-plain"></i></li>
+            <li><i class="devicon-oracle-original"></i></li>
+            <li><i class="devicon-java-plain"></i></li>
+            <li><i class="devicon-spring-original"></i></li>
+            <li><i class="devicon-hibernate-plain"></i></li>
+            <li><i class="devicon-docker-plain"></i></li>
+            <li><i class="devicon-angular-plain"></i></li>
+            <li><i class="devicon-angularmaterial-plain"></i></li>
+            <li><i class="devicon-github-original"></i></li>
+            <li><i class="devicon-git-plain"></i></li>
+            <li><i class="devicon-haskell-plain"></i></li>
+          </ul>
+        </div>
+        <div class="welcome-text">
+          <h1>Bienvenid@ a mi Portafolio</h1>
+          <p>¡Hola! Soy Eduardo García Romera, ingeniero informático y apasionado por la tecnología. Aquí encontrarás una muestra de mis proyectos y habilidades.</p>
+          <div id="cv-link" class="cv-container">
+            <a class="cv-link" href="assets/CV_Eduardo.pdf" download>
+              <div id="cv_text">Descargar mi CV </div><i class="fa-solid fa-file-pdf"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="swipe-indicator-right" id="swipeRight">
+        <i class="fas fa-chevron-right"></i>
+      </div>
+    </section>
+
+    <section id="about">
+        <div class="about">
+            <h2>Sobre Mí</h2>
+            <p>
+                Soy ingeniero de software full-stack con experiencia en el desarrollo de aplicaciones empresariales usando Java, Spring Boot, Angular y microservicios, contribuyendo actualmente a la transformación digital del sector educativo en la Generalitat Valenciana a través de Minsait.
+            </p>
+            <div class="work-card">
+              <a class="work-card-link" aria-label="Ir al portal ITACA3 - GVA Educación" href="https://itaca3.edu.gva.es/jwt/#/home" target="_blank" rel="noopener noreferrer">
+                <span class="work-card-icon" aria-hidden="true"><img src="img/logo_gva.webp" alt="" class="work-card-logo" aria-hidden="true"></span>
+                <span class="work-card-content">
+                  <strong>ITACA3 Generalitat Valenciana</strong>
+                </span>
+                <span class="work-card-cta">
+                  <!-- Icono flecha -->
+                  <i class="fa-solid fa-arrow-right"></i>
+                </span>
+              </a>
+            </div>
+            <div id="social">
+                <a aria-label="Mi LinkedIn" href="https://www.linkedin.com/in/egromera/" target="_blank">
+                <i class="devicon-linkedin-plain"></i>
+                </a>
+                <a aria-label="Mi GitHub" href="https://github.com/EduGar130" target="_blank">
+                <i class="devicon-github-original"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="skills">
+            <h2>Habilidades</h2>
+            <p>Experiencia en Java, Spring Boot, Angular, SQL, JavaScript, TypeScript, CSS, y HTML. Competente en React.js, Bootstrap, Redux y desarrollo de APIs RESTful. Familiarizado con Docker, Git, metodologías ágiles y herramientas como Jira y Slack.</p>
+            <div class="skill-icons">
+                <ul>
+                    <li><i class="devicon-java-plain"></i></li>
+                    <li><i class="devicon-spring-original"></i></li>
+                    <li><i class="devicon-angular-plain"></i></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+      <div class="projects">
+          <div class="certificate-title">
+              <h3>Proyectos destacados</h3>
+          </div>
+          <div class="certificate-tile"><a href="https://github.com/EduGar130/TFG-LSI" target="_blank"><h3 id="tfg">Gestor de Inventario Web</h3></a></div>
+          <div class="certificate-tile"><a href="https://github.com/EduGar130/Portafolio" target="_blank"><h3 id="portafolio">Portafolio Personal</h3></a></div>
+          <div class="certificate-tile"><a href="https://github.com/EduGar130/Compilador-ADA" target="_blank"><h3 id="compilador">Compilador ADA</h3></a></div>
+      </div>
+    </section>
+
+    <section id="certificates">
+        <div class="certificates">
+            <div class="certificate-title">
+                <h3 id="certificates-title">Mis Certificados</h3>
+            </div>
+            <div class="certificate-tile" onclick="openModal('modal-c1')">
+              <h3 id="ef-set">C1 Inglés</h3>
+            </div>
+            <div class="certificate-tile"><a href="https://www.freecodecamp.org/certification/EdGardian/responsive-web-design" target="_blank"><h3 id="responsive-web-design">Responsive Web Design</h3></a></div>
+            <div class="certificate-tile"><a href="https://platzi.com/p/EduGar02/ruta/7-arquitecto-frontend-old/diploma/detalle/" target="_blank"><h3 id="arquitectura-frontend">Arquitectura Frontend</h3></a></div>
+        </div>
+    </section>
+
+    <!-- Modal para visualizar C1 PDF -->
+    <div id="modal-c1" class="modal">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="c1-modal-title">
+        <div class="modal-header">
+          <h2 id="c1-modal-title">Certificado Inglés C1</h2>
+          <span class="close" onclick="closeModal('modal-c1')">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p id="c1-modal-desc" style="margin-top:0;">Visualización del certificado C1. Si tu navegador no puede mostrar el PDF incrustado, usa el enlace de descarga.</p>
+            <div style="width:100%;height:70vh;border-radius:8px;overflow:hidden;">
+              <object data="assets/C1.pdf" type="application/pdf" width="100%" height="100%">
+                <p>Tu navegador no puede mostrar PDFs en línea. <a href="assets/C1.pdf" target="_blank" rel="noopener noreferrer">Descargar el certificado C1</a>.</p>
+              </object>
+            </div>
+            <p style="margin-top:12px;"><a id="c1-download-link" href="assets/C1.pdf" target="_blank" rel="noopener noreferrer">Descargar certificado C1</a></p>
+        </div>
+      </div>
+    </div>
+
+    <section id="experience">
+      <div class="projects">
+          <div class="certificate-title">
+              <h3 id="experience-title">Experiencia laboral</h3>
+          </div>
+          <div class="certificate-tile" onclick="openModal('modal-minsait')">
+              <h3 id="minsait-title">Ingeniero de Software - Minsait</h3>
+          </div>
+          <div class="certificate-tile" onclick="openModal('modal-balearia')">
+              <h3 id="balearia-title">Becario Full-Stack - Baleària</h3>
+          </div>
+      </div>
+
+      <!-- Modal para Minsait -->
+      <div id="modal-minsait" class="modal">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2 id="minsait-title-modal">Ingeniero de Software - Minsait</h2>
+                  <span class="close" onclick="closeModal('modal-minsait')">&times;</span>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                  <h3 id="minsait-period">Período</h3>
+                  <p id="minsait-period-text">Abril 2024 - Presente</p>
+                  </div>
+                  <div class="row">
+                  <h3 id="minsait-location">Ubicación</h3>
+                  <p id="minsait-location-text">Remoto</p>
+                  </div>
+                  <div class="column">
+                  <h3 id="minsait-responsibilities">Responsabilidades</h3>
+                  <ul>
+                      <li id="responsabilidad-minsait1">Desarrollo de aplicaciones web utilizando tecnologías modernas</li>
+                      <li id="responsabilidad-minsait2">Implementación de soluciones backend y frontend</li>
+                      <li id="responsabilidad-minsait3">Colaboración en equipos ágiles</li>
+                      <li id="responsabilidad-minsait4">Mantenimiento y optimización de código existente</li>
+                  </ul>
+                  </div>
+                  <div class="column">
+
+                  <h3 id="minsait-technologies">Tecnologías utilizadas</h3>
+                  <div class="tecnologias">
+                      <div class="tecnologia">JavaScript</div>
+                      <div class="tecnologia">TypeScript</div>
+                      <div class="tecnologia">Angular</div>
+                      <div class="tecnologia">Java</div>
+                      <div class="tecnologia">SpringBoot</div>
+                      <div class="tecnologia">SQL</div>
+                      <div class="tecnologia">API REST</div>
+                  </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Modal para Baleària -->
+      <div id="modal-balearia" class="modal">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2 id="balearia-title-modal">Becario Full-Stack - Baleària</h2>
+                  <span class="close" onclick="closeModal('modal-balearia')">&times;</span>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                  <h3 id="balearia-period">Período</h3>
+                  <p id="balearia-period-text">Noviembre 2023 - Enero 2024</p>
+                  </div>
+                  <div class="row">
+                  <h3 id="balearia-location">Ubicación</h3>
+                  <p id="balearia-location-text">Dénia (Alicante), España</p>
+                  </div>
+                  <div class="column">
+                  <h3 id="balearia-responsibilities">Responsabilidades</h3>
+                  <ul>
+                      <li id="responsabilidad-balearia1">Desarrollo de aplicaciones web full-stack</li>
+                      <li id="responsabilidad-balearia2">Implementación de APIs REST</li>
+                      <li id="responsabilidad-balearia3">Desarrollo frontend con frameworks modernos</li>
+                      <li id="responsabilidad-balearia4">Trabajo con bases de datos relacionales</li>
+                      <li id="responsabilidad-balearia5">Testing y debugging de aplicaciones</li>
+                      <li id="responsabilidad-balearia6">Documentación técnica</li>
+                  </ul>
+
+                  <h3 id="balearia-technologies">Tecnologías utilizadas</h3>
+                  <div class="tecnologias">
+                      <div class="tecnologia">JavaScript</div>
+                      <div class="tecnologia">React.js</div>
+                      <div class="tecnologia">Angular</div>
+                      <div class="tecnologia">Java</div>
+                      <div class="tecnologia">Spring Boot</div>
+                      <div class="tecnologia">MySQL</div>
+                      <div class="tecnologia">PostgreSQL</div>
+                      <div class="tecnologia">Git</div>
+                      <div class="tecnologia">GitLab</div>
+                      <div class="tecnologia">Docker</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+    <section id="contact">
+      <div class="contact">
+        <h2>Contacto</h2>
+        <p>¡Hablemos! Puedes contactarme por los siguientes medios:</p>
+        <ul class="contact-links">
+          <li>
+            <a href="tel:+34634437545" aria-label="Llamar por teléfono">
+              <i class="fa-solid fa-phone"></i> <span id="phone-text">Llamarme: 634 437 545</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/34634437545" target="_blank" aria-label="Enviar WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i> <span id="whatsapp-text">Enviarme un WhatsApp</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:edugar130@gmail.com" aria-label="Enviar email">
+              <i class="fa-solid fa-envelope"></i> <span id="email-text">edugar130@gmail.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/egromera/" target="_blank" aria-label="Ver perfil de LinkedIn">
+              <i class="devicon-linkedin-plain"></i> <span id="linkedin-text">Mi perfil en LinkedIn</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
   </main>
 </div>
 
-<script src="js/loadSections.js"></script>
 <script src="js/script.js"></script>
 
 </body>

@@ -8,6 +8,7 @@
   --accent-color: #03a9f4;
   --tec-color: #f5f5f5;
   --icons-color: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.281);
 
   /* Dark mode */
   --sidebar-color-dark: #01579B;
@@ -17,6 +18,7 @@
   --text-color-dark: #FFFFFF;
   --accent-color-dark: #4272f7;
   --icons-color-dark: #CCCCCC;
+  --shadow-dark: rgba(224, 224, 224, 0.788);
 }
 
 .dark-mode {
@@ -53,12 +55,38 @@ aside h1 {
   align-items: center;
 }
 
+@media screen and (min-width: 768px) {
+  .eng-es {
+    position: fixed;
+    top: -30px;
+    left: 0px;
+    width: 70px;
+    height: auto;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .shadow {
   border-radius: 100%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 }
 
+.shadow-es {
+  border-radius: 100%;
+  box-shadow: 0px 0px -10px rgba(0, 0, 0, 0.8);
+}
+
 .light-dark img {
+  width: 60px;
+  height: 60px;
+  rotate: 90deg;
+  transition: transform 1s ease;
+}
+
+.eng-es img {
   width: 60px;
   height: 60px;
   rotate: 90deg;
@@ -71,6 +99,12 @@ aside h1 {
 
 body p {
   text-align: justify;
+}
+
+@media (min-width: 769px) {
+  section {
+    padding-inline: 20vw;
+  }
 }
 
 body {
@@ -535,6 +569,20 @@ main {
     justify-content: center;
     align-items: center;
   }
+
+  .eng-es {
+    position: fixed;
+    bottom: 0dvh;
+    right: 100vw;
+    transform: translateX(50%);
+    z-index: 1001;
+    width: 8dvh;
+    height: auto;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
   .shadow {
     border-radius: 100%; 
@@ -544,6 +592,13 @@ main {
   }
   
   .light-dark img {
+    width: auto;
+    height: 7dvh;
+    rotate: 0deg;
+    transition: transform 1s ease;
+  }
+
+  .eng-es img {
     width: auto;
     height: 7dvh;
     rotate: 0deg;
