@@ -26,9 +26,9 @@ function init(){
   // Inicializar idioma
   setLanguage(initialLang);
   if(initialLang === 'en'){
-    degree += 180;
+    degreeLang += 180;
     const langWheel = document.getElementById('langWheel');
-    if (langWheel.style) langWheel.style.transform = `rotate(${degree}deg)`;
+    if (langWheel.style) langWheel.style.transform = `rotate(${degreeLang}deg)`;
   }
 
   // Añadir listener al lang wheel para alternar entre 'es' y 'en'
@@ -38,9 +38,24 @@ function init(){
       const current = (localStorage.getItem('preferredLang') || initialLang).toLowerCase();
       const next = current === 'es' ? 'en' : 'es';
       setLanguage(next);
+      degreeLang += 180;
+      // proteger acceso a style
+      if (langWheel.style) langWheel.style.transform = `rotate(${degreeLang}deg)`;
+    });
+  }
+
+  // mode wheel: manejo independiente de rotación y modo oscuro
+  const modeWheel = document.getElementById('modeWheel');
+  if (modeWheel) {
+    modeWheel.addEventListener('click', () => {
+      if (darkMode) {
+        document.documentElement.classList.remove('dark-mode');
+      } else {
+        document.documentElement.classList.add('dark-mode');
+      }
       degree += 180;
       // proteger acceso a style
-      if (langWheel.style) langWheel.style.transform = `rotate(${degree}deg)`;
+      if (modeWheel.style) modeWheel.style.transform = `rotate(${degree}deg)`;
       darkMode = !darkMode;
     });
   }
@@ -295,20 +310,8 @@ function horizontalMovement(){
 
 let darkMode = false;
 let degree = 0;
-const modeWheel = document.getElementById("modeWheel");
-if (modeWheel) {
-  modeWheel.addEventListener("click", function() {
-    if (darkMode) {
-      document.documentElement.classList.remove("dark-mode");
-    } else {
-      document.documentElement.classList.add("dark-mode");
-    }
-    degree += 180;
-    // proteger acceso a style
-    if (modeWheel.style) modeWheel.style.transform = `rotate(${degree}deg)`;
-    darkMode = !darkMode;
-  });
-}
+let degreeLang = 0;
+ 
 
 function loadLanguage(lang) {
   console.log(lang);

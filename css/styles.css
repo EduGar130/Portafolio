@@ -1,23 +1,50 @@
 :root {
   /*light mode*/
   --sidebar-color: #03a9f4;
+  /* subtle paper texture (SVG noise) for light mode */
+  /* coarser layer (visible fiber/grain) */
+  --paper-noise2-light: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence baseFrequency='0.06' numOctaves='1' stitchTiles='stitch' seed='5'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23m)' opacity='0.06' fill='white'/></svg>");
+  /* finer grain layer (small noise) */
+  --paper-noise-light: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch' seed='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.12' fill='white'/></svg>");
+  --paper-pattern-light: linear-gradient(180deg, rgba(17, 21, 255, 0.432), rgb(255, 255, 255));
+  /* grid paper (light): primary lines every 40px, faint half-grid at 20px */
+  /* grid in blue for light mode (matches --sidebar-color) */
+  --paper-grid-light: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='100%' height='100%' fill='transparent'/><path d='M40 0 L40 40 M0 40 L40 40' stroke='%2303a9f4' stroke-opacity='0.15' stroke-width='1'/><path d='M20 0 L20 40 M0 20 L40 20' stroke='%2303a9f4' stroke-opacity='0.2' stroke-width='1.5'/></svg>");
+  /* dark mode counterparts */
+  --paper-noise2-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence baseFrequency='0.06' numOctaves='1' stitchTiles='stitch' seed='6'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23m)' opacity='0.04' fill='black'/></svg>");
+  --paper-noise-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.08' fill='black'/></svg>");
+  --paper-pattern-dark: linear-gradient(180deg, rgba(0,0,0,0.04), rgba(255,255,255,0.02));
+  /* grid paper (dark): use light lines on dark background */
+  /* grid in gray for dark mode */
+  --paper-grid-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='100%' height='100%' fill='transparent'/><path d='M40 0 L40 40 M0 40 L40 40' stroke='%23bdbdbd' stroke-opacity='0.10' stroke-width='1'/><path d='M20 0 L20 40 M0 20 L40 20' stroke='%23bdbdbd' stroke-opacity='0.05' stroke-width='0.6'/></svg>");
+
+  /* active paper vars (can be overridden by .dark-mode) */
+  --paper-pattern: var(--paper-pattern-light);
+  --paper-noise: var(--paper-noise-light);
+  --paper-noise2: var(--paper-noise2-light);
+  --paper-grid: var(--paper-grid-light);
   --main-bg-color: #f5f5f5;
   --icons-hover: #ff9800;
   --tiles-color: #BFE6F8; 
   --text-color: #133147;
   --accent-color: #03a9f4;
   --tec-color: #f5f5f5;
-  --icons-color: #ffffff;
+  --icons-color: #fff;
   --shadow: rgba(0, 0, 0, 0.281);
+
+  /* Unified shadow system (three levels) */
+  --shadow-s: inset 0 1px 2px rgba(255,255,255,0.12), 0 1px 2px rgba(0,0,0,0.30), 0 2px 4px rgba(0,0,0,0.12);
+  --shadow-m: inset 0 1px 2px rgba(255,255,255,0.18), 0 2px 4px rgba(0,0,0,0.30), 0 4px 8px rgba(0,0,0,0.12);
+  --shadow-l: inset 0 1px 2px rgba(255,255,255,0.24), 0 4px 6px rgba(0,0,0,0.32), 0 6px 10px rgba(0,0,0,0.16);
 
   /* Dark mode */
   --sidebar-color-dark: #01579B;
   --main-bg-color-dark: #333333;
   --icons-hover-dark: #FFB300;
   --tiles-color-dark: #2f5b99;
-  --text-color-dark: #FFFFFF;
+  --text-color-dark: #fff;
   --accent-color-dark: #4272f7;
-  --icons-color-dark: #CCCCCC;
+  --icons-color-dark: #fff;
   --shadow-dark: rgba(224, 224, 224, 0.788);
 }
 
@@ -28,6 +55,11 @@
   --tiles-color: var(--tiles-color-dark);
   --text-color: var(--text-color-dark);
   --accent-color: var(--accent-color-dark);
+  /* switch to dark paper texture */
+  --paper-pattern: var(--paper-pattern-dark);
+  --paper-noise: var(--paper-noise-dark);
+  --paper-noise2: var(--paper-noise2-dark);
+  --paper-grid: var(--paper-grid-dark);
 /* Explicit font-size for heading elements inside semantic sections to avoid future UA changes */
 section h1,
 article h1,
@@ -39,6 +71,10 @@ aside h1 {
 }
 
   --icons-color: var(--icons-color-dark);
+  /* Dark-mode shadow adjustments: softer highlights, stronger dark shadow */
+  --shadow-s: inset 0 1px 2px rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.60), 0 2px 4px rgba(0,0,0,0.40);
+  --shadow-m: inset 0 1px 2px rgba(255,255,255,0.08), 0 2px 4px rgba(0,0,0,0.60), 0 4px 8px rgba(0,0,0,0.42);
+  --shadow-l: inset 0 1px 2px rgba(255,255,255,0.10), 0 4px 6px rgba(0,0,0,0.70), 0 6px 10px rgba(0,0,0,0.45);
 }
   
   
@@ -71,12 +107,11 @@ aside h1 {
 
 .shadow {
   border-radius: 100%;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+  box-shadow: var(--shadow-l);
 }
 
 .shadow-es {
   border-radius: 100%;
-  box-shadow: 0px 0px -10px rgba(0, 0, 0, 0.8);
 }
 
 .light-dark img {
@@ -111,8 +146,40 @@ body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   background-color: var(--sidebar-color);
+  /* blend modes: gradient overlays, grid draws normally, noise multiplies slightly for texture */
+  background-blend-mode: overlay, normal, multiply;
+  background-repeat: repeat, repeat, repeat;
+  background-size: auto, 40px 40px, 120px 120px;
   overflow: hidden;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease, background-image 0.5s ease;
+}
+/* Apply shadow tokens to common interactive elements for consistent depth */
+button,
+.cv-link,
+.tile a,
+.contact-links a,
+.certificate-tile,
+.work-card-link {
+  box-shadow: var(--shadow-s);
+}
+
+.work-card-link {
+  background-color: var(--main-bg-color);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-m);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+  text-align: center;
+}
+
+button:hover,
+.cv-link:hover,
+.tile a:hover,
+.contact-links a:hover,
+.certificate-tile:hover,
+.work-card-link:hover {
+  box-shadow: var(--shadow-m);
 }
   
 .cv-link {
@@ -125,7 +192,7 @@ body {
   border-radius: 8px;
   text-decoration: none;
   color: var(--text-color);
-  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-s);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
   max-width: 200px; 
   width: 100%;
@@ -140,7 +207,7 @@ body {
 
 .cv-link:hover {
   transform: translateY(-3px);
-  box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-m);
 }
 
 .cv-link i {
@@ -174,7 +241,7 @@ body {
   border-radius: 5px;
   color: var(--tec-color);
   font-size: 0.9rem;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-s);
 }
   
 .row {
@@ -217,8 +284,13 @@ section {
   justify-content: center;
   align-items: center;
   text-align: center;
-  box-shadow: 0 0px 15px rgba(0, 0, 0, 0.6);
   transition: background-color 0.5s ease;
+   /* layered background: base color + subtle gradient + grid overlay + fine noise */
+  background-image: var(--paper-pattern), var(--paper-grid), var(--paper-noise);
+  /* blend modes: gradient overlays, grid draws normally, noise multiplies slightly for texture */
+  background-blend-mode: overlay, normal, multiply;
+  background-repeat: repeat, repeat, repeat;
+  background-size: auto, 40px 40px, 120px 120px;
 }
   
 .tile {
@@ -226,13 +298,13 @@ section {
   padding: 15px;
   margin-bottom: 15px;
   border-radius: 10px;
-  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-m);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
 }
 
 .tile:hover {
   transform: translateY(-5px);
-  box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-l);
 }
 
 .tile a {
@@ -299,7 +371,7 @@ section {
   color: var(--text-color);
   padding: 12px 20px;
   border-radius: 8px;
-  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-m);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
   display: flex;
   align-items: center;
@@ -311,7 +383,7 @@ section {
 
 .contact-links a:hover {
   transform: translateY(-3px);
-  box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-l);
 }
 
 .contact-links i {
@@ -343,7 +415,7 @@ section {
   padding: 10px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-m);
   transition: background-color 0.5s ease;
 }
 
@@ -357,13 +429,13 @@ section {
   border-radius: 8px;
   text-align: center;
   color: var(--text-color);
-  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-m);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
 }
 
 .certificate-tile:hover {
   transform: translateY(-3px);
-  box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-l);
 }
 
 
@@ -516,7 +588,7 @@ main {
     align-items: center;
     height: 8dvh;
     width: 100%;
-    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.6);
+    box-shadow: var(--shadow-l);
     background-color: var(--sidebar-color);
   }
 
@@ -553,7 +625,7 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
-    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.6);
+    box-shadow: var(--shadow-l);
   }
 
   .light-dark {
@@ -703,7 +775,7 @@ main {
   width: 80%;
   max-width: 600px;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-l);
   animation: slideIn 0.8s ease;
   color: var(--text-color);
 }
@@ -766,14 +838,13 @@ main {
   }
 }
 
-/* Hacer los certificate-tile clickeables */
 .certificate-tile {
   cursor: pointer;
 }
 
 .certificate-tile:hover {
   transform: translateY(-3px);
-  box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-l);
 }
 
 #swipeRight {
@@ -802,7 +873,7 @@ main {
   margin: 20px 0;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-m);
   color: var(--tiles-color);
   transition: background-color 0.5s ease, box-shadow 0.3s ease;
 }
