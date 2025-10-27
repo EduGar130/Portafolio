@@ -1,4 +1,5 @@
 let modalOpened = false;
+let activeSectionId = 0;
 
 
 function init(){
@@ -89,6 +90,89 @@ function init(){
         setTimeout(() => updateSEOForSection(id), 50);
       });
     });
+  }
+
+  /* Sincronizar #sidebar2 li con el movimiento de las secciones: cada li sube/ baja con su sección
+     y desaparece cuando la sección no está en viewport. Implementación eficiente con rAF. */
+  const sidebar2 = document.getElementById('sidebar2');
+  if (sidebar2) {
+    const items = Array.from(sidebar2.querySelectorAll('li'));
+    const sections = Array.from(document.querySelectorAll('main > section'));
+
+    // Guardar posiciones iniciales de secciones y elementos para respetar la posición definida en CSS
+    const sectionBaseTops = [];
+    let ticking = false;
+
+    function captureBasePositions() {
+      sectionBaseTops.length = 0;
+      sections.forEach(section => {
+        const r = section.getBoundingClientRect();
+        // baseTop relativo a la ventana en el momento de inicialización
+        sectionBaseTops.push(r.top);
+      });
+
+      // Asegurar que todos los items estén visibles inicialmente (tal como pediste)
+      items.forEach(li => {
+        li.style.opacity = '1';
+        li.style.pointerEvents = 'auto';
+        // limpiar transform para partir desde la posición definida por CSS
+        li.style.transform = 'translateY(0px)';
+      });
+    }
+
+    function updateSidebar2Positions() {
+      // Para cada par sección - li, movemos el li exactamente en la cantidad en px
+      // que la sección se ha desplazado verticalmente desde el momento de captura.
+      sections.forEach((section, idx) => {
+        const li = items[idx];
+        if (!li || !section) return;
+        const rect = section.getBoundingClientRect();
+        const baseTop = sectionBaseTops[idx] || 0;
+
+        // delta positivo => sección se desplazó hacia abajo desde la base; negativo => hacia arriba
+        const delta = Math.round(rect.top - baseTop);
+
+        // Aplicar el mismo desplazamiento vertical al li desde su posición CSS original
+        //li.style.transform = `translateY(${delta}px)`;
+
+        // Visibilidad: inicialmente todos visibles; ocultar sólo cuando la sección
+        // ha sido completamente abandonada por arriba (rect.bottom <= 0)
+        const isAbandonedAbove = rect.bottom <= 0;
+        if (isAbandonedAbove) {
+          li.style.opacity = '0';
+          li.style.pointerEvents = 'none';
+        } else {
+          li.style.opacity = '1';
+          li.style.pointerEvents = 'auto';
+        }
+      });
+    }
+
+    function onScrollOrResize() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateSidebar2Positions();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Inicializar bases y positions
+    // Capturamos después de un pequeño delay para que el layout esté estable
+    setTimeout(() => {
+      captureBasePositions();
+      updateSidebar2Positions();
+    }, 50);
+
+    // Recalcular bases en resize (y si cambias layout dinámicamente puedes forzarlo)
+    window.addEventListener('resize', () => {
+      captureBasePositions();
+      onScrollOrResize();
+    });
+
+    // Actualizar al hacer scroll
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
   }
 
   // Swipe indicator: click to go to next section (if any)
@@ -184,6 +268,8 @@ function verticalMovement(){
         });
           // Actualizar SEO para la sección activa
           updateSEOForSection(sectionId);
+          activeSectionId = sectionId;
+          console.log("Active section updated to:", sectionId);
       }
     });
   }

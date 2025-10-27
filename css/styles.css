@@ -46,6 +46,23 @@
   --accent-color-dark: #4272f7;
   --icons-color-dark: #fff;
   --shadow-dark: rgba(224, 224, 224, 0.788);
+
+  /*Efecto separadores archivador navbar*/
+  --sidebar-separator1: #F44336;
+  --sidebar-separator2: #FFB300;
+  --sidebar-separator3: #4CAF50;
+  --sidebar-separator4: #FF9800;
+  --sidebar-separator5: #9C27B0;
+  --sidebar-separator6: #00BCD4;
+  --sidebar-separator7: #795548;
+  
+  --sidebar-separator1-dark: #E53935;
+  --sidebar-separator2-dark: #FDD835;
+  --sidebar-separator3-dark: #43A047;
+  --sidebar-separator4-dark: #FB8C00;
+  --sidebar-separator5-dark: #8E24AA;
+  --sidebar-separator6-dark: #00ACC1;
+  --sidebar-separator7-dark: #6D4C41;
 }
 
 .dark-mode {
@@ -60,6 +77,12 @@
   --paper-noise: var(--paper-noise-dark);
   --paper-noise2: var(--paper-noise2-dark);
   --paper-grid: var(--paper-grid-dark);
+  --sidebar-separator1: var(--sidebar-separator1-dark);
+  --sidebar-separator2: var(--sidebar-separator2-dark);
+  --sidebar-separator3: var(--sidebar-separator3-dark);
+  --sidebar-separator4: var(--sidebar-separator4-dark);
+  --sidebar-separator5: var(--sidebar-separator5-dark);
+
 /* Explicit font-size for heading elements inside semantic sections to avoid future UA changes */
 section h1,
 article h1,
@@ -71,12 +94,18 @@ aside h1 {
 }
 
   --icons-color: var(--icons-color-dark);
+  /* sombra fuerte hacia la izquierda para las secciones en modo oscuro */
+  --section-shadow-left: -36px 0 72px rgba(0,0,0,0.60);
   /* Dark-mode shadow adjustments: softer highlights, stronger dark shadow */
   --shadow-s: inset 0 1px 2px rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.60), 0 2px 4px rgba(0,0,0,0.40);
   --shadow-m: inset 0 1px 2px rgba(255,255,255,0.08), 0 2px 4px rgba(0,0,0,0.60), 0 4px 8px rgba(0,0,0,0.42);
   --shadow-l: inset 0 1px 2px rgba(255,255,255,0.10), 0 4px 6px rgba(0,0,0,0.70), 0 6px 10px rgba(0,0,0,0.45);
 }
-  
+
+/* sombra lateral por defecto (modo claro) */
+:root {
+  --section-shadow-left: -4px 0 7px rgba(0,0,0,0.35);
+}
   
   
 .light-dark {
@@ -285,6 +314,10 @@ section {
   background-blend-mode: overlay, normal, multiply;
   background-repeat: repeat, repeat, repeat;
   background-size: auto, 40px 40px, 120px 120px;
+  position: relative; /* crea un contexto de apilamiento para esta sección */
+  z-index: 99999; /* asegurar que esté por encima de la mayoría de elementos */
+  /* sombra principal: sombra fuerte hacia la izquierda + la sombra localizada existente */
+  box-shadow: var(--section-shadow-left);
 }
   
 .tile {
@@ -486,8 +519,18 @@ section {
   top: 50%;
   transform: translateY(-50%);
   left: 0;
-  width: 70px;
+  width: 76px;
   z-index: 1000;
+}
+
+#sidebar2 {
+  left: 6px;
+  width: 70px;
+  position: fixed;
+  top: 50%;
+  height: 490px;
+  transform: translateY(-50%);
+  z-index: 1001;
 }
 
 #sidebar ul {
@@ -496,9 +539,72 @@ section {
   padding: 0;
 }
 
+#sidebar2 ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 #sidebar li {
   margin-bottom: 35px;
   transition: transform 1s ease;
+}
+
+#sidebar2 li {
+  padding-bottom: 25px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  transition: transform 1s ease;
+  width: 70px;
+  top: 0;
+  z-index: 2000;
+  position: fixed;
+  background-color: rgba(255, 0, 0, 0);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.10), 0 4px 6px rgba(0,0,0,0.70), 0 6px 10px rgba(0,0,0,0.45);
+}
+
+
+#sidebar2 li:nth-child(1) {
+  background-color: var(--sidebar-separator1);
+  padding-top: 35px;
+  z-index: 2008;
+}
+
+#sidebar2 li:nth-child(2) {
+  background-color: var(--sidebar-separator2);
+  padding-top: 105px;
+  z-index: 2007;
+}
+
+#sidebar2 li:nth-child(3) {
+  background-color: var(--sidebar-separator3);
+  padding-top: 175px;
+  z-index: 2006;
+}
+
+#sidebar2 li:nth-child(4) {
+  background-color: var(--sidebar-separator4);
+  padding-top: 245px;
+  z-index: 2005;
+
+}
+
+#sidebar2 li:nth-child(5) {
+  background-color: var(--sidebar-separator5);
+  padding-top: 315px;
+  z-index: 2004;
+}
+
+#sidebar2 li:nth-child(6) {
+  background-color: var(--sidebar-separator6);
+  padding-top: 385px;
+  z-index: 2003;
+}
+
+#sidebar2 li:nth-child(7) {
+  background-color: var(--sidebar-separator7);
+  padding-top: 455px;
+  z-index: 2002;
 }
 
 #sidebar li:hover {
@@ -510,12 +616,22 @@ section {
   text-align: center;
 }
 
+#sidebar2 a {
+  display: block;
+  text-align: center;
+}
+
 main {
   margin-left: 70px;
   transition: margin-left 0.3s ease;
 }
 
 #sidebar i {
+  font-size: 25px;
+  color: var(--icons-color);
+}
+
+#sidebar2 i {
   font-size: 25px;
   color: var(--icons-color);
 }
@@ -554,6 +670,10 @@ main {
   }
   #welcome-section ul {
     flex-wrap: wrap;
+  }
+
+  .sidebar2 {
+    display: none;
   }
 
   #welcome-section li {
@@ -619,7 +739,7 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
-    box-shadow: var(--shadow-l);
+    box-shadow: var(--section-shadow-left), var(--shadow-l);
   }
 
   .light-dark {
