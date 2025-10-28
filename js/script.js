@@ -67,6 +67,51 @@ function init(){
     verticalMovement();
   }
   
+  // Manejador para reiniciar posiciones del sidebar y volver a welcome al redimensionar (debounced)
+  let resizeResetTimer;
+  function resetSidebarAndGoWelcome() {
+    // Resetear sidebar2 items (si existe)
+    try {
+      const sidebar2El = document.getElementById('sidebar2');
+      if (sidebar2El) {
+        const items = sidebar2El.querySelectorAll('li');
+        items.forEach(li => {
+          li.style.transform = 'translateY(0px)';
+          li.style.opacity = '1';
+          li.style.pointerEvents = 'auto';
+        });
+      }
+
+      // Resetear enlaces del sidebar (quitar active de todos)
+      const sidebarLinksAll = document.querySelectorAll('#sidebar a[href^="#"]');
+      sidebarLinksAll.forEach(link => {
+        link.classList.remove('active-section');
+        const svg = link.querySelector('svg');
+        if (svg) svg.style.fill = '';
+      });
+
+      // Activar explicitamente el enlace welcome si existe
+      const welcomeLink = document.querySelector('#sidebar a[href="#welcome-section"], #sidebar a[href="#welcome"]');
+      if (welcomeLink) {
+        welcomeLink.classList.add('active-section');
+        const svg = welcomeLink.querySelector('svg');
+        if (svg) svg.style.fill = 'var(--icons-hover)';
+      }
+
+      // Hacer scroll a la sección welcome y actualizar SEO/hash
+      const welcome = document.getElementById('welcome-section') || document.getElementById('welcome');
+      if (welcome) {
+        welcome.scrollIntoView({ behavior: 'smooth' });
+        try { updateSEOForSection(welcome.id || 'welcome-section'); } catch(e) {}
+        try { history.replaceState(null, '', '#' + (welcome.id || 'welcome-section')); } catch(e) {}
+        // mantener referencia del id activo
+        activeSectionId = welcome.id || 'welcome-section';
+      }
+    } catch (e) {
+      console.warn('resetSidebarAndGoWelcome error', e);
+    }
+  }
+
   // Si la URL tiene hash al cargar, navegar a esa sección
   if (location.hash) {
     const targetId = location.hash.slice(1);
@@ -111,9 +156,7 @@ function init(){
         sectionBaseTops.push(r.top);
       });
 
-      // Asegurar que todos los items estén visibles inicialmente (tal como pediste)
       items.forEach(li => {
-        li.style.opacity = '1';
         li.style.pointerEvents = 'auto';
         // limpiar transform para partir desde la posición definida por CSS
         li.style.transform = 'translateY(0px)';
@@ -139,13 +182,23 @@ function init(){
         // ha sido completamente abandonada por arriba (rect.bottom <= 0)
         const isAbandonedAbove = rect.bottom <= 0;
         if (isAbandonedAbove) {
-          li.style.opacity = '0';
           li.style.pointerEvents = 'none';
+          moveOutOfView(li, delta);
         } else {
           li.style.opacity = '1';
+          moveInView(li);
           li.style.pointerEvents = 'auto';
         }
       });
+    }
+
+    moveOutOfView = (element, delta) => {
+      const offset = 50;
+      element.style.transform = `translateY(${delta - offset}px)`;
+    };
+
+    moveInView = (element) => {
+      element.style.transform = `translateY(0px)`;
     }
 
     function onScrollOrResize() {
@@ -229,6 +282,16 @@ function init(){
     } else {
       verticalMovement();
     }
+
+    setTimeout(() => {
+      captureBasePositions();
+      updateSidebar2Positions();
+    }, 50);
+    // Debounce para evitar ejecuciones repetidas al redimensionar
+    if (resizeResetTimer) clearTimeout(resizeResetTimer);
+    resizeResetTimer = setTimeout(() => {
+      resetSidebarAndGoWelcome();
+    }, 160);
   });
 }
 

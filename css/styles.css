@@ -6,14 +6,14 @@
   --paper-noise2-light: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence baseFrequency='0.06' numOctaves='1' stitchTiles='stitch' seed='5'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23m)' opacity='0.06' fill='white'/></svg>");
   /* finer grain layer (small noise) */
   --paper-noise-light: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch' seed='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.12' fill='white'/></svg>");
-  --paper-pattern-light: linear-gradient(180deg, rgba(17, 21, 255, 0.432), rgba(17, 21, 255, 0.432));
+  --paper-pattern-light: linear-gradient(180deg, rgba(17, 21, 255, 0.432), rgba(133, 135, 255, 0.432));
   /* grid paper (light): primary lines every 40px, faint half-grid at 20px */
   /* grid in blue for light mode (matches --sidebar-color) */
   --paper-grid-light: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='100%' height='100%' fill='transparent'/><path d='M40 0 L40 40 M0 40 L40 40' stroke='%2303a9f4' stroke-opacity='0.15' stroke-width='1'/><path d='M20 0 L20 40 M0 20 L40 20' stroke='%2303a9f4' stroke-opacity='0.2' stroke-width='1.5'/></svg>");
   /* dark mode counterparts */
   --paper-noise2-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence baseFrequency='0.06' numOctaves='1' stitchTiles='stitch' seed='6'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23m)' opacity='0.04' fill='black'/></svg>");
   --paper-noise-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.08' fill='black'/></svg>");
-  --paper-pattern-dark: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255,255,255,0.02));
+  --paper-pattern-dark: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(46, 42, 42, 0.075));
   /* grid paper (dark): use light lines on dark background */
   /* grid in gray for dark mode */
   --paper-grid-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='100%' height='100%' fill='transparent'/><path d='M40 0 L40 40 M0 40 L40 40' stroke='%23bdbdbd' stroke-opacity='0.10' stroke-width='1'/><path d='M20 0 L20 40 M0 20 L40 20' stroke='%23bdbdbd' stroke-opacity='0.05' stroke-width='0.6'/></svg>");
@@ -44,25 +44,31 @@
   --tiles-color-dark: #2f5b99;
   --text-color-dark: #fff;
   --accent-color-dark: #4272f7;
-  --icons-color-dark: #fff;
+  --icons-color-dark: #fcfde5;
   --shadow-dark: rgba(224, 224, 224, 0.788);
 
-  /*Efecto separadores archivador navbar*/
-  --sidebar-separator1: #F44336;
-  --sidebar-separator2: #FFB300;
-  --sidebar-separator3: #4CAF50;
-  --sidebar-separator4: #FF9800;
-  --sidebar-separator5: #9C27B0;
-  --sidebar-separator6: #00BCD4;
-  --sidebar-separator7: #795548;
-  
-  --sidebar-separator1-dark: #E53935;
-  --sidebar-separator2-dark: #FDD835;
-  --sidebar-separator3-dark: #43A047;
-  --sidebar-separator4-dark: #FB8C00;
-  --sidebar-separator5-dark: #8E24AA;
-  --sidebar-separator6-dark: #00ACC1;
-  --sidebar-separator7-dark: #6D4C41;
+  /*Efecto separadores archivador navbar
+    Palette tuned to contrast with white icons centered on each separator.
+    Light mode: deeper mid-tones (for readable white icons). Dark mode:
+    saturated counterparts for visibility on dark backgrounds.
+  */
+  /* Light (darker/mid tones to ensure white icon reads well) */
+  --sidebar-separator1: #E53935; /* deep red */
+  --sidebar-separator2: #43A047; /* dark amber/orange */
+  --sidebar-separator3: #FFC107; /* deep teal */
+  --sidebar-separator4: #FB8C00; /* deep orange-red */
+  --sidebar-separator5: #8E24AA; /* deep violet */
+  --sidebar-separator6: #1565C0; /* strong blue (ties to --accent-color) */
+  --sidebar-separator7: #546E7A; /* dark brown */
+
+  /* Dark (high saturation/brightness for visibility on dark backgrounds) */
+  --sidebar-separator1-dark: #C62828; /* vivid red */
+  --sidebar-separator2-dark: #2E7D32; /* vivid amber */
+  --sidebar-separator3-dark: #F9A825; /* vivid green */
+  --sidebar-separator4-dark: #EF6C00; /* vivid orange */
+  --sidebar-separator5-dark: #6A1B9A; /* vivid violet */
+  --sidebar-separator6-dark: #1565C0; /* site accent (bright blue) */
+  --sidebar-separator7-dark: #263238; /* warmer brown */
 }
 
 .dark-mode {
@@ -82,16 +88,9 @@
   --sidebar-separator3: var(--sidebar-separator3-dark);
   --sidebar-separator4: var(--sidebar-separator4-dark);
   --sidebar-separator5: var(--sidebar-separator5-dark);
+  --sidebar-separator6: var(--sidebar-separator6-dark);
+  --sidebar-separator7: var(--sidebar-separator7-dark);
 
-/* Explicit font-size for heading elements inside semantic sections to avoid future UA changes */
-section h1,
-article h1,
-nav h1,
-aside h1 {
-  font-size: 2rem; /* tamaño base para escritorio */
-  line-height: 1.1;
-  margin: 0.25em 0;
-}
 
   --icons-color: var(--icons-color-dark);
   /* sombra fuerte hacia la izquierda para las secciones en modo oscuro */
@@ -123,15 +122,24 @@ aside h1 {
 @media screen and (min-width: 768px) {
   .eng-es {
     position: fixed;
-    top: -30px;
-    left: 0px;
-    width: 70px;
+    top: -27px;
+    left: 5px;
     height: auto;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+}
+
+.eng-es {
+  z-index: 10000;
+  border-radius: 100%;
+  height: 55px;
+  width: 60px;
+  box-shadow: var(--shadow-l);
+  padding: 0;
+  margin: 0;
 }
 
 .shadow {
@@ -177,13 +185,8 @@ body {
   background-color: var(--sidebar-color);
   /* blend modes: gradient overlays, grid draws normally, noise multiplies slightly for texture */
   background-blend-mode: overlay, normal, multiply;
-  background-repeat: repeat, repeat, repeat;
-  background-size: auto, 40px 40px, 120px 120px;
-  overflow: hidden;
-  transition: background-color 0.5s ease, background-image 0.5s ease;
 }
-/* Apply shadow tokens to common interactive elements for consistent depth */
-button,
+  
 .cv-link,
 .tile a,
 .contact-links a,
@@ -204,7 +207,7 @@ button:hover,
 .work-card-link:hover {
   box-shadow: var(--shadow-m);
 }
-  
+
 .cv-link {
   margin-top: 40px;
   display: flex;
