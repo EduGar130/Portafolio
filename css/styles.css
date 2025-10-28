@@ -53,22 +53,26 @@
     saturated counterparts for visibility on dark backgrounds.
   */
   /* Light (darker/mid tones to ensure white icon reads well) */
-  --sidebar-separator1: #E53935; /* deep red */
-  --sidebar-separator2: #43A047; /* dark amber/orange */
-  --sidebar-separator3: #FFC107; /* deep teal */
-  --sidebar-separator4: #FB8C00; /* deep orange-red */
-  --sidebar-separator5: #8E24AA; /* deep violet */
-  --sidebar-separator6: #1565C0; /* strong blue (ties to --accent-color) */
-  --sidebar-separator7: #546E7A; /* dark brown */
+  /* Shades of blue tuned for contrast with white icons over --sidebar-color */
+  --sidebar-separator7: #0a3a81; /* deep navy blue */
+  --sidebar-separator6: #0D47A1; /* slate/steel blue */
+  --sidebar-separator5: #1565C0; /* strong blue */
+  --sidebar-separator4: #1976D2; /* bright blue */
+  --sidebar-separator3: #1E88E5; /* lighter blue */
+  --sidebar-separator2: #2196F3; /* standard blue */
+  --sidebar-separator1: #42A5F5; /* sky blue */
+
 
   /* Dark (high saturation/brightness for visibility on dark backgrounds) */
-  --sidebar-separator1-dark: #C62828; /* vivid red */
-  --sidebar-separator2-dark: #2E7D32; /* vivid amber */
-  --sidebar-separator3-dark: #F9A825; /* vivid green */
-  --sidebar-separator4-dark: #EF6C00; /* vivid orange */
-  --sidebar-separator5-dark: #6A1B9A; /* vivid violet */
-  --sidebar-separator6-dark: #1565C0; /* site accent (bright blue) */
-  --sidebar-separator7-dark: #263238; /* warmer brown */
+  /* Brighter/saturated blues for dark mode to ensure visibility */
+  --sidebar-separator1-dark: #2368e0; /* deep cerulean */
+  --sidebar-separator2-dark: #2979FF; /* vivid blue */
+  --sidebar-separator3-dark: #1E88E5; /* bright blue */
+  --sidebar-separator4-dark: #64B5F6; /* light sky blue */
+  --sidebar-separator5-dark: #29B6F6; /* cyan-blue */
+  --sidebar-separator6-dark: #40C4FF; /* electric sky */
+  --sidebar-separator7-dark: #00E5FF; /* bright cyan */
+
 }
 
 .dark-mode {
