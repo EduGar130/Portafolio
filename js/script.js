@@ -137,6 +137,27 @@ function init(){
     });
   }
 
+  // Garantizar que los .certificate-tile con onclick llamen a openModal incluso si el inline handler falla
+  try {
+    const certTiles = document.querySelectorAll('.certificate-tile[onclick]');
+    certTiles.forEach(tile => {
+      // evitar agregar múltiples listeners si init se ejecuta varias veces
+      if (tile.dataset.modalListenerAttached) return;
+      const onclick = tile.getAttribute('onclick') || '';
+      const match = onclick.match(/openModal\(['"]([^'\"]+)['"]\)/);
+      if (match && match[1]) {
+        const modalId = match[1];
+        tile.addEventListener('click', (e) => {
+          e.preventDefault();
+          try { openModal(modalId); } catch(err) { console.warn('openModal call failed', err); }
+        });
+        tile.dataset.modalListenerAttached = '1';
+      }
+    });
+  } catch (e) {
+    console.warn('certificate tile binding error', e);
+  }
+
   /* Sincronizar #sidebar2 li con el movimiento de las secciones: cada li sube/ baja con su sección
      y desaparece cuando la sección no está en viewport. Implementación eficiente con rAF. */
   const sidebar2 = document.getElementById('sidebar2');
@@ -332,7 +353,6 @@ function verticalMovement(){
           // Actualizar SEO para la sección activa
           updateSEOForSection(sectionId);
           activeSectionId = sectionId;
-          console.log("Active section updated to:", sectionId);
       }
     });
   }
@@ -415,7 +435,6 @@ function horizontalMovement(){
 
   window.addEventListener("wheel", function(event) {
     event.preventDefault();
-    console.log(modalOpened);
     if (!isScrolling && !modalOpened) {
       isScrolling = true;
       setTimeout(() => { isScrolling = false; }, 500);
@@ -463,7 +482,7 @@ let degreeLang = 0;
  
 
 function loadLanguage(lang) {
-  console.log(lang);
+  console.log(`Loading language: ${lang}`);
   fetch(`assets/${lang}.json`)
     .then(response => response.json())
     .then(data => {
@@ -474,7 +493,6 @@ function loadLanguage(lang) {
 }
 
 function applyTranslations(data) {
-  console.log(data);
   document.querySelector('#welcome-section h1').textContent = data.welcome.title;
   document.querySelector('#welcome-section p').textContent = data.welcome.description;
   document.getElementById('cv_text').textContent = data.welcome.cv;
@@ -527,7 +545,6 @@ function applyTranslations(data) {
   document.getElementById('balearia-period').textContent = data.experience.minsait.periodtitle;
   document.getElementById('balearia-location-text').textContent = data.experience.balearia.location;
   document.getElementById('balearia-location').textContent = data.experience.minsait.locationtitle;
-  document.getElementById('agile-methodologies').textContent = data.experience.minsait.technologies.agile;
   document.getElementById('balearia-responsibilities').textContent = data.experience.balearia.responsibilities.title;
   document.getElementById('responsabilidad-balearia1').textContent = data.experience.balearia.responsibilities.items[0];
   document.getElementById('responsabilidad-balearia2').textContent = data.experience.balearia.responsibilities.items[1];
@@ -536,9 +553,9 @@ function applyTranslations(data) {
   document.getElementById('responsabilidad-balearia5').textContent = data.experience.balearia.responsibilities.items[4];
   document.getElementById('responsabilidad-balearia6').textContent = data.experience.balearia.responsibilities.items[5];
   document.getElementById('balearia-technologies').textContent = data.experience.balearia.technologies.title;
-  console.log(data.experience.minsait.technologies.agile);
 
   document.querySelector('#contact h2').textContent = data.contact.title;
+  console.log(data.contact.description);
   document.querySelector('#contact p').textContent = data.contact.description;
   document.getElementById('phone-text').textContent = data.contact.call;
   document.getElementById('whatsapp-text').textContent = data.contact.whatsapp;
@@ -553,6 +570,15 @@ function openModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.style.display = 'block';
+    // Evitar scroll del body mientras el modal está abierto
+    try { document.body.style.overflow = 'hidden'; } catch (e) {}
+    // Foco accesible en el modal
+    try {
+      const focusable = modal.querySelector('button, a, [tabindex]');
+      if (focusable) focusable.focus();
+    } catch (e) {}
+  } else {
+    console.warn('openModal: modal not found', modalId);
   }
 }
 
@@ -562,6 +588,8 @@ function closeModal(modalId) {
   if (modal) {
     modal.style.display = 'none';
   }
+  // restaurar scroll del body
+  try { document.body.style.overflow = 'auto'; } catch (e) {}
 }
 
 // Cerrar modal al hacer clic fuera de él
