@@ -110,9 +110,9 @@ themeToggle.addEventListener('click', () => {
   //logo en modo oscuro
   const logoImg = document.getElementById('logoImg');
   if (isDark) {
-    logoImg.src = './img/veritas/veritas-logo-dark.webp';
+    logoImg.src = './img/Veritas/veritas-logo-dark.webp';
   } else {
-    logoImg.src = './img/veritas/veritas-logo.webp';
+    logoImg.src = './img/Veritas/veritas-logo.webp';
   }
 });
 
