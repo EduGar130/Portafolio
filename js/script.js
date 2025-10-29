@@ -505,8 +505,9 @@ function applyTranslations(data) {
 
   document.querySelector('#projects h3').textContent = data.projects.title;
   document.getElementById('tfg').textContent = data.projects.inventory;
-  document.getElementById('portafolio').textContent = data.projects.portfolio;
   document.getElementById('compilador').textContent = data.projects.compiler;
+  document.getElementById('veritas').textContent = data.projects.veritas;
+  document.getElementById('vosvil').textContent = data.projects.vosvil;
 
   document.getElementById('certificates-title').textContent = data.certificates.title;
   document.getElementById('ef-set').textContent = data.certificates.efset;

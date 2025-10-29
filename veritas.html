@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas Diario con IA | Eduardo García Romera</title>
+    <meta name="description" content="Veritas: aplicación de diario emocional con IA. Tu espacio personal para reflexionar, crecer y entender tus emociones. Habla con Vera, tu asistente emocional. Disponible en iOS.">
+    <meta name="author" content="Eduardo García Romera">
+
+    <meta property="og:title" content="Veritas Diario con IA">
+    <meta property="og:description" content="Tu espacio personal para reflexionar, crecer y entender tus emociones con la ayuda de inteligencia artificial.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="img/veritas/personal.webp">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Veritas Diario con IA">
+    <meta name="twitter:description" content="Tu espacio personal para reflexionar, crecer y entender tus emociones con la ayuda de inteligencia artificial.">
+    <meta name="twitter:image" content="img/veritas/personal.webp">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veritas",
+      "operatingSystem": "iOS",
+      "applicationCategory": "LifestyleApplication",
+      "description": "Diario emocional con inteligencia artificial para ayudarte a reflexionar y crecer",
+      "url": "https://apps.apple.com/es/app/veritas-descubre-tu-verdad/id6745719311",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="css/veritas.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="header-logo">
+                <img src="img/veritas/veritas-logo.webp" alt="Veritas" class="logo-img" id="logoImg">
+                <span class="logo-text">Veritas</span>
+            </div>
+            <div class="header-controls">
+                <button id="langToggle" class="btn-icon" aria-label="Cambiar idioma">
+                    <span id="langText">EN</span>
+                </button>
+                <button id="themeToggle" class="btn-icon" aria-label="Cambiar tema">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <!-- Botón añadido: volver al index -->
+                <a href="index.html" class="btn btn-outline no-mobile" id="homeButton" aria-label="Volver al inicio" data-i18n="header.home">Inicio</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero reveal">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title" data-i18n="hero.title">Veritas</h1>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">Diario con IA, claridad sin ruido</p>
+                    <p class="hero-description" data-i18n="hero.description">Tu espacio personal para reflexionar, crecer y entender tus emociones con la ayuda de inteligencia artificial.</p>
+                    <div class="hero-buttons">
+                        <a href="#features" class="btn btn-primary">
+                            <span data-i18n="hero.features">Ver funciones</span>
+                            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <a href="#demo" class="btn btn-outline" data-i18n="hero.demo">Ver demo</a>
+                    </div>
+                    <div class="hero-badges">
+                        <span class="badge">iOS</span>
+                        <span class="badge">React Native</span>
+                        <span class="badge">IA</span>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="device-frame">
+                        <img src="img/veritas/personal.webp" alt="Veritas Personal Space" loading="eager" width="360" height="780">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section reveal">
+            <div class="container">
+                <h2 class="section-title" data-i18n="features.title">Funciones principales</h2>
+                <p class="section-subtitle" data-i18n="features.subtitle">Cada elemento diseñado para ayudarte a entender mejor tus emociones y experiencias</p>
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <figure>
+                            <div class="device-frame">
+                                <img src="img/veritas/personal.webp" alt="Panel personal" loading="lazy" width="360" height="780">
+                            </div>
+                            <figcaption data-i18n="features.personal">Panel personal</figcaption>
+                        </figure>
+                    </article>
+                    <article class="feature-card">
+                        <figure>
+                            <div class="device-frame">
+                                <img src="img/veritas/journal.webp" alt="Diario" loading="lazy" width="360" height="780">
+                            </div>
+                            <figcaption data-i18n="features.journal">Diario</figcaption>
+                        </figure>
+                    </article>
+                    <article class="feature-card">
+                        <figure>
+                            <div class="device-frame">
+                                <img src="img/veritas/peopleevents.webp" alt="Personas y eventos" loading="lazy" width="360" height="780">
+                            </div>
+                            <figcaption data-i18n="features.peopleevents">Personas y eventos</figcaption>
+                        </figure>
+                    </article>
+                    <article class="feature-card">
+                        <figure>
+                            <div class="device-frame">
+                                <img src="img/veritas/vera.webp" alt="Vera (asistente emocional)" loading="lazy" width="360" height="780">
+                            </div>
+                            <figcaption data-i18n="features.vera">Vera (asistente emocional)</figcaption>
+                        </figure>
+                    </article>
+                    <article class="feature-card">
+                        <figure>
+                            <div class="device-frame">
+                                <img src="img/veritas/cards.webp" alt="Cards inteligentes" loading="lazy" width="360" height="780">
+                            </div>
+                            <figcaption data-i18n="features.cards">Cards inteligentes</figcaption>
+                        </figure>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="premium" class="section section-alt reveal">
+            <div class="container">
+                <div class="premium-header">
+                    <svg class="premium-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <h2 class="section-title" data-i18n="premium.title">Funciones Premium</h2>
+                    <p class="section-subtitle" data-i18n="premium.subtitle">Desbloquea todo el potencial de Veritas</p>
+                </div>
+                <div class="premium-grid">
+                    <div class="premium-card">
+                        <svg class="premium-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" x2="12" y1="19" y2="22"></line>
+                        </svg>
+                        <p data-i18n="premium.vera">Vera - Asistente emocional con IA avanzada</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="premium-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                            <polyline points="16 7 22 7 22 13"></polyline>
+                        </svg>
+                        <p data-i18n="premium.evaluations">Evaluaciones más frecuentes y detalladas</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="premium-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" x2="12" y1="20" y2="10"></line>
+                            <line x1="18" x2="18" y1="20" y2="4"></line>
+                            <line x1="6" x2="6" y1="20" y2="16"></line>
+                        </svg>
+                        <p data-i18n="premium.report">Reporte semanal completo incluido</p>
+                    </div>
+                    <div class="premium-card">
+                        <svg class="premium-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        <p data-i18n="premium.insights">Insights profundos de patrones emocionales</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="section reveal">
+            <div class="container demo-content">
+                <div class="demo-text">
+                    <h2 class="section-title" data-i18n="demo.title">Evaluación inteligente</h2>
+                    <p class="demo-description" data-i18n="demo.description">Cada entrada se evalúa automáticamente con feedback práctico. Vera analiza tus emociones y te ofrece perspectivas valiosas para tu crecimiento personal.</p>
+                    <div class="demo-badge">
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
+                        <span data-i18n="demo.powered">Powered by AI</span>
+                    </div>
+                </div>
+                <div class="demo-video">
+                    <div class="device-frame">
+                        <video src="img/veritas/video-eval.mp4" controls playsinline preload="metadata" poster="img/veritas/journal.webp">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="section section-alt reveal">
+            <div class="container">
+                <h2 class="section-title" data-i18n="how.title">Cómo funciona</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="how.step1.title">Escribe sin filtros</h3>
+                        <p data-i18n="how.step1.desc">Expresa tus pensamientos libremente</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" x2="16" y1="2" y2="6"></line>
+                                <line x1="8" x2="8" y1="2" y2="6"></line>
+                                <line x1="3" x2="21" y1="10" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="how.step2.title">Etiqueta con @ y #</h3>
+                        <p data-i18n="how.step2.desc">Organiza personas y momentos</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" x2="12" y1="19" y2="22"></line>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="how.step3.title">Habla con Vera</h3>
+                        <p data-i18n="how.step3.desc">Tu asistente emocional siempre disponible</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="how.step4.title">Recibe insights</h3>
+                        <p data-i18n="how.step4.desc">Análisis personalizado continuo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section reveal">
+            <div class="container faq-container">
+                <h2 class="section-title" data-i18n="faq.title">Preguntas frecuentes</h2>
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="faq.q1">¿Es privado mi diario?</span>
+                            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </summary>
+                        <p data-i18n="faq.a1">Sí, tu privacidad es nuestra prioridad. Todos los datos están encriptados y solo tú tienes acceso a tu contenido. Usamos IA de forma local cuando es posible.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="faq.q2">¿Funciona sin internet?</span>
+                            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </summary>
+                        <p data-i18n="faq.a2">La escritura funciona offline y se sincroniza cuando vuelves a estar online. Las funciones de IA requieren conexión.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="faq.q3">¿Qué incluye el plan Premium?</span>
+                            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </summary>
+                        <p data-i18n="faq.a3">Acceso completo a Vera, evaluaciones más frecuentes y detalladas, reporte semanal automático con análisis profundo de patrones emocionales y sugerencias personalizadas.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="faq.q4">¿Puedo exportar mis datos?</span>
+                            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </summary>
+                        <p data-i18n="faq.a4">Sí, puedes exportar todo tu diario en formato PDF o JSON en cualquier momento.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="section section-alt reveal">
+            <div class="container cta-container">
+                <h2 class="section-title" data-i18n="cta.title">Comienza tu viaje de autoconocimiento</h2>
+                <p class="section-subtitle" data-i18n="cta.subtitle">Únete a personas que ya están transformando su bienestar emocional con Veritas</p>
+                <div class="cta-buttons">
+                    <a href="https://apps.apple.com/es/app/veritas-descubre-tu-verdad/id6745719311" target="_blank" class="btn btn-primary">
+                        <span data-i18n="cta.download">Descargar en App Store</span>
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <button id="backToTop" class="back-to-top" aria-label="Volver arriba">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="js/veritas.js"></script>
+</body>
+</html>
