@@ -153,6 +153,10 @@
 
 .shadow-es {
   border-radius: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .light-dark img {
@@ -988,6 +992,17 @@ main {
 
   .modal-content h2 {
     font-size: 1.2rem;
+  }
+
+  .eng-es {
+    display: flex;
+    height: 60px;
+    width: 55px;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: -56px;
+    box-shadow: none;
   }
 }
 .language-card {
