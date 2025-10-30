@@ -31,6 +31,8 @@
   --tec-color: #f5f5f5;
   --icons-color: #fff;
   --shadow: rgba(0, 0, 0, 0.281);
+  --glass-bg: rgba(255, 255, 255, 0.01);
+  --ico-glass: rgba(255, 255, 255, 0.164);
 
   /* Unified shadow system (three levels) */
   --shadow-s: inset 0 1px 2px rgba(255,255,255,0.12), 0 1px 2px rgba(0,0,0,0.30), 0 2px 4px rgba(0,0,0,0.12);
@@ -45,7 +47,9 @@
   --text-color-dark: #fff;
   --accent-color-dark: #4272f7;
   --icons-color-dark: #fcfde5;
-  --shadow-dark: rgba(224, 224, 224, 0.788);
+  --shadow-dark: rgba(224, 224, 224, 0.8);
+  --glass-bg-dark: rgba(32, 32, 32, 0.01);
+  --ico-glass-dark: rgba(255, 255, 255, 0.397);
 
   /*Efecto separadores archivador navbar
     Palette tuned to contrast with white icons centered on each separator.
@@ -94,6 +98,8 @@
   --sidebar-separator5: var(--sidebar-separator5-dark);
   --sidebar-separator6: var(--sidebar-separator6-dark);
   --sidebar-separator7: var(--sidebar-separator7-dark);
+  --glass-bg: var(--glass-bg-dark);
+  --ico-glass: var(--ico-glass-dark);
 
 
   --icons-color: var(--icons-color-dark);
@@ -578,44 +584,94 @@ section {
 #sidebar2 li:nth-child(1) {
   background-color: var(--sidebar-separator1);
   padding-top: 35px;
-  z-index: 2008;
+  z-index: 2014;
 }
 
 #sidebar2 li:nth-child(2) {
   background-color: var(--sidebar-separator2);
   padding-top: 105px;
-  z-index: 2007;
+  z-index: 2012;
 }
 
 #sidebar2 li:nth-child(3) {
   background-color: var(--sidebar-separator3);
   padding-top: 175px;
-  z-index: 2006;
+  z-index: 2010;
 }
 
 #sidebar2 li:nth-child(4) {
   background-color: var(--sidebar-separator4);
   padding-top: 245px;
-  z-index: 2005;
+  z-index: 2008;
 
 }
 
 #sidebar2 li:nth-child(5) {
   background-color: var(--sidebar-separator5);
   padding-top: 315px;
-  z-index: 2004;
+  z-index: 2006;
 }
 
 #sidebar2 li:nth-child(6) {
   background-color: var(--sidebar-separator6);
   padding-top: 385px;
-  z-index: 2003;
+  z-index: 2004;
 }
 
 #sidebar2 li:nth-child(7) {
   background-color: var(--sidebar-separator7);
   padding-top: 455px;
   z-index: 2002;
+}
+
+.blur {
+  color: var(--ico-glass) !important;
+}
+
+#sidebar2 li:nth-child(8) {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  padding-top: 35px;
+  z-index: 2013;
+}
+
+#sidebar2 li:nth-child(9) {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  padding-top: 105px;
+  z-index: 2011;
+}
+
+#sidebar2 li:nth-child(10) {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  padding-top: 175px;
+  z-index: 2009;
+}
+
+#sidebar2 li:nth-child(11) {
+  background-color: var(--glass-bg);
+  padding-top: 245px;
+  z-index: 2007;
+
+}
+
+#sidebar2 li:nth-child(12) {
+  background-color: var(--glass-bg);
+  padding-top: 315px;
+  z-index: 2005;
+}
+
+#sidebar2 li:nth-child(13) {
+  background-color: var(--glass-bg);
+  padding-top: 385px;
+  z-index: 2003;
+}
+
+#sidebar2 li:nth-child(14) {
+  background-color: var(--glass-bg);
+  padding-top: 455px;
+  z-index: 2001;
 }
 
 #sidebar li:hover {
