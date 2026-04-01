@@ -12,11 +12,15 @@
     "title": "My Certificates",
     "efset": "Advanced English C1",
     "responsive": "Responsive Web Design",
-    "frontend": "Frontend Architecture"
+    "frontend": "Frontend Architecture",
+    "degree": "Computer Engineering - UNED"
     ,
     "c1ModalTitle": "English Certificate — C1",
     "c1ModalDesc": "Preview of my official C1 English certificate. If your browser can't display it, you can download it using the link below.",
-    "c1Download": "Download C1 certificate"
+    "c1Download": "Download C1 certificate",
+    "degreeModalTitle": "Computer Engineering Degree",
+    "degreeModalDesc": "For privacy reasons, I cannot publish my engineering degree online. In an advanced interview stage, I will be happy to provide it.",
+    "degreeModalDismiss": "Dismiss"
   },
 
   "contact": {

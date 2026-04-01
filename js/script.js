@@ -516,6 +516,71 @@ function verticalMovement(){
   const sidebarLinks = document.querySelectorAll("#sidebar a[href^='#']");
   let isScrolling = false;
   let touchStartX = 0;
+  const isMobile = verifyMax768pxWidth();
+  let mobileSnapTimer = null;
+  let isSnappingToSection = false;
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function getClosestSectionIndexToViewportCenter() {
+    const viewportCenterY = window.innerHeight / 2;
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    sections.forEach((section, index) => {
+      const rect = section.getBoundingClientRect();
+      const sectionCenterY = rect.top + rect.height / 2;
+      const distance = Math.abs(sectionCenterY - viewportCenterY);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    return closestIndex;
+  }
+
+  function centerSectionByIndex(targetIndex) {
+    const section = sections[targetIndex];
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    const maxScrollTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const targetScrollTop = clamp(
+      window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2,
+      0,
+      maxScrollTop
+    );
+
+    const distanceToCenter = Math.abs((rect.top + rect.height / 2) - window.innerHeight / 2);
+    if (distanceToCenter < 14) return;
+
+    isSnappingToSection = true;
+    window.scrollTo({ top: targetScrollTop, behavior: "smooth" });
+
+    setTimeout(() => {
+      isSnappingToSection = false;
+      updateActiveSection();
+    }, 420);
+
+    const sectionId = section.getAttribute("id");
+    if (sectionId) {
+      try { history.replaceState(null, "", `#${sectionId}`); } catch (e) {}
+      updateSEOForSection(sectionId);
+      activeSectionId = sectionId;
+    }
+  }
+
+  function scheduleMobileSnap() {
+    if (!isMobile || modalOpened || isSnappingToSection) return;
+    if (mobileSnapTimer) clearTimeout(mobileSnapTimer);
+    mobileSnapTimer = setTimeout(() => {
+      const closestIndex = getClosestSectionIndexToViewportCenter();
+      centerSectionByIndex(closestIndex);
+    }, 140);
+  }
 
   function updateActiveSection() {
     if (modalOpened) {
@@ -563,8 +628,12 @@ function verticalMovement(){
 
   updateActiveSection();
 
-  const onScroll = () => updateActiveSection();
+  const onScroll = () => {
+    updateActiveSection();
+    scheduleMobileSnap();
+  };
   const onWheel = (event) => {
+    if (isMobile) return;
     event.preventDefault();
     if (!isScrolling && !modalOpened) {
       isScrolling = true;
@@ -584,6 +653,7 @@ function verticalMovement(){
   };
 
   const onTouchMove = (event) => {
+    if (isMobile) return;
     if (isScrolling || modalOpened) return;
     const touchEndY = event.touches[0].clientY;
     const touchEndX = event.touches[0].clientX;
@@ -614,16 +684,21 @@ function verticalMovement(){
   };
 
   window.addEventListener("scroll", onScroll);
-  window.addEventListener("wheel", onWheel, { passive: false });
-  window.addEventListener("touchstart", onTouchStart, { passive: true });
-  window.addEventListener("touchmove", onTouchMove, { passive: true });
+  if (!isMobile) {
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+  }
   sidebarLinks.forEach(link => link.addEventListener("click", onSidebarClick));
 
   return function cleanupVerticalMovement() {
+    if (mobileSnapTimer) clearTimeout(mobileSnapTimer);
     window.removeEventListener("scroll", onScroll);
-    window.removeEventListener("wheel", onWheel);
-    window.removeEventListener("touchstart", onTouchStart);
-    window.removeEventListener("touchmove", onTouchMove);
+    if (!isMobile) {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+    }
     sidebarLinks.forEach(link => link.removeEventListener("click", onSidebarClick));
   };
 }
@@ -767,9 +842,13 @@ const FALLBACK_TRANSLATIONS = {
       efset: "Inglés C1",
       responsive: "Responsive Web Design",
       frontend: "Arquitectura Frontend",
+      degree: "Ingeniería Informática - UNED",
       c1ModalTitle: "Certificado Inglés C1",
       c1ModalDesc: "Visualización de mi certificado oficial de nivel C1. Puedes descargarlo si tu navegador no lo muestra correctamente.",
-      c1Download: "Descargar certificado C1"
+      c1Download: "Descargar certificado C1",
+      degreeModalTitle: "Título de Ingeniería Informática",
+      degreeModalDesc: "Por privacidad no puedo exponer en internet mi título de Ingeniería Informática. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.",
+      degreeModalDismiss: "Entendido"
     },
     contact: {
       title: "Contacto",
@@ -819,9 +898,13 @@ const FALLBACK_TRANSLATIONS = {
       efset: "Advanced English C1",
       responsive: "Responsive Web Design",
       frontend: "Frontend Architecture",
+      degree: "Computer Engineering - UNED",
       c1ModalTitle: "English Certificate — C1",
       c1ModalDesc: "Preview of my official C1 English certificate. If your browser can't display it, you can download it using the link below.",
-      c1Download: "Download C1 certificate"
+      c1Download: "Download C1 certificate",
+      degreeModalTitle: "Computer Engineering Degree",
+      degreeModalDesc: "For privacy reasons, I cannot publish my engineering degree online. In an advanced interview stage, I will be happy to provide it.",
+      degreeModalDismiss: "Dismiss"
     },
     contact: {
       title: "Contact",
@@ -912,6 +995,7 @@ function applyTranslations(data) {
   setText('ef-set', data.certificates.efset);
   setText('responsive-web-design', data.certificates.responsive);
   setText('arquitectura-frontend', data.certificates.frontend);
+  setText('degree-uned', data.certificates.degree);
   // i18n for C1 modal
   if (data.certificates.c1ModalTitle) {
     const c1TitleEl = document.getElementById('c1-modal-title');
@@ -924,6 +1008,18 @@ function applyTranslations(data) {
   if (data.certificates.c1Download) {
     const c1DownloadEl = document.getElementById('c1-download-link');
     if (c1DownloadEl) c1DownloadEl.textContent = data.certificates.c1Download;
+  }
+  if (data.certificates.degreeModalTitle) {
+    const degreeTitleEl = document.getElementById('degree-modal-title');
+    if (degreeTitleEl) degreeTitleEl.textContent = data.certificates.degreeModalTitle;
+  }
+  if (data.certificates.degreeModalDesc) {
+    const degreeDescEl = document.getElementById('degree-modal-desc');
+    if (degreeDescEl) degreeDescEl.textContent = data.certificates.degreeModalDesc;
+  }
+  if (data.certificates.degreeModalDismiss) {
+    const degreeDismissEl = document.getElementById('degree-modal-dismiss');
+    if (degreeDismissEl) degreeDismissEl.textContent = data.certificates.degreeModalDismiss;
   }
 
   setText('experience-title', data.experience.title);

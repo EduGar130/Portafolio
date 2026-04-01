@@ -345,6 +345,9 @@
             </div>
             <div class="certificate-tile"><a href="https://www.freecodecamp.org/certification/EdGardian/responsive-web-design" target="_blank" rel="noopener noreferrer"><h3 id="responsive-web-design">Responsive Web Design</h3></a></div>
             <div class="certificate-tile"><a href="https://platzi.com/p/EduGar02/ruta/7-arquitecto-frontend-old/diploma/detalle/" target="_blank" rel="noopener noreferrer"><h3 id="arquitectura-frontend">Arquitectura Frontend</h3></a></div>
+            <div class="certificate-tile" onclick="openModal('modal-degree')">
+              <h3 id="degree-uned">Graduado en Ingeniería Informática - UNED</h3>
+            </div>
             </div>
           </div>
     </section>
@@ -364,6 +367,21 @@
               </object>
             </div>
             <p style="margin-top:12px;"><a id="c1-download-link" href="assets/C1.pdf" target="_blank" rel="noopener noreferrer">Descargar certificado C1</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-degree" class="modal" style="z-index: 1000000;">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="degree-modal-title">
+        <div class="modal-header">
+          <h2 id="degree-modal-title">Titulo de Ingenieria Informatica</h2>
+          <span class="close" onclick="closeModal('modal-degree')">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p id="degree-modal-desc" style="margin-top:0;">Por privacidad no puedo exponer en internet mi titulo de Ingenieria Informatica. En un proceso avanzado de entrevista estare encantado de adjuntarlo.</p>
+          <p style="margin-top:16px;">
+            <button id="degree-modal-dismiss" class="btn-alt" type="button" onclick="closeModal('modal-degree')">Entendido</button>
+          </p>
         </div>
       </div>
     </div>

@@ -12,11 +12,15 @@
     "title": "Mis Certificados",
     "efset": "Inglés C1",
     "responsive": "Responsive Web Design",
-    "frontend": "Arquitectura Frontend"
+    "frontend": "Arquitectura Frontend",
+    "degree": "Ingeniería Informática - UNED"
     ,
     "c1ModalTitle": "Certificado Inglés C1",
     "c1ModalDesc": "Visualización de mi certificado oficial de nivel C1. Puedes descargarlo si tu navegador no lo muestra correctamente.",
-    "c1Download": "Descargar certificado C1"
+    "c1Download": "Descargar certificado C1",
+    "degreeModalTitle": "Título de Ingeniería Informática",
+    "degreeModalDesc": "Por privacidad no puedo exponer en internet mi título de Ingeniería Informática. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.",
+    "degreeModalDismiss": "Entendido"
   },
 
   "contact": {
