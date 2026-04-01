@@ -96,7 +96,8 @@ const translations = {
   }
 };
 
-let currentLang = 'es';
+const savedPreferredLang = (localStorage.getItem('preferredLang') || '').toLowerCase();
+let currentLang = savedPreferredLang.startsWith('en') ? 'en' : 'es';
 
 // Theme Toggle
 const themeToggle = document.getElementById('themeToggle');
@@ -135,6 +136,7 @@ function updateLanguage() {
   });
   langText.textContent = currentLang === 'es' ? 'EN' : 'ES';
   document.documentElement.setAttribute('lang', currentLang);
+  localStorage.setItem('preferredLang', currentLang);
 }
 
 langToggle.addEventListener('click', () => {

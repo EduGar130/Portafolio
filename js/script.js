@@ -164,7 +164,7 @@ function activateMovementMode() {
 
 
 function init(){
-  const enlaceCV = document.getElementById('cv-link');
+  const enlaceCV = document.querySelector('#cv-link .cv-link') || document.querySelector('a.cv-link[download]');
   const initialTheme = getInitialThemePreference();
   applyThemeState(initialTheme === 'dark', false);
 
@@ -185,7 +185,15 @@ function init(){
     lang = (lang || 'en').toLowerCase();
     localStorage.setItem('preferredLang', lang);
     document.documentElement.setAttribute('lang', lang);
-    if (enlaceCV) enlaceCV.href = (lang === 'es') ? 'assets/CV_Eduardo.pdf' : 'assets/CV_Eduardo_en.pdf';
+    if (enlaceCV) {
+      if (lang === 'es') {
+        enlaceCV.href = 'assets/CV_Eduardo.pdf';
+        enlaceCV.setAttribute('download', 'cv_eduardo.pdf');
+      } else {
+        enlaceCV.href = 'assets/CV_Eduardo_En.pdf';
+        enlaceCV.setAttribute('download', 'cv_eduardo_en.pdf');
+      }
+    }
     // update lang wheel visual state
     const langWheel = document.getElementById('langWheel');
     if (langWheel) {

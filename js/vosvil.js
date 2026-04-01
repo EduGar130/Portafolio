@@ -133,9 +133,9 @@ const langToggle = document.getElementById('langToggle');
 const langText = document.getElementById('langText');
 const backToTop = document.getElementById('backToTop');
 
-const savedLang = localStorage.getItem('vosvil-lang');
+const savedLang = (localStorage.getItem('preferredLang') || localStorage.getItem('vosvil-lang') || '').toLowerCase();
 
-let currentLang = savedLang === 'en' ? 'en' : 'es';
+let currentLang = savedLang.startsWith('en') ? 'en' : 'es';
 
 // Vosvil uses a single visual mode: always dark.
 document.documentElement.classList.remove('light');
@@ -156,6 +156,7 @@ function setLanguage(lang) {
 
   document.documentElement.setAttribute('lang', selected);
   langText.textContent = selected === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('preferredLang', selected);
   localStorage.setItem('vosvil-lang', selected);
 }
 
