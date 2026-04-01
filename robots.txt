@@ -4,6 +4,12 @@
 
 User-agent: *
 Allow: /
+Disallow: /assets/*.pdf$
+Disallow: /assets/*.PDF$
+Disallow: /assets/C1.pdf
+Disallow: /assets/CV_Eduardo.pdf
+Disallow: /assets/CV_Eduardo_En.pdf
+Disallow: /assets/Carta_Recomendacion_Balearia.pdf
 
 Sitemap: https://eduardogr.com/sitemap.xml
 # Host directive is optional and not supported by all crawlers

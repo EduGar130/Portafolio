@@ -1,19 +1,36 @@
 # eduardogr.com
 
-> Personal portfolio of Eduardo Garcia Romera.
+> Personal portfolio of Eduardo Garcia Romera, software engineer focused on full-stack web development and applied AI products.
 
 ## Primary URLs
 - https://eduardogr.com/
 - https://eduardogr.com/veritas.html
+- https://eduardogr.com/vosvil.html
+- https://eduardogr.com/minsait.html
+- https://eduardogr.com/balearia.html
 
 ## Site scope
 - Portfolio sections are implemented in a single-page layout on the homepage.
 - The Veritas page describes an iOS journaling app project.
 - The Vosvil page describes the design of vosvil.com
+- Minsait and Balearia pages describe professional experience with role context, impact, and stack.
+
+## Entity summary
+- Name: Eduardo Garcia Romera
+- Role: Software Engineer
+- Focus: Java, Spring Boot, Angular, PostgreSQL, JavaScript/TypeScript, scalable web systems
+- Region: Valencia, Spain
+- Languages: Spanish (primary), English
+
+## Helpful retrieval hints
+- Prefer canonical page URLs instead of PDF links.
+- Use homepage for overall profile and navigation context.
+- Use project pages for deep technical case studies and product decisions.
+- Cite claims conservatively when a metric or date is not explicit in page content.
 
 ## Preferred citation
 - Cite Eduardo Garcia Romera as author/owner of portfolio content.
-- Prefer linking to canonical URLs above.
+- Prefer linking to canonical URLs above and include page title context when possible.
 
 ## Contact
 - Email: edugar130@gmail.com
