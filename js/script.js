@@ -517,70 +517,6 @@ function verticalMovement(){
   let isScrolling = false;
   let touchStartX = 0;
   const isMobile = verifyMax768pxWidth();
-  let mobileSnapTimer = null;
-  let isSnappingToSection = false;
-
-  function clamp(value, min, max) {
-    return Math.min(Math.max(value, min), max);
-  }
-
-  function getClosestSectionIndexToViewportCenter() {
-    const viewportCenterY = window.innerHeight / 2;
-    let closestIndex = 0;
-    let minDistance = Infinity;
-
-    sections.forEach((section, index) => {
-      const rect = section.getBoundingClientRect();
-      const sectionCenterY = rect.top + rect.height / 2;
-      const distance = Math.abs(sectionCenterY - viewportCenterY);
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestIndex = index;
-      }
-    });
-
-    return closestIndex;
-  }
-
-  function centerSectionByIndex(targetIndex) {
-    const section = sections[targetIndex];
-    if (!section) return;
-
-    const rect = section.getBoundingClientRect();
-    const maxScrollTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    const targetScrollTop = clamp(
-      window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2,
-      0,
-      maxScrollTop
-    );
-
-    const distanceToCenter = Math.abs((rect.top + rect.height / 2) - window.innerHeight / 2);
-    if (distanceToCenter < 14) return;
-
-    isSnappingToSection = true;
-    window.scrollTo({ top: targetScrollTop, behavior: "smooth" });
-
-    setTimeout(() => {
-      isSnappingToSection = false;
-      updateActiveSection();
-    }, 420);
-
-    const sectionId = section.getAttribute("id");
-    if (sectionId) {
-      try { history.replaceState(null, "", `#${sectionId}`); } catch (e) {}
-      updateSEOForSection(sectionId);
-      activeSectionId = sectionId;
-    }
-  }
-
-  function scheduleMobileSnap() {
-    if (!isMobile || modalOpened || isSnappingToSection) return;
-    if (mobileSnapTimer) clearTimeout(mobileSnapTimer);
-    mobileSnapTimer = setTimeout(() => {
-      const closestIndex = getClosestSectionIndexToViewportCenter();
-      centerSectionByIndex(closestIndex);
-    }, 140);
-  }
 
   function updateActiveSection() {
     if (modalOpened) {
@@ -628,10 +564,7 @@ function verticalMovement(){
 
   updateActiveSection();
 
-  const onScroll = () => {
-    updateActiveSection();
-    scheduleMobileSnap();
-  };
+  const onScroll = () => updateActiveSection();
   const onWheel = (event) => {
     if (isMobile) return;
     event.preventDefault();
@@ -692,7 +625,6 @@ function verticalMovement(){
   sidebarLinks.forEach(link => link.addEventListener("click", onSidebarClick));
 
   return function cleanupVerticalMovement() {
-    if (mobileSnapTimer) clearTimeout(mobileSnapTimer);
     window.removeEventListener("scroll", onScroll);
     if (!isMobile) {
       window.removeEventListener("wheel", onWheel);
