@@ -352,7 +352,7 @@
           </div>
     </section>
 
-    <!-- Modal para visualizar C1 PDF -->
+    <!-- Modal para certificado C1 -->
     <div id="modal-c1" class="modal" style="z-index: 1000000;">
       <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="c1-modal-title">
         <div class="modal-header">
@@ -360,13 +360,10 @@
           <span class="close" onclick="closeModal('modal-c1')">&times;</span>
         </div>
         <div class="modal-body">
-            <p id="c1-modal-desc" style="margin-top:0;">Visualización del certificado C1. Si tu navegador no puede mostrar el PDF incrustado, usa el enlace de descarga.</p>
-            <div style="width:100%;height:70vh;border-radius:8px;overflow:hidden;">
-              <object data="assets/C1.pdf" type="application/pdf" width="100%" height="100%">
-                <p>Tu navegador no puede mostrar PDFs en línea. <a href="assets/C1.pdf" target="_blank" rel="noopener noreferrer">Descargar el certificado C1</a>.</p>
-              </object>
-            </div>
-            <p style="margin-top:12px;"><a id="c1-download-link" href="assets/C1.pdf" target="_blank" rel="noopener noreferrer">Descargar certificado C1</a></p>
+          <p id="c1-modal-desc" style="margin-top:0;">Por privacidad no puedo exponer en internet mi certificado de Inglés C1. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.</p>
+          <p style="margin-top:16px;">
+            <button id="c1-modal-dismiss" class="btn-alt" type="button" onclick="closeModal('modal-c1')">Entendido</button>
+          </p>
         </div>
       </div>
     </div>

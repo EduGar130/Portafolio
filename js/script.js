@@ -776,8 +776,8 @@ const FALLBACK_TRANSLATIONS = {
       frontend: "Arquitectura Frontend",
       degree: "Ingeniería Informática - UNED",
       c1ModalTitle: "Certificado Inglés C1",
-      c1ModalDesc: "Visualización de mi certificado oficial de nivel C1. Puedes descargarlo si tu navegador no lo muestra correctamente.",
-      c1Download: "Descargar certificado C1",
+      c1ModalDesc: "Por privacidad no puedo exponer en internet mi certificado de Inglés C1. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.",
+      c1ModalDismiss: "Entendido",
       degreeModalTitle: "Título de Ingeniería Informática",
       degreeModalDesc: "Por privacidad no puedo exponer en internet mi título de Ingeniería Informática. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.",
       degreeModalDismiss: "Entendido"
@@ -832,8 +832,8 @@ const FALLBACK_TRANSLATIONS = {
       frontend: "Frontend Architecture",
       degree: "Computer Engineering - UNED",
       c1ModalTitle: "English Certificate — C1",
-      c1ModalDesc: "Preview of my official C1 English certificate. If your browser can't display it, you can download it using the link below.",
-      c1Download: "Download C1 certificate",
+      c1ModalDesc: "For privacy reasons, I cannot publish my C1 English certificate online. In an advanced interview stage, I will be happy to provide it.",
+      c1ModalDismiss: "Dismiss",
       degreeModalTitle: "Computer Engineering Degree",
       degreeModalDesc: "For privacy reasons, I cannot publish my engineering degree online. In an advanced interview stage, I will be happy to provide it.",
       degreeModalDismiss: "Dismiss"
@@ -937,9 +937,9 @@ function applyTranslations(data) {
     const c1DescEl = document.getElementById('c1-modal-desc');
     if (c1DescEl) c1DescEl.textContent = data.certificates.c1ModalDesc;
   }
-  if (data.certificates.c1Download) {
-    const c1DownloadEl = document.getElementById('c1-download-link');
-    if (c1DownloadEl) c1DownloadEl.textContent = data.certificates.c1Download;
+  if (data.certificates.c1ModalDismiss) {
+    const c1DismissEl = document.getElementById('c1-modal-dismiss');
+    if (c1DismissEl) c1DismissEl.textContent = data.certificates.c1ModalDismiss;
   }
   if (data.certificates.degreeModalTitle) {
     const degreeTitleEl = document.getElementById('degree-modal-title');
