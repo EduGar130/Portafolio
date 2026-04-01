@@ -1626,6 +1626,7 @@ main {
 @media screen and (max-width: 768px) {
   :root {
     --mobile-gutter: 12px;
+    --mobile-sidebar-height: 8dvh;
   }
 
   html,
@@ -1692,7 +1693,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 8dvh;
+    height: var(--mobile-sidebar-height);
     width: 100%;
     box-shadow: var(--shadow-l);
     background-color: var(--sidebar-color);
@@ -1720,7 +1721,7 @@ main {
     width: 100%;
     max-width: 100dvw;
     margin-left: 0px;
-    padding-bottom: calc(8dvh + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--mobile-sidebar-height) + env(safe-area-inset-bottom, 0px));
   }
 
   section {
@@ -1733,15 +1734,11 @@ main {
     border-start-start-radius: 0px;
     border-end-start-radius: 0px;
     box-sizing: border-box;
-    min-height: 100vh;
-    min-height: 100lvh;
-    height: 100vh;
-    height: 100lvh;
+    min-height: auto;
+    height: auto;
     padding-top: 0.85rem;
-    padding-bottom: calc(8dvh + env(safe-area-inset-bottom, 0px) + 0.85rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding-bottom: calc(var(--mobile-sidebar-height) + env(safe-area-inset-bottom, 0px) + 0.85rem);
+    display: block;
     text-align: center;
     background-color: var(--main-bg-color);
     background-image: var(--paper-pattern), var(--paper-grid), var(--paper-noise);
@@ -1751,13 +1748,17 @@ main {
     box-shadow: var(--section-shadow-left), var(--shadow-l);
   }
 
+  main > section:first-of-type {
+    min-height: calc(100dvh - var(--mobile-sidebar-height) - env(safe-area-inset-bottom, 0px));
+  }
+
   section + section {
     margin-top: 0;
   }
 
   .light-dark {
     position: fixed;
-    bottom: calc(8dvh + env(safe-area-inset-bottom, 0px) + 0.35rem);
+    bottom: calc(var(--mobile-sidebar-height) + env(safe-area-inset-bottom, 0px) + 0.35rem);
     right: 0;
     left: auto;
     transform: translateX(50%);
@@ -1772,7 +1773,7 @@ main {
 
   .eng-es {
     position: fixed;
-    bottom: calc(8dvh + env(safe-area-inset-bottom, 0px) + 0.35rem);
+    bottom: calc(var(--mobile-sidebar-height) + env(safe-area-inset-bottom, 0px) + 0.35rem);
     left: 0;
     right: auto;
     transform: translateX(-50%);
@@ -2076,7 +2077,7 @@ main {
   }
 
   #swipeRight {
-    display: flex;
+    display: none;
   }
   .modal-content {
     width: 92%;
@@ -2100,7 +2101,7 @@ main {
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: calc(8dvh + env(safe-area-inset-bottom, 0px) + 0.35rem);
+    bottom: calc(var(--mobile-sidebar-height) + env(safe-area-inset-bottom, 0px) + 0.35rem);
     z-index: 210000;
     box-shadow: none;
   }

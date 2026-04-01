@@ -452,7 +452,7 @@ function init(){
 
   // Swipe indicator: click to go to next section (if any)
   const swipeRight = document.getElementById('swipeRight');
-  if (swipeRight) {
+  if (swipeRight && !verifyMax768pxWidth()) {
     swipeRight.addEventListener('click', () => {
       try {
         const sections = Array.from(document.querySelectorAll('section'));
@@ -506,10 +506,12 @@ function init(){
       updateSidebar2Positions();
     }, 50);
     // Debounce para evitar ejecuciones repetidas al redimensionar
-    if (resizeResetTimer) clearTimeout(resizeResetTimer);
-    resizeResetTimer = setTimeout(() => {
-      resetSidebarAndGoWelcome();
-    }, 160);
+    if (!verifyMax768pxWidth()) {
+      if (resizeResetTimer) clearTimeout(resizeResetTimer);
+      resizeResetTimer = setTimeout(() => {
+        resetSidebarAndGoWelcome();
+      }, 160);
+    }
   });
 }
 
@@ -615,6 +617,7 @@ function verticalMovement(){
   };
 
   const onSidebarClick = (event) => {
+    if (isMobile) return;
     const href = event.currentTarget.getAttribute("href") || "";
     const id = href.startsWith("#") ? href.slice(1) : "";
     const idx = Array.from(sections).findIndex(section => section.id === id);
@@ -629,8 +632,8 @@ function verticalMovement(){
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchmove", onTouchMove, { passive: true });
+    sidebarLinks.forEach(link => link.addEventListener("click", onSidebarClick));
   }
-  sidebarLinks.forEach(link => link.addEventListener("click", onSidebarClick));
 
   return function cleanupVerticalMovement() {
     window.removeEventListener("scroll", onScroll);
@@ -638,8 +641,8 @@ function verticalMovement(){
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchmove", onTouchMove);
+      sidebarLinks.forEach(link => link.removeEventListener("click", onSidebarClick));
     }
-    sidebarLinks.forEach(link => link.removeEventListener("click", onSidebarClick));
   };
 }
 
