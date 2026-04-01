@@ -335,6 +335,22 @@ function init(){
     console.warn('certificate tile binding error', e);
   }
 
+  // Hace clicables los iconos de welcome sin usar <a> para no alterar estilos.
+  try {
+    const welcomeIconItems = document.querySelectorAll('#welcome-section .welcome-icons li[data-url]');
+    welcomeIconItems.forEach(item => {
+      if (item.dataset.linkListenerAttached) return;
+      item.style.cursor = 'pointer';
+      item.addEventListener('click', () => {
+        const url = item.dataset.url;
+        if (url) window.open(url, '_blank', 'noopener,noreferrer');
+      });
+      item.dataset.linkListenerAttached = '1';
+    });
+  } catch (e) {
+    console.warn('welcome icon link binding error', e);
+  }
+
   /* Sincronizar #sidebar2 li con el movimiento de las secciones: cada li sube/ baja con su sección
      y desaparece cuando la sección no está en viewport. Implementación eficiente con rAF. */
   const sidebar2 = document.getElementById('sidebar2');
