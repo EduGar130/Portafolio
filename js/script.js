@@ -172,7 +172,7 @@ function init(){
     const logoImg = document.getElementById('veritasProjectLogo');
     if (!logoImg) return;
     const isDark = document.documentElement.classList.contains('dark-mode');
-    logoImg.src = isDark ? 'img/veritas/veritas-logo-dark.webp' : 'img/veritas/veritas-logo.webp';
+    logoImg.src = isDark ? 'img/Veritas/veritas-logo-dark.webp' : 'img/Veritas/veritas-logo.webp';
   }
 
   // Preferencia guardada en localStorage > navegador
