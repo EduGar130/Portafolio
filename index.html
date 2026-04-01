@@ -5,36 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portafolio profesional de Eduardo García Romera, ingeniero informático y desarrollador web. Descubre mis proyectos, habilidades y experiencia laboral.">
   <title>Eduardo García Romera | Mi carrera profesional</title>
-  <link rel="canonical" href="https://eduardogr.com">
+  <link rel="canonical" href="https://eduardogr.com/">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="img/ico/favicon.ico" type="image/x-icon">
+  <script>
+    (function () {
+      var key = 'preferredTheme';
+      var stored = null;
+      try { stored = localStorage.getItem(key); } catch (e) {}
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark-mode');
+      } else {
+        document.documentElement.classList.remove('dark-mode');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;700&family=Patrick+Hand&family=Playfair+Display:wght@500;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     .work-card { margin-top: 18px; display:flex; justify-content:center; }
     .work-card-link {
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:10px;
       max-width:560px;
       width:100%;
-      padding:12px 16px;
-      border-radius:12px;
+      padding:8px 12px;
+      border-radius:10px;
+      border: 2px dashed rgba(19, 49, 71, 0.32);
+      background: rgba(255,255,255,0.34);
       text-decoration:none;
       color: var(--text-color);
       box-shadow: 0 8px 20px var(--shadow);
+      overflow: hidden;
       transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease;
     }
-    .work-card-link:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,0.18); }
-  .work-card-icon { background: rgba(0,0,0,0.06); padding:10px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; }
+    .work-card-link:hover { transform: none; box-shadow: 0 12px 24px rgba(0,0,0,0.16); }
+  .work-card-icon { background: rgba(0,0,0,0.06); padding:8px; border-radius:10px; border: 1px dashed rgba(19, 49, 71, 0.35); display:flex; align-items:center; justify-content:center; font-size:20px; }
   .work-card-icon img { width:32px; height:32px; object-fit:cover; display:block; }
   /* Make black logo appear white in dark mode */
   .dark-mode .work-card-icon img { filter: invert(1) brightness(2); }
-    .work-card-content strong { display:block; font-size:1rem; }
+    .work-card-content { min-width: 0; }
+    .work-card-content strong { display:block; font-size:1.06rem; line-height:1.2; overflow-wrap:anywhere; font-family: 'Caveat', 'Segoe Print', cursive; }
     .work-card-sub { display:block; font-size:0.86rem; opacity:0.9; margin-top:3px; }
-    .work-card-cta { margin-left:auto; background: rgba(0,0,0,0.06); padding:8px 12px; border-radius:999px; font-weight:700; color:var(--text-color); }
+    .work-card-cta { margin-left:auto; background: rgba(0,0,0,0.06); padding:6px 10px; border-radius:999px; border: 1px dashed rgba(19, 49, 71, 0.35); font-weight:700; color:var(--text-color); }
     @media (max-width:768px) { .work-card-link{padding:10px;} .work-card-content strong{font-size:0.98rem;} }
     /* Language wheel styles (mirrors .light-dark on the right) */
     .lang-toggle {
@@ -60,22 +78,24 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Eduardo García Romera | Mi carrera profesional">
   <meta property="og:description" content="Aquí encontrarás mis proyectos destacados y mi experiencia profesional como desarrollador web.">
-  <meta property="og:url" content="/">
-  <meta property="og:image" content="/img/og.png">
+  <meta property="og:url" content="https://eduardogr.com/">
+  <meta property="og:image" content="https://eduardogr.com/img/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Eduardo García Romera | Mi carrera profesional">
   <meta name="twitter:description" content="Aquí encontrarás mis proyectos destacados y mi experiencia profesional como desarrollador web.">
+  <meta name="twitter:image" content="https://eduardogr.com/img/og.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Eduardo García Romera",
-    "url": "/",
-    "image": "/img/og.png",
+    "url": "https://eduardogr.com/",
+    "image": "https://eduardogr.com/img/og.png",
     "jobTitle": "Desarrollador Web",
     "sameAs": []
   }
   </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-29JXMVE3GC"></script>
   <script src="https://unpkg.com/i18next@21.6.14/dist/umd/i18next.min.js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -103,11 +123,11 @@
   <nav id="sidebar">
     <ul>
       <li><a aria-label="Bienvenida" href="#welcome-section"><i class="fas fa-home"></i></a></li>
+      <li><a aria-label="Experiencia laboral" href="#experience"><i class="fa-solid fa-briefcase"></i></a></li>
       <li><a aria-label="Sobre mí" href="#about"><i class="fas fa-user"></i></a></li>
       <li><a aria-label="Habilidades" href="#skills"><i class="fa-solid fa-bolt"></i></a></li>
       <li><a aria-label="Proyectos" href="#projects"><i class="fa-solid fa-rocket"></i></a></li>
       <li><a aria-label="Certificados" href="#certificates"><i class="fa-solid fa-award"></i></a></li>
-      <li><a aria-label="Experiencia laboral" href="#experience"><i class="fa-solid fa-briefcase"></i></a></li>
       <li><a aria-label="Contacto" href="#contact"><i class="fa-solid fa-phone"></i></a></li>
     </ul>
   </nav>
@@ -115,19 +135,19 @@
   <nav id="sidebar2">
     <ul>
       <li><a aria-label="Bienvenida" href="#welcome-section"><i class="fas fa-home"></i></a></li>
+      <li><a aria-label="Experiencia laboral" href="#experience"><i class="fa-solid fa-briefcase"></i></a></li>
       <li><a aria-label="Sobre mí" href="#about"><i class="fas fa-user"></i></a></li>
       <li><a aria-label="Habilidades" href="#skills"><i class="fa-solid fa-bolt"></i></a></li>
       <li><a aria-label="Proyectos" href="#projects"><i class="fa-solid fa-rocket"></i></a></li>
       <li><a aria-label="Certificados" href="#certificates"><i class="fa-solid fa-award"></i></a></li>
-      <li><a aria-label="Experiencia laboral" href="#experience"><i class="fa-solid fa-briefcase"></i></a></li>
       <li><a aria-label="Contacto" href="#contact"><i class="fa-solid fa-phone"></i></a></li>
 
       <li><a aria-label="Bienvenida" href="#welcome-section"><i class="fas fa-home blur"></i></a></li>
+      <li><a aria-label="Experiencia laboral" href="#experience"><i class="fa-solid fa-briefcase blur"></i></a></li>
       <li><a aria-label="Sobre mí" href="#about"><i class="fas fa-user blur"></i></a></li>
       <li><a aria-label="Habilidades" href="#skills"><i class="fa-solid fa-bolt blur"></i></a></li>
       <li><a aria-label="Proyectos" href="#projects"><i class="fa-solid fa-rocket blur"></i></a></li>
       <li><a aria-label="Certificados" href="#certificates"><i class="fa-solid fa-award blur"></i></a></li>
-      <li><a aria-label="Experiencia laboral" href="#experience"><i class="fa-solid fa-briefcase blur"></i></a></li>
       <li><a aria-label="Contacto" href="#contact"><i class="fa-solid fa-phone blur"></i></a></li>
     </ul>
   </nav>
@@ -149,7 +169,6 @@
             <li><i class="devicon-angularmaterial-plain"></i></li>
             <li><i class="devicon-github-original"></i></li>
             <li><i class="devicon-git-plain"></i></li>
-            <li><i class="devicon-haskell-plain"></i></li>
           </ul>
         </div>
         <div class="welcome-text">
@@ -162,11 +181,45 @@
           </div>
         </div>
       </div>
-      
-      <div class="swipe-indicator-right" id="swipeRight">
-        <i class="fas fa-chevron-right"></i>
-      </div>
     </section>
+
+     <section id="experience">
+        <div class="projects experience-board">
+            <h2 id="experience-title">Experiencia laboral</h2>
+
+            <div class="experience-live-panel">
+              <p id="experience-live-label">Experiencia total en el sector</p>
+              <p id="experience-live-counter" data-sector-start="2023-11-01T00:00:00Z" aria-live="polite">0 años 0 meses</p>
+            </div>
+
+            <h3 id="experience-timeline-title" class="experience-timeline-title">Cronograma profesional</h3>
+            <div class="experience-timeline" aria-label="Cronograma de experiencia profesional">
+              <a class="timeline-item experience-link current" href="minsait.html" aria-label="Ver experiencia detallada en Minsait">
+                <span class="experience-link-logo" aria-hidden="true">
+                  <img src="img/minsait.webp" alt="">
+                </span>
+                <span class="experience-link-copy">
+                  <p class="timeline-date" id="timeline-minsait-period">ene. 2024 - actualidad</p>
+                  <h3 id="minsait-link-title">Ingeniero de Software - Minsait</h3>
+                  <small id="minsait-link-cta">Ver detalle</small>
+                </span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+
+              <a class="timeline-item experience-link" href="balearia.html" aria-label="Ver experiencia detallada en Baleària">
+                <span class="experience-link-logo" aria-hidden="true">
+                  <img src="img/balearia.webp" alt="">
+                </span>
+                <span class="experience-link-copy">
+                  <p class="timeline-date" id="timeline-balearia-period">nov. 2023 - ene. 2024</p>
+                  <h3 id="balearia-link-title">Becario Full-Stack - Baleària</h3>
+                  <small id="balearia-link-cta">Ver detalle</small>
+                </span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+        </div>
+      </section>
 
     <section id="about">
         <div class="about">
@@ -187,10 +240,10 @@
               </a>
             </div>
             <div id="social">
-                <a aria-label="Mi LinkedIn" href="https://www.linkedin.com/in/egromera/" target="_blank">
+                <a aria-label="Mi LinkedIn" href="https://www.linkedin.com/in/egromera/" target="_blank" rel="noopener noreferrer">
                 <i class="devicon-linkedin-plain"></i>
                 </a>
-                <a aria-label="Mi GitHub" href="https://github.com/EduGar130" target="_blank">
+                <a aria-label="Mi GitHub" href="https://github.com/EduGar130" target="_blank" rel="noopener noreferrer">
                 <i class="devicon-github-original"></i>
                 </a>
             </div>
@@ -203,9 +256,21 @@
             <p>Experiencia en Java, Spring Boot, Angular, SQL, JavaScript, TypeScript, CSS, y HTML. Competente en React.js, Bootstrap, Redux y desarrollo de APIs RESTful. Familiarizado con Docker, Git, metodologías ágiles y herramientas como Jira y Slack.</p>
             <div class="skill-icons">
                 <ul>
-                    <li><i class="devicon-java-plain"></i></li>
-                    <li><i class="devicon-spring-original"></i></li>
-                    <li><i class="devicon-angular-plain"></i></li>
+                    <li>
+                      <a aria-label="Documentación oficial de Java" href="https://docs.oracle.com/en/java/" target="_blank" rel="noopener noreferrer">
+                        <i class="devicon-java-plain"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a aria-label="Documentación oficial de Spring" href="https://docs.spring.io/spring-boot/index.html" target="_blank" rel="noopener noreferrer">
+                        <i class="devicon-spring-original"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a aria-label="Documentación oficial de Angular" href="https://angular.dev/overview" target="_blank" rel="noopener noreferrer">
+                        <i class="devicon-angular-plain"></i>
+                      </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -213,27 +278,41 @@
 
     <section id="projects">
       <div class="projects">
-          <div class="certificate-title">
-              <h3>Proyectos destacados</h3>
+            <h2>Proyectos destacados</h2>
+          <div class="certificates-container">
+            <div class="certificate-tile"><a href="https://github.com/EduGar130/TFG-LSI" target="_blank" rel="noopener noreferrer"><h3 id="tfg">Gestor de Inventario Web</h3></a></div>
+            <div class="certificate-tile"><a href="https://github.com/EduGar130/Compilador-ADA" target="_blank" rel="noopener noreferrer"><h3 id="compilador">Compilador ADA</h3></a></div>
+            <div class="certificate-tile themed-project-btn veritas-btn">
+              <a href="veritas.html" aria-label="Ir a Veritas">
+                <span class="project-btn-logo" aria-hidden="true">
+                  <img id="veritasProjectLogo" src="img/veritas/veritas-logo.webp" alt="">
+                </span>
+                <h3 id="veritas">Veritas Descubre tu verdad</h3>
+              </a>
+            </div>
+            <div class="certificate-tile themed-project-btn vosvil-btn">
+              <a href="vosvil.html" aria-label="Ir a Vosvil">
+                <span class="project-btn-logo" aria-hidden="true">
+                  <img src="img/vosvil-logo.webp" alt="">
+                </span>
+                <h3 id="vosvil">Vosvil Concierge de lujo</h3>
+              </a>
+            </div>
           </div>
-          <div class="certificate-tile"><a href="https://github.com/EduGar130/TFG-LSI" target="_blank"><h3 id="tfg">Gestor de Inventario Web</h3></a></div>
-          <div class="certificate-tile"><a href="https://github.com/EduGar130/Compilador-ADA" target="_blank"><h3 id="compilador">Compilador ADA</h3></a></div>
-          <div class="certificate-tile"><a href="veritas.html"><h3 id="veritas">Veritas - Descubre tu verdad</h3></a></div>
-          <div class="certificate-tile"><a href="https://vosvil.com" target="_blank"><h3 id="vosvil">Vosvil - Concierge de lujo</h3></a></div>
-      </div>
+        </div>
     </section>
 
     <section id="certificates">
         <div class="certificates">
-            <div class="certificate-title">
-                <h3 id="certificates-title">Mis Certificados</h3>
-            </div>
+          <h2 id="certificates-title">Mis Certificados</h2>
+          <div class="certificates-container">
             <div class="certificate-tile" onclick="openModal('modal-c1')">
               <h3 id="ef-set">C1 Inglés</h3>
             </div>
-            <div class="certificate-tile"><a href="https://www.freecodecamp.org/certification/EdGardian/responsive-web-design" target="_blank"><h3 id="responsive-web-design">Responsive Web Design</h3></a></div>
-            <div class="certificate-tile"><a href="https://platzi.com/p/EduGar02/ruta/7-arquitecto-frontend-old/diploma/detalle/" target="_blank"><h3 id="arquitectura-frontend">Arquitectura Frontend</h3></a></div>
-        </div>
+            <div class="certificate-tile"><a href="https://www.freecodecamp.org/certification/EdGardian/responsive-web-design" target="_blank" rel="noopener noreferrer"><h3 id="responsive-web-design">Responsive Web Design</h3></a></div>
+            <div class="certificate-tile"><a href="https://platzi.com/p/EduGar02/ruta/7-arquitecto-frontend-old/diploma/detalle/" target="_blank" rel="noopener noreferrer"><h3 id="arquitectura-frontend">Arquitectura Frontend</h3></a></div>
+            </div>
+          </div>
     </section>
 
     <!-- Modal para visualizar C1 PDF -->
@@ -255,110 +334,9 @@
       </div>
     </div>
 
-    <section id="experience">
-      <div class="projects">
-          <div class="certificate-title">
-              <h3 id="experience-title">Experiencia laboral</h3>
-          </div>
-          <div class="certificate-tile" onclick="openModal('modal-minsait')">
-              <h3 id="minsait-title">Ingeniero de Software - Minsait</h3>
-          </div>
-          <div class="certificate-tile" onclick="openModal('modal-balearia')">
-              <h3 id="balearia-title">Becario Full-Stack - Baleària</h3>
-          </div>
-      </div>
-
-      <!-- Modal para Minsait -->
-      <div id="modal-minsait" class="modal">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h2 id="minsait-title-modal">Ingeniero de Software - Minsait</h2>
-                  <span class="close" onclick="closeModal('modal-minsait')">&times;</span>
-              </div>
-              <div class="modal-body">
-                  <div class="row">
-                  <h3 id="minsait-period">Período</h3>
-                  <p id="minsait-period-text">Abril 2024 - Presente</p>
-                  </div>
-                  <div class="row">
-                  <h3 id="minsait-location">Ubicación</h3>
-                  <p id="minsait-location-text">Remoto</p>
-                  </div>
-                  <div class="column">
-                  <h3 id="minsait-responsibilities">Responsabilidades</h3>
-                  <ul>
-                      <li id="responsabilidad-minsait1">Desarrollo de aplicaciones web utilizando tecnologías modernas</li>
-                      <li id="responsabilidad-minsait2">Implementación de soluciones backend y frontend</li>
-                      <li id="responsabilidad-minsait3">Colaboración en equipos ágiles</li>
-                      <li id="responsabilidad-minsait4">Mantenimiento y optimización de código existente</li>
-                  </ul>
-                  </div>
-                  <div class="column">
-
-                  <h3 id="minsait-technologies">Tecnologías utilizadas</h3>
-                  <div class="tecnologias">
-                      <div class="tecnologia">JavaScript</div>
-                      <div class="tecnologia">TypeScript</div>
-                      <div class="tecnologia">Angular</div>
-                      <div class="tecnologia">Java</div>
-                      <div class="tecnologia">SpringBoot</div>
-                      <div class="tecnologia">SQL</div>
-                      <div class="tecnologia">API REST</div>
-                  </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <!-- Modal para Baleària -->
-      <div id="modal-balearia" class="modal">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h2 id="balearia-title-modal">Becario Full-Stack - Baleària</h2>
-                  <span class="close" onclick="closeModal('modal-balearia')">&times;</span>
-              </div>
-              <div class="modal-body">
-                  <div class="row">
-                  <h3 id="balearia-period">Período</h3>
-                  <p id="balearia-period-text">Noviembre 2023 - Enero 2024</p>
-                  </div>
-                  <div class="row">
-                  <h3 id="balearia-location">Ubicación</h3>
-                  <p id="balearia-location-text">Dénia (Alicante), España</p>
-                  </div>
-                  <div class="column">
-                  <h3 id="balearia-responsibilities">Responsabilidades</h3>
-                  <ul>
-                      <li id="responsabilidad-balearia1">Desarrollo de aplicaciones web full-stack</li>
-                      <li id="responsabilidad-balearia2">Implementación de APIs REST</li>
-                      <li id="responsabilidad-balearia3">Desarrollo frontend con frameworks modernos</li>
-                      <li id="responsabilidad-balearia4">Trabajo con bases de datos relacionales</li>
-                      <li id="responsabilidad-balearia5">Testing y debugging de aplicaciones</li>
-                      <li id="responsabilidad-balearia6">Documentación técnica</li>
-                  </ul>
-
-                  <h3 id="balearia-technologies">Tecnologías utilizadas</h3>
-                  <div class="tecnologias">
-                      <div class="tecnologia">JavaScript</div>
-                      <div class="tecnologia">React.js</div>
-                      <div class="tecnologia">Angular</div>
-                      <div class="tecnologia">Java</div>
-                      <div class="tecnologia">Spring Boot</div>
-                      <div class="tecnologia">MySQL</div>
-                      <div class="tecnologia">PostgreSQL</div>
-                      <div class="tecnologia">Git</div>
-                      <div class="tecnologia">GitLab</div>
-                      <div class="tecnologia">Docker</div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-
     <section id="contact">
       <div class="contact">
         <h2>Contacto</h2>
-        <p>¡Hablemos! Puedes contactarme por los siguientes medios:</p>
         <ul class="contact-links">
           <li>
             <a href="tel:+34634437545" aria-label="Llamar por teléfono">
@@ -366,7 +344,7 @@
             </a>
           </li>
           <li>
-            <a href="https://wa.me/34634437545" target="_blank" aria-label="Enviar WhatsApp">
+            <a href="https://wa.me/34634437545" target="_blank" rel="noopener noreferrer" aria-label="Enviar WhatsApp">
               <i class="fa-brands fa-whatsapp"></i> <span id="whatsapp-text">Enviarme un WhatsApp</span>
             </a>
           </li>
@@ -376,7 +354,7 @@
             </a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/in/egromera/" target="_blank" aria-label="Ver perfil de LinkedIn">
+            <a href="https://www.linkedin.com/in/egromera/" target="_blank" rel="noopener noreferrer" aria-label="Ver perfil de LinkedIn">
               <i class="devicon-linkedin-plain"></i> <span id="linkedin-text">Mi perfil en LinkedIn</span>
             </a>
           </li>

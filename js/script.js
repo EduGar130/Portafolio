@@ -1,9 +1,179 @@
 let modalOpened = false;
 let activeSectionId = 0;
+let activeMovementCleanup = null;
+let experienceCounterInterval = null;
+const THEME_STORAGE_KEY = 'preferredTheme';
+const THEME_ANIMATION_MS = 760;
+let isThemeAnimating = false;
+
+function getInitialThemePreference() {
+  let storedTheme = null;
+  try {
+    storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  } catch (e) {
+    storedTheme = null;
+  }
+
+  if (storedTheme === 'dark' || storedTheme === 'light') {
+    return storedTheme;
+  }
+
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return prefersDark ? 'dark' : 'light';
+}
+
+function applyThemeState(isDark, persist) {
+  document.documentElement.classList.toggle('dark-mode', isDark);
+  if (document.body) {
+    document.body.classList.toggle('dark', isDark);
+  }
+
+  if (persist !== false) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
+    } catch (e) {
+      // no-op if storage is unavailable
+    }
+  }
+}
+
+function resolveThemeOverlayColor(targetDarkMode) {
+  const rootStyle = getComputedStyle(document.documentElement);
+  const fallback = targetDarkMode ? '#01579B' : '#03a9f4';
+  const cssValue = rootStyle.getPropertyValue(targetDarkMode ? '--bg-dark' : '--bg-light');
+  return (cssValue || '').trim() || fallback;
+}
+
+function getRevealRadius(x, y) {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const farthestX = Math.max(x, width - x);
+  const farthestY = Math.max(y, height - y);
+  return Math.hypot(farthestX, farthestY);
+}
+
+function applySidebarWaveRhythm() {
+  const docEl = document.documentElement;
+  const primaryButtons = Array.from(document.querySelectorAll('#sidebar li'));
+  const secondaryButtons = Array.from(document.querySelectorAll('#sidebar2 li'));
+  const sequenceLength = primaryButtons.length || 7;
+  const stepMs = 30;
+
+  docEl.classList.add('theme-wave-sidebar');
+
+  primaryButtons.forEach((item, index) => {
+    const delay = (sequenceLength - 1 - index) * stepMs;
+    item.style.setProperty('--wave-delay', `${delay}ms`);
+    const icon = item.querySelector('i');
+    if (icon) icon.style.setProperty('--wave-delay', `${delay}ms`);
+  });
+
+  secondaryButtons.forEach((item, index) => {
+    const logicalIndex = index % sequenceLength;
+    const delay = (sequenceLength - 1 - logicalIndex) * stepMs;
+    item.style.setProperty('--wave-delay', `${delay}ms`);
+    const icon = item.querySelector('i');
+    if (icon) icon.style.setProperty('--wave-delay', `${delay}ms`);
+  });
+}
+
+function clearSidebarWaveRhythm() {
+  document.documentElement.classList.remove('theme-wave-sidebar');
+
+  const waveTargets = document.querySelectorAll('#sidebar li, #sidebar2 li, #sidebar a i, #sidebar2 a i');
+  waveTargets.forEach((target) => {
+    target.style.removeProperty('--wave-delay');
+  });
+}
+
+function animateThemeRadial(event, targetDarkMode, onThemeMidpoint) {
+  const x = typeof event?.clientX === 'number' ? event.clientX : window.innerWidth / 2;
+  const y = typeof event?.clientY === 'number' ? event.clientY : window.innerHeight / 2;
+  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasClipPathSupport = window.CSS && CSS.supports('clip-path', 'circle(12px at 10px 10px)');
+
+  if (reducedMotion || !hasClipPathSupport) {
+    applySidebarWaveRhythm();
+    applyThemeState(targetDarkMode);
+    if (typeof onThemeMidpoint === 'function') onThemeMidpoint();
+    clearSidebarWaveRhythm();
+    isThemeAnimating = false;
+    return;
+  }
+
+  const overlay = document.createElement('div');
+  const revealColor = resolveThemeOverlayColor(targetDarkMode);
+  applySidebarWaveRhythm();
+  overlay.className = 'theme-radial-overlay';
+  overlay.style.setProperty('--reveal-x', `${x}px`);
+  overlay.style.setProperty('--reveal-y', `${y}px`);
+  overlay.style.setProperty('--theme-reveal-color', revealColor);
+  overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+  document.body.appendChild(overlay);
+
+  const maxRadius = getRevealRadius(x, y);
+  let midApplied = false;
+  let cleaned = false;
+
+  requestAnimationFrame(() => {
+    overlay.style.clipPath = `circle(${maxRadius}px at ${x}px ${y}px)`;
+  });
+
+  const midpointTimer = setTimeout(() => {
+    if (!midApplied) {
+      applyThemeState(targetDarkMode);
+      if (typeof onThemeMidpoint === 'function') onThemeMidpoint();
+      midApplied = true;
+    }
+  }, THEME_ANIMATION_MS / 2);
+
+  const cleanup = () => {
+    if (cleaned) return;
+    cleaned = true;
+    clearTimeout(midpointTimer);
+    if (!midApplied) {
+      applyThemeState(targetDarkMode);
+      if (typeof onThemeMidpoint === 'function') onThemeMidpoint();
+      midApplied = true;
+    }
+    overlay.remove();
+    clearSidebarWaveRhythm();
+    isThemeAnimating = false;
+  };
+
+  overlay.addEventListener('transitionend', cleanup, { once: true });
+  setTimeout(cleanup, THEME_ANIMATION_MS + 120);
+}
+
+function toggleThemeWithRadial(event, targetDarkMode, onThemeMidpoint) {
+  if (isThemeAnimating) return;
+  isThemeAnimating = true;
+  animateThemeRadial(event, targetDarkMode, onThemeMidpoint);
+}
+
+function activateMovementMode() {
+  if (activeMovementCleanup) {
+    activeMovementCleanup();
+    activeMovementCleanup = null;
+  }
+
+  // En ambos modos usamos paginación vertical por secciones,
+  // evitando animaciones laterales de desaparición.
+  activeMovementCleanup = verticalMovement();
+}
 
 
 function init(){
   const enlaceCV = document.getElementById('cv-link');
+  const initialTheme = getInitialThemePreference();
+  applyThemeState(initialTheme === 'dark', false);
+
+  function updateVeritasProjectLogo() {
+    const logoImg = document.getElementById('veritasProjectLogo');
+    if (!logoImg) return;
+    const isDark = document.documentElement.classList.contains('dark-mode');
+    logoImg.src = isDark ? 'img/veritas/veritas-logo-dark.webp' : 'img/veritas/veritas-logo.webp';
+  }
 
   // Preferencia guardada en localStorage > navegador
   const storedLang = (localStorage.getItem('preferredLang') || '').toLowerCase();
@@ -14,6 +184,7 @@ function init(){
   function setLanguage(lang) {
     lang = (lang || 'en').toLowerCase();
     localStorage.setItem('preferredLang', lang);
+    document.documentElement.setAttribute('lang', lang);
     if (enlaceCV) enlaceCV.href = (lang === 'es') ? 'assets/CV_Eduardo.pdf' : 'assets/CV_Eduardo_en.pdf';
     // update lang wheel visual state
     const langWheel = document.getElementById('langWheel');
@@ -48,24 +219,30 @@ function init(){
   // mode wheel: manejo independiente de rotación y modo oscuro
   const modeWheel = document.getElementById('modeWheel');
   if (modeWheel) {
-    modeWheel.addEventListener('click', () => {
-      if (darkMode) {
-        document.documentElement.classList.remove('dark-mode');
-      } else {
-        document.documentElement.classList.add('dark-mode');
-      }
+    darkMode = document.documentElement.classList.contains('dark-mode');
+    if (darkMode) {
+      degree = 180;
+      if (modeWheel.style) modeWheel.style.transform = `rotate(${degree}deg)`;
+    }
+
+    modeWheel.addEventListener('click', (event) => {
+      if (isThemeAnimating) return;
+      const targetDarkMode = !darkMode;
       degree += 180;
       // proteger acceso a style
       if (modeWheel.style) modeWheel.style.transform = `rotate(${degree}deg)`;
-      darkMode = !darkMode;
+      toggleThemeWithRadial(event, targetDarkMode, () => {
+        darkMode = targetDarkMode;
+        updateVeritasProjectLogo();
+      });
     });
   }
 
-  if (verifyMax768pxWidth()) {
-    horizontalMovement();
-  } else {
-    verticalMovement();
-  }
+  updateVeritasProjectLogo();
+
+  initExperienceCounter();
+
+  activateMovementMode();
   
   // Manejador para reiniciar posiciones del sidebar y volver a welcome al redimensionar (debounced)
   let resizeResetTimer;
@@ -298,11 +475,7 @@ function init(){
     });
   }
   window.addEventListener("resize", function(){
-    if (verifyMax768pxWidth()) {
-      horizontalMovement();
-    } else {
-      verticalMovement();
-    }
+    activateMovementMode();
 
     setTimeout(() => {
       captureBasePositions();
@@ -324,8 +497,9 @@ function verticalMovement(){
   let currentSectionIndex = 0;
   let touchStartY = 0;
   const sections = document.querySelectorAll("section");
-  const sidebarLinks = document.querySelectorAll("#sidebar a");
+  const sidebarLinks = document.querySelectorAll("#sidebar a[href^='#']");
   let isScrolling = false;
+  let touchStartX = 0;
 
   function updateActiveSection() {
     if (modalOpened) {
@@ -357,145 +531,354 @@ function verticalMovement(){
     });
   }
 
+  function goToSection(targetIndex) {
+    if (targetIndex < 0 || targetIndex >= sections.length) return;
+    currentSectionIndex = targetIndex;
+    const targetSection = sections[currentSectionIndex];
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      const sectionId = targetSection.getAttribute("id");
+      if (sectionId) {
+        try { history.replaceState(null, "", `#${sectionId}`); } catch (e) {}
+      }
+    }
+    updateActiveSection();
+  }
+
   updateActiveSection();
 
-  window.addEventListener("scroll", updateActiveSection);
-
-  window.addEventListener("wheel", function(event) {
+  const onScroll = () => updateActiveSection();
+  const onWheel = (event) => {
     event.preventDefault();
     if (!isScrolling && !modalOpened) {
       isScrolling = true;
       setTimeout(() => { isScrolling = false; }, 500);
 
       if (event.deltaY > 0 && currentSectionIndex < sections.length - 1) {
-        currentSectionIndex++;
+        goToSection(currentSectionIndex + 1);
       } else if (event.deltaY < 0 && currentSectionIndex > 0) {
-        currentSectionIndex--;
+        goToSection(currentSectionIndex - 1);
       }
-      sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
     }
-  }, { passive: false });
+  };
 
-  window.addEventListener("touchstart", function(event) {
+  const onTouchStart = (event) => {
     touchStartY = event.touches[0].clientY;
-  });
+    touchStartX = event.touches[0].clientX;
+  };
+
+  const onTouchMove = (event) => {
+    if (isScrolling || modalOpened) return;
+    const touchEndY = event.touches[0].clientY;
+    const touchEndX = event.touches[0].clientX;
+    const diffY = touchEndY - touchStartY;
+    const diffX = touchEndX - touchStartX;
+
+    // En mobile priorizamos swipe vertical para navegar secciones.
+    if (Math.abs(diffY) < 50 || Math.abs(diffY) < Math.abs(diffX)) return;
+
+    isScrolling = true;
+    setTimeout(() => { isScrolling = false; }, 500);
+
+    if (diffY < 0 && currentSectionIndex < sections.length - 1) {
+      goToSection(currentSectionIndex + 1);
+    } else if (diffY > 0 && currentSectionIndex > 0) {
+      goToSection(currentSectionIndex - 1);
+    }
+  };
+
+  const onSidebarClick = (event) => {
+    const href = event.currentTarget.getAttribute("href") || "";
+    const id = href.startsWith("#") ? href.slice(1) : "";
+    const idx = Array.from(sections).findIndex(section => section.id === id);
+    if (idx >= 0) {
+      event.preventDefault();
+      goToSection(idx);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll);
+  window.addEventListener("wheel", onWheel, { passive: false });
+  window.addEventListener("touchstart", onTouchStart, { passive: true });
+  window.addEventListener("touchmove", onTouchMove, { passive: true });
+  sidebarLinks.forEach(link => link.addEventListener("click", onSidebarClick));
+
+  return function cleanupVerticalMovement() {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("wheel", onWheel);
+    window.removeEventListener("touchstart", onTouchStart);
+    window.removeEventListener("touchmove", onTouchMove);
+    sidebarLinks.forEach(link => link.removeEventListener("click", onSidebarClick));
+  };
 }
 
 function horizontalMovement(){
   let currentSectionIndex = 0;
   const sections = document.querySelectorAll("section");
-  const sidebarLinks = document.querySelectorAll("#sidebar a");
+  const sidebarLinks = document.querySelectorAll("#sidebar a[href^='#']");
+  const sidebar2Tabs = Array.from(document.querySelectorAll("#sidebar2 li")).slice(0, sections.length);
   let isScrolling = false;
-  let touchStartX = 0;
-
-
-  sidebarLinks.forEach((link, index) => {
-    link.addEventListener("click", function() {
-      currentSectionIndex = index;
-      updateActiveSection();
-    });
-  });
 
   function updateActiveSection() {
     if (modalOpened) {
       return;
     }
-    const scrollPosition = window.scrollX;
-    let i = 0;
+    const activeSection = sections[currentSectionIndex];
+    if (!activeSection) return;
+    const sectionId = activeSection.getAttribute("id");
 
-    sections.forEach((section, index) => {
-      const { offsetLeft: sectionLeft, clientWidth: sectionWidth } = section;
-      if (i === currentSectionIndex) {
-        const sectionId = section.getAttribute("id");
+    sidebarLinks.forEach(link => {
+      const linkId = (link.getAttribute("href") || "").slice(1);
+      const svg = link.querySelector("svg");
 
-        sidebarLinks.forEach(link => {
-          const linkId = link.getAttribute("href").slice(1);
-          const svg = link.querySelector("svg");
-
-          if (linkId === sectionId) {
-            link.classList.add("active-section");
-            if (svg) {
-              svg.style.fill = "var(--icons-hover)";
-            }
-          } else {
-            link.classList.remove("active-section");
-            if (svg) {
-              svg.style.fill = "var(--icons-color)";
-            }
-          }
-        });
-  // Actualizar SEO para la sección activa
-  updateSEOForSection(sectionId);
+      if (linkId === sectionId) {
+        link.classList.add("active-section");
+        if (svg) {
+          svg.style.fill = "var(--icons-hover)";
+        }
+      } else {
+        link.classList.remove("active-section");
+        if (svg) {
+          svg.style.fill = "var(--icons-color)";
+        }
       }
-      i++;
     });
+
+    if (sectionId) {
+      updateSEOForSection(sectionId);
+      activeSectionId = sectionId;
+      try { history.replaceState(null, "", `#${sectionId}`); } catch (e) {}
+    }
+  }
+
+  function animateDirectionalClasses(fromElement, toElement, forward) {
+    if (!fromElement || !toElement) return;
+
+    const outClass = forward ? "section-slide-out-right" : "section-slide-out-left";
+    const inClass = forward ? "section-slide-in-right" : "section-slide-in-left";
+
+    fromElement.classList.add(outClass);
+    toElement.classList.add(inClass);
+
+    setTimeout(() => {
+      fromElement.classList.remove(outClass);
+      toElement.classList.remove(inClass);
+    }, 360);
+  }
+
+  function animateMarkerTransition(fromIndex, toIndex, forward) {
+    const outClass = forward ? "marker-slide-out-right" : "marker-slide-out-left";
+    const inClass = forward ? "marker-slide-in-right" : "marker-slide-in-left";
+
+    const fromLink = sidebarLinks[fromIndex];
+    const toLink = sidebarLinks[toIndex];
+    const fromTab = sidebar2Tabs[fromIndex];
+    const toTab = sidebar2Tabs[toIndex];
+
+    [fromLink, fromTab].forEach(el => el && el.classList.add(outClass));
+    [toLink, toTab].forEach(el => el && el.classList.add(inClass));
+
+    setTimeout(() => {
+      [fromLink, fromTab].forEach(el => el && el.classList.remove(outClass));
+      [toLink, toTab].forEach(el => el && el.classList.remove(inClass));
+    }, 320);
+  }
+
+  function goToSection(targetIndex) {
+    if (targetIndex < 0 || targetIndex >= sections.length) return;
+    if (targetIndex === currentSectionIndex) return;
+
+    const previousIndex = currentSectionIndex;
+    const previousSection = sections[previousIndex];
+    const nextSection = sections[targetIndex];
+    const forward = targetIndex > previousIndex;
+
+    currentSectionIndex = targetIndex;
+    animateDirectionalClasses(previousSection, nextSection, forward);
+    animateMarkerTransition(previousIndex, targetIndex, forward);
+    nextSection.scrollIntoView({ behavior: "auto", block: "start" });
+    updateActiveSection();
   }
 
   updateActiveSection();
 
-  window.addEventListener("wheel", function(event) {
+  const onWheel = (event) => {
     event.preventDefault();
     if (!isScrolling && !modalOpened) {
       isScrolling = true;
       setTimeout(() => { isScrolling = false; }, 500);
 
       if (event.deltaY > 0 && currentSectionIndex < sections.length - 1) {
-        currentSectionIndex++;
+        goToSection(currentSectionIndex + 1);
       } else if (event.deltaY < 0 && currentSectionIndex > 0) {
-        currentSectionIndex--;
-      }
-      sections[currentSectionIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-      updateActiveSection();
-    }
-  }, { passive: false });
-
-  window.addEventListener("touchstart", function(event) {
-    touchStartX = event.touches[0].clientX;
-  });
-
-  window.addEventListener("touchmove", function(event) {
-    const touchEndX = event.touches[0].clientX;
-    const touchMoveDiff = touchEndX - touchStartX;
-  
-    if (!isScrolling) {
-      if (touchMoveDiff > 50 && currentSectionIndex > 0) {
-        isScrolling = true;
-        setTimeout(() => { isScrolling = false; }, 500);
-        currentSectionIndex--;
-        updateActiveSection();
-        sections[currentSectionIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-      } else if (touchMoveDiff < -50 && currentSectionIndex < sections.length - 1) {
-        isScrolling = true;
-        setTimeout(() => { isScrolling = false; }, 500);
-        currentSectionIndex++;
-        updateActiveSection();
-        sections[currentSectionIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+        goToSection(currentSectionIndex - 1);
       }
     }
-  });
+  };
+
+  const onSidebarClick = (event) => {
+    const href = event.currentTarget.getAttribute("href") || "";
+    const id = href.startsWith("#") ? href.slice(1) : "";
+    const idx = Array.from(sections).findIndex(section => section.id === id);
+    if (idx >= 0) {
+      event.preventDefault();
+      goToSection(idx);
+    }
+  };
+
+  window.addEventListener("wheel", onWheel, { passive: false });
+  sidebarLinks.forEach(link => link.addEventListener("click", onSidebarClick));
+
+  return function cleanupHorizontalMovement() {
+    window.removeEventListener("wheel", onWheel);
+    sidebarLinks.forEach(link => link.removeEventListener("click", onSidebarClick));
+  };
 }
 
 
 let darkMode = false;
 let degree = 0;
 let degreeLang = 0;
+
+const FALLBACK_TRANSLATIONS = {
+  es: {
+    about: {
+      title: "Sobre Mí",
+      description: "Soy ingeniero de software full-stack con experiencia en el desarrollo de aplicaciones empresariales usando Java, Spring Boot, Angular y microservicios, contribuyendo actualmente a la transformación digital del sector educativo en la Generalitat Valenciana a través de Minsait."
+    },
+    certificates: {
+      title: "Mis Certificados",
+      efset: "Inglés C1",
+      responsive: "Responsive Web Design",
+      frontend: "Arquitectura Frontend",
+      c1ModalTitle: "Certificado Inglés C1",
+      c1ModalDesc: "Visualización de mi certificado oficial de nivel C1. Puedes descargarlo si tu navegador no lo muestra correctamente.",
+      c1Download: "Descargar certificado C1"
+    },
+    contact: {
+      title: "Contacto",
+      call: "Llamarme: 634 437 545",
+      whatsapp: "Enviarme un WhatsApp",
+      email: "edugar130@gmail.com",
+      linkedin: "Mi perfil en LinkedIn"
+    },
+    experience: {
+      title: "Experiencia laboral",
+      liveLabel: "Experiencia total en el sector",
+      timelineTitle: "Cronograma profesional",
+      detailsCta: "Ver detalle",
+      minsait: {
+        title: "Ingeniero de Software - Minsait",
+        period: "ene. 2024 - actualidad"
+      },
+      balearia: {
+        title: "Becario Full-Stack - Baleària",
+        period: "nov. 2023 - ene. 2024"
+      }
+    },
+    projects: {
+      title: "Proyectos destacados",
+      inventory: "Gestor de Inventario Web",
+      compiler: "Compilador ADA",
+      veritas: "Veritas - Descubre tu Verdad",
+      vosvil: "Vosvil - Concierge de lujo"
+    },
+    skills: {
+      title: "Habilidades",
+      description: "Experiencia en Java, Spring Boot, Angular, SQL, JavaScript, TypeScript, CSS, y HTML. Competente en React.js, Bootstrap, Redux y desarrollo de APIs RESTful. Familiarizado con Docker, Git, metodologías ágiles y herramientas como Jira y Slack."
+    },
+    welcome: {
+      title: "Bienvenid@ a mi Portafolio",
+      description: "¡Hola! Soy Eduardo García Romera, ingeniero informático y apasionado por la tecnología. Aquí encontrarás una muestra de mis proyectos y habilidades.",
+      cv: "Descargar mi CV"
+    }
+  },
+  en: {
+    about: {
+      title: "About Me",
+      description: "I am a full-stack software engineer with experience developing enterprise applications using Java, Spring Boot, Angular, and microservices. I am currently contributing to the digital transformation of the education sector in the public sector of Valencia through Minsait."
+    },
+    certificates: {
+      title: "My Certificates",
+      efset: "Advanced English C1",
+      responsive: "Responsive Web Design",
+      frontend: "Frontend Architecture",
+      c1ModalTitle: "English Certificate — C1",
+      c1ModalDesc: "Preview of my official C1 English certificate. If your browser can't display it, you can download it using the link below.",
+      c1Download: "Download C1 certificate"
+    },
+    contact: {
+      title: "Contact",
+      description: "Let’s talk! You can reach me through the following channels:",
+      call: "Call me: 634 437 545",
+      whatsapp: "Send me a WhatsApp",
+      email: "edugar130@gmail.com",
+      linkedin: "My LinkedIn profile"
+    },
+    experience: {
+      title: "Work Experience",
+      liveLabel: "Total experience in the sector",
+      timelineTitle: "Professional timeline",
+      detailsCta: "View details",
+      minsait: {
+        title: "Software Engineer - Minsait",
+        period: "Jan 2024 - Present"
+      },
+      balearia: {
+        title: "Full-Stack Intern - Baleària",
+        period: "Nov 2023 - Jan 2024"
+      }
+    },
+    projects: {
+      title: "Featured Projects",
+      inventory: "Inventory Manager",
+      compiler: "ADA Compiler",
+      veritas: "Veritas Discover Your Truth",
+      vosvil: "Vosvil Luxury Concierge"
+    },
+    skills: {
+      title: "Skills",
+      description: "Experience with Java, Spring Boot, Angular, SQL, JavaScript, TypeScript, CSS, and HTML. Proficient in React.js, Bootstrap, Redux, and RESTful API development. Familiar with Docker, Git, agile methodologies, and tools like Jira and Slack."
+    },
+    welcome: {
+      title: "Welcome to My Portfolio",
+      description: "Hi! I'm Eduardo García Romera, a computer engineer passionate about technology. Here you'll find a showcase of my projects and skills.",
+      cv: "Download My CV"
+    }
+  }
+};
  
 
 function loadLanguage(lang) {
   console.log(`Loading language: ${lang}`);
   fetch(`assets/${lang}.json`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to load language file: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
       applyTranslations(data);
-    }).catch(error => {
-      console.error('Error loading the language file:', error);
+    })
+    .catch(error => {
+      console.warn('Falling back to embedded translations:', error);
+      const fallback = FALLBACK_TRANSLATIONS[lang] || FALLBACK_TRANSLATIONS.es;
+      applyTranslations(fallback);
     });
 }
 
 function applyTranslations(data) {
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el && typeof value === 'string') {
+      el.textContent = value;
+    }
+  };
+
   document.querySelector('#welcome-section h1').textContent = data.welcome.title;
   document.querySelector('#welcome-section p').textContent = data.welcome.description;
-  document.getElementById('cv_text').textContent = data.welcome.cv;
+  setText('cv_text', data.welcome.cv);
 
   document.querySelector('#about h2').textContent = data.about.title;
   document.querySelector('#about p').textContent = data.about.description;
@@ -503,16 +886,16 @@ function applyTranslations(data) {
   document.querySelector('#skills h2').textContent = data.skills.title;
   document.querySelector('#skills p').textContent = data.skills.description;
 
-  document.querySelector('#projects h3').textContent = data.projects.title;
-  document.getElementById('tfg').textContent = data.projects.inventory;
-  document.getElementById('compilador').textContent = data.projects.compiler;
-  document.getElementById('veritas').textContent = data.projects.veritas;
-  document.getElementById('vosvil').textContent = data.projects.vosvil;
+  document.querySelector('#projects h2').textContent = data.projects.title;
+  setText('tfg', data.projects.inventory);
+  setText('compilador', data.projects.compiler);
+  setText('veritas', data.projects.veritas);
+  setText('vosvil', data.projects.vosvil);
 
-  document.getElementById('certificates-title').textContent = data.certificates.title;
-  document.getElementById('ef-set').textContent = data.certificates.efset;
-  document.getElementById('responsive-web-design').textContent = data.certificates.responsive;
-  document.getElementById('arquitectura-frontend').textContent = data.certificates.frontend;
+  setText('certificates-title', data.certificates.title);
+  setText('ef-set', data.certificates.efset);
+  setText('responsive-web-design', data.certificates.responsive);
+  setText('arquitectura-frontend', data.certificates.frontend);
   // i18n for C1 modal
   if (data.certificates.c1ModalTitle) {
     const c1TitleEl = document.getElementById('c1-modal-title');
@@ -527,42 +910,106 @@ function applyTranslations(data) {
     if (c1DownloadEl) c1DownloadEl.textContent = data.certificates.c1Download;
   }
 
-  document.getElementById('experience-title').textContent = data.experience.title;
-  document.getElementById('minsait-title').textContent = data.experience.minsait.title;
-  document.getElementById('minsait-title-modal').textContent = data.experience.minsait.title;
-  document.getElementById('minsait-period-text').textContent = data.experience.minsait.period;  
-  document.getElementById('minsait-period').textContent = data.experience.minsait.periodtitle;
-  document.getElementById('minsait-location-text').textContent = data.experience.minsait.location;
-  document.getElementById('minsait-location').textContent = data.experience.minsait.locationtitle;
-  document.getElementById('minsait-responsibilities').textContent = data.experience.minsait.responsibilities.title;
-  document.getElementById('responsabilidad-minsait1').textContent = data.experience.minsait.responsibilities.items[0];
-  document.getElementById('responsabilidad-minsait2').textContent = data.experience.minsait.responsibilities.items[1];
-  document.getElementById('responsabilidad-minsait3').textContent = data.experience.minsait.responsibilities.items[2];
-  document.getElementById('responsabilidad-minsait4').textContent = data.experience.minsait.responsibilities.items[3];
-  document.getElementById('minsait-technologies').textContent = data.experience.minsait.technologies.title;
-  document.getElementById('balearia-title').textContent = data.experience.balearia.title;
-  document.getElementById('balearia-title-modal').textContent = data.experience.balearia.title;
-  document.getElementById('balearia-period-text').textContent = data.experience.balearia.period;
-  document.getElementById('balearia-period').textContent = data.experience.minsait.periodtitle;
-  document.getElementById('balearia-location-text').textContent = data.experience.balearia.location;
-  document.getElementById('balearia-location').textContent = data.experience.minsait.locationtitle;
-  document.getElementById('balearia-responsibilities').textContent = data.experience.balearia.responsibilities.title;
-  document.getElementById('responsabilidad-balearia1').textContent = data.experience.balearia.responsibilities.items[0];
-  document.getElementById('responsabilidad-balearia2').textContent = data.experience.balearia.responsibilities.items[1];
-  document.getElementById('responsabilidad-balearia3').textContent = data.experience.balearia.responsibilities.items[2];
-  document.getElementById('responsabilidad-balearia4').textContent = data.experience.balearia.responsibilities.items[3];
-  document.getElementById('responsabilidad-balearia5').textContent = data.experience.balearia.responsibilities.items[4];
-  document.getElementById('responsabilidad-balearia6').textContent = data.experience.balearia.responsibilities.items[5];
-  document.getElementById('balearia-technologies').textContent = data.experience.balearia.technologies.title;
+  setText('experience-title', data.experience.title);
+  setText('experience-live-label', data.experience.liveLabel);
+  setText('experience-timeline-title', data.experience.timelineTitle);
+  setText('minsait-title', data.experience.minsait.title);
+  setText('minsait-link-title', data.experience.minsait.title);
+  setText('balearia-title', data.experience.balearia.title);
+  setText('balearia-link-title', data.experience.balearia.title);
+  setText('timeline-minsait-period', data.experience.minsait.period);
+  setText('timeline-balearia-period', data.experience.balearia.period);
+  setText('minsait-link-cta', data.experience.detailsCta);
+  setText('balearia-link-cta', data.experience.detailsCta);
 
   document.querySelector('#contact h2').textContent = data.contact.title;
-  console.log(data.contact.description);
-  document.querySelector('#contact p').textContent = data.contact.description;
-  document.getElementById('phone-text').textContent = data.contact.call;
-  document.getElementById('whatsapp-text').textContent = data.contact.whatsapp;
-  document.getElementById('email-text').textContent = data.contact.email;
-  document.getElementById('linkedin-text').textContent = data.contact.linkedin;
+  setText('phone-text', data.contact.call);
+  setText('whatsapp-text', data.contact.whatsapp);
+  setText('email-text', data.contact.email);
+  setText('linkedin-text', data.contact.linkedin);
 
+  updateExperienceCounter();
+
+}
+
+function daysInMonthUTC(year, monthIndex) {
+  return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+}
+
+function getCalendarDiff(startDate, endDate) {
+  let years = endDate.getUTCFullYear() - startDate.getUTCFullYear();
+  let months = endDate.getUTCMonth() - startDate.getUTCMonth();
+  let days = endDate.getUTCDate() - startDate.getUTCDate();
+  let hours = endDate.getUTCHours() - startDate.getUTCHours();
+  let minutes = endDate.getUTCMinutes() - startDate.getUTCMinutes();
+  let seconds = endDate.getUTCSeconds() - startDate.getUTCSeconds();
+
+  if (seconds < 0) {
+    seconds += 60;
+    minutes -= 1;
+  }
+
+  if (minutes < 0) {
+    minutes += 60;
+    hours -= 1;
+  }
+
+  if (hours < 0) {
+    hours += 24;
+    days -= 1;
+  }
+
+  if (days < 0) {
+    const previousMonth = (endDate.getUTCMonth() - 1 + 12) % 12;
+    const previousMonthYear = previousMonth === 11 ? endDate.getUTCFullYear() - 1 : endDate.getUTCFullYear();
+    days += daysInMonthUTC(previousMonthYear, previousMonth);
+    months -= 1;
+  }
+
+  if (months < 0) {
+    months += 12;
+    years -= 1;
+  }
+
+  return { years, months, days, hours, minutes, seconds };
+}
+
+function pluralize(value, singular, plural) {
+  return `${value} ${value === 1 ? singular : plural}`;
+}
+
+function formatExperienceCounter(diff, lang) {
+  if (lang === 'en') {
+    return `${pluralize(diff.years, 'year', 'years')} ${pluralize(diff.months, 'month', 'months')}`;
+  }
+
+  return `${pluralize(diff.years, 'año', 'años')} ${pluralize(diff.months, 'mes', 'meses')}`;
+}
+
+function updateExperienceCounter() {
+  const counterEl = document.getElementById('experience-live-counter');
+  if (!counterEl) return;
+
+  const startText = counterEl.dataset.sectorStart;
+  if (!startText) return;
+
+  const startDate = new Date(startText);
+  const now = new Date();
+  const lang = (localStorage.getItem('preferredLang') || document.documentElement.lang || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
+
+  if (Number.isNaN(startDate.getTime())) return;
+
+  const diff = getCalendarDiff(startDate, now);
+  counterEl.textContent = formatExperienceCounter(diff, lang);
+}
+
+function initExperienceCounter() {
+  if (!document.getElementById('experience-live-counter')) return;
+  if (experienceCounterInterval) {
+    clearInterval(experienceCounterInterval);
+  }
+  updateExperienceCounter();
+  experienceCounterInterval = setInterval(updateExperienceCounter, 1000);
 }
 
 // Funciones para controlar los modals

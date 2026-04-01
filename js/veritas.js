@@ -3,93 +3,95 @@ const translations = {
   es: {
     'hero.title': 'Veritas',
     'header.home': 'Inicio',
-    'hero.subtitle': 'Diario con IA, claridad sin ruido',
-    'hero.description': 'Tu espacio personal para reflexionar, crecer y entender tus emociones con la ayuda de inteligencia artificial.',
-    'hero.features': 'Ver funciones',
-    'hero.demo': 'Ver demo',
-    'features.title': 'Funciones principales',
-    'features.subtitle': 'Cada elemento diseñado para ayudarte a entender mejor tus emociones y experiencias',
-    'features.personal': 'Panel personal',
-    'features.journal': 'Diario',
-    'features.peopleevents': 'Personas y eventos',
-    'features.vera': 'Vera (asistente emocional)',
-    'features.cards': 'Cards inteligentes',
-    'premium.title': 'Funciones Premium',
-    'premium.subtitle': 'Desbloquea todo el potencial de Veritas',
-    'premium.vera': 'Vera - Asistente emocional con IA avanzada',
-    'premium.evaluations': 'Evaluaciones más frecuentes y detalladas',
-    'premium.report': 'Reporte semanal completo incluido',
-    'premium.insights': 'Insights profundos de patrones emocionales',
-    'demo.title': 'Evaluación inteligente',
-    'demo.description': 'Cada entrada se evalúa automáticamente con feedback práctico. Vera analiza tus emociones y te ofrece perspectivas valiosas para tu crecimiento personal.',
+    'hero.subtitle': 'Sí, es otro intento de hacer una app con IA. Este va con cariño.',
+    'hero.description': 'Con Rubén Romera nos propusimos algo simple: un diario para ponerle palabras a lo que sientes, con IA útil y sin postureo terapéutico.',
+    'hero.features': 'Ver lo que construimos',
+    'hero.demo': 'Ver cómo piensa la app',
+    'features.title': 'Lo que construimos',
+    'features.subtitle': 'Un producto pequeño, con decisiones muy concretas: utilidad real, tono humano y cero drama técnico innecesario.',
+    'features.personal': 'Espacio personal',
+    'features.journal': 'Flujo de diario',
+    'features.peopleevents': 'Contexto de personas y eventos',
+    'features.vera': 'Vera integrada con tono cercano',
+    'features.cards': 'Sistema de cards y recomendaciones',
+    'premium.title': 'Lo técnico, sin vender humo',
+    'premium.subtitle': 'Aquí va el resumen real de arquitectura: wrapper, contexto psicológico y privacidad total en móvil.',
+    'premium.vera': 'Wrapper propio sobre DeepSeek para controlar prompts, tono y consistencia',
+    'premium.evaluations': 'Contexto de perfil psicológico para respuestas más útiles y menos genéricas',
+    'premium.report': 'Nada de guardar tu vida en nuestra BBDD: datos y diario viven en tu móvil',
+    'premium.insights': 'No somos terapia: es autoayuda escrita para entenderte mejor',
+    'demo.title': 'Qué intenta hacer Veritas (y qué no)',
+    'demo.description': 'Intenta ayudarte a ordenar emociones y pensamientos. No intenta diagnosticarte ni sustituir ayuda profesional.',
     'demo.powered': 'Powered by AI',
-    'how.title': 'Cómo funciona',
-    'how.step1.title': 'Escribe sin filtros',
-    'how.step1.desc': 'Expresa tus pensamientos libremente',
-    'how.step2.title': 'Etiqueta con @ y #',
-    'how.step2.desc': 'Organiza personas y momentos',
-    'how.step3.title': 'Habla con Vera',
-    'how.step3.desc': 'Tu asistente emocional siempre disponible',
-    'how.step4.title': 'Recibe insights',
-    'how.step4.desc': 'Análisis personalizado continuo',
-    'faq.title': 'Preguntas frecuentes',
-    'faq.q1': '¿Es privado mi diario?',
-    'faq.a1': 'Sí, tu privacidad es nuestra prioridad. Todos los datos están encriptados y solo tú tienes acceso a tu contenido. Usamos IA de forma local cuando es posible.',
-    'faq.q2': '¿Funciona sin internet?',
-    'faq.a2': 'La escritura funciona offline y se sincroniza cuando vuelves a estar online. Las funciones de IA requieren conexión.',
-    'faq.q3': '¿Qué incluye el plan Premium?',
-    'faq.a3': 'Acceso completo a Vera, evaluaciones más frecuentes y detalladas, reporte semanal automático con análisis profundo de patrones emocionales y sugerencias personalizadas.',
-    'faq.q4': '¿Puedo exportar mis datos?',
-    'faq.a4': 'Sí, puedes exportar todo tu diario en formato PDF o JSON en cualquier momento.',
-    'cta.title': 'Comienza tu viaje de autoconocimiento',
-    'cta.subtitle': 'Únete a personas que ya están transformando su bienestar emocional con Veritas',
-    'cta.download': 'Descargar en App Store',
+    'how.title': 'Cómo lo estamos construyendo',
+    'how.step1.title': 'Primero escuchar',
+    'how.step1.desc': 'Partimos de casos reales: días buenos, días raros y días reguleros.',
+    'how.step2.title': 'Luego iterar',
+    'how.step2.desc': 'Ajustamos prompts y UX hasta que la app acompañe sin estorbar.',
+    'how.step3.title': 'Privacidad por defecto',
+    'how.step3.desc': 'Sin guardar datos personales en nuestra base de datos, todo queda en el teléfono.',
+    'how.step4.title': 'Honestidad de producto',
+    'how.step4.desc': 'No terapia, no milagros: solo escritura guiada para autoayuda.',
+    'faq.title': 'Preguntas que nos hacemos nosotros',
+    'faq.q1': '¿De verdad es "otro intento" de app con IA?',
+    'faq.a1': 'Sí, totalmente. Pero este intento está hecho con cariño, con límites claros y con foco en utilidad de verdad.',
+    'faq.q2': '¿Qué pinta DeepSeek aquí?',
+    'faq.a2': 'Usamos un wrapper propio para controlar mejor contexto, estilo y seguridad de las respuestas.',
+    'faq.q3': '¿Guardáis algo en vuestra BBDD?',
+    'faq.a3': 'No. El diario y el contexto del usuario se quedan en el móvil. Punto.',
+    'faq.q4': '¿Esto es una herramienta terapéutica?',
+    'faq.a4': 'No. Es una herramienta de autoayuda en formato diario para poner palabras a los sentimientos.',
+    'cta.title': 'Veritas, con los pies en la tierra',
+    'cta.subtitle': 'Si te apetece probarlo, aquí tienes la versión publicada en iOS',
+    'cta.download': 'Abrir en App Store',
+    'cta.partner': 'Portfolio de Rubén Romera',
     'cta.contact': 'Contactar'
   },
   en: {
     'hero.title': 'Veritas',
-    'hero.subtitle': 'AI-powered journal, clarity without noise',
+    'hero.subtitle': 'Yes, this is another AI app attempt. This one is built with care.',
     'header.home': 'Home',
-    'hero.description': 'Your personal space to reflect, grow and understand your emotions with the help of artificial intelligence.',
-    'hero.features': 'View features',
-    'hero.demo': 'View demo',
-    'features.title': 'Main Features',
-    'features.subtitle': 'Every element designed to help you better understand your emotions and experiences',
-    'features.personal': 'Personal Dashboard',
-    'features.journal': 'Journal',
-    'features.peopleevents': 'People & Events',
-    'features.vera': 'Vera (emotional assistant)',
-    'features.cards': 'Smart Cards',
-    'premium.title': 'Premium Features',
-    'premium.subtitle': "Unlock Veritas' full potential",
-    'premium.vera': 'Vera - Emotional assistant with advanced AI',
-    'premium.evaluations': 'More frequent and detailed evaluations',
-    'premium.report': 'Complete weekly report included',
-    'premium.insights': 'Deep insights into emotional patterns',
-    'demo.title': 'Smart Evaluation',
-    'demo.description': 'Every entry is automatically evaluated with practical feedback. Vera analyzes your emotions and offers valuable insights for your personal growth.',
+    'hero.description': 'Together with Ruben Romera, we built a journal app to help people put words to feelings, with useful AI and no fake therapeutic claims.',
+    'hero.features': 'See what we built',
+    'hero.demo': 'See how the app thinks',
+    'features.title': 'What we built',
+    'features.subtitle': 'A small product with very intentional decisions: real utility, human tone, and no unnecessary technical drama.',
+    'features.personal': 'Personal space',
+    'features.journal': 'Journal flow',
+    'features.peopleevents': 'People and events context',
+    'features.vera': 'Vera integrated with a close tone',
+    'features.cards': 'Cards and recommendation system',
+    'premium.title': 'Technical side, no hype',
+    'premium.subtitle': 'A real architecture snapshot: DeepSeek wrapper, psychological profile context, and full on-device privacy.',
+    'premium.vera': 'Custom wrapper on top of DeepSeek to control prompts, tone, and consistency',
+    'premium.evaluations': 'Psychological profile context to generate less generic and more useful responses',
+    'premium.report': 'We do not store your life in our DB: journal data stays on your phone',
+    'premium.insights': 'Not a therapy tool: a self-help journal to understand yourself better',
+    'demo.title': 'What Veritas tries to do (and what it does not)',
+    'demo.description': 'It helps you organize feelings and thoughts. It does not diagnose or replace professional support.',
     'demo.powered': 'Powered by AI',
-    'how.title': 'How it Works',
-    'how.step1.title': 'Write without filters',
-    'how.step1.desc': 'Express your thoughts freely',
-    'how.step2.title': 'Tag with @ and #',
-    'how.step2.desc': 'Organize people and moments',
-    'how.step3.title': 'Talk to Vera',
-    'how.step3.desc': 'Your emotional assistant always available',
-    'how.step4.title': 'Receive insights',
-    'how.step4.desc': 'Continuous personalized analysis',
-    'faq.title': 'Frequently Asked Questions',
-    'faq.q1': 'Is my journal private?',
-    'faq.a1': 'Yes, your privacy is our priority. All data is encrypted and only you have access to your content. We use AI locally when possible.',
-    'faq.q2': 'Does it work offline?',
-    'faq.a2': "Writing works offline and syncs when you're back online. AI features require connection.",
-    'faq.q3': 'What does the Premium plan include?',
-    'faq.a3': 'Full access to Vera, more frequent and detailed evaluations, automatic weekly report with deep analysis of emotional patterns and personalized suggestions.',
-    'faq.q4': 'Can I export my data?',
-    'faq.a4': 'Yes, you can export your entire journal in PDF or JSON format at any time.',
-    'cta.title': 'Begin Your Self-Discovery Journey',
-    'cta.subtitle': 'Join people who are already transforming their emotional wellbeing with Veritas',
-    'cta.download': 'Download on App Store',
+    'how.title': 'How we are building it',
+    'how.step1.title': 'Listen first',
+    'how.step1.desc': 'We started from real cases: good days, messy days, and weird days.',
+    'how.step2.title': 'Then iterate',
+    'how.step2.desc': 'We tuned prompts and UX until the app supports you without getting in your way.',
+    'how.step3.title': 'Privacy by default',
+    'how.step3.desc': 'No personal data stored in our database, everything stays on device.',
+    'how.step4.title': 'Product honesty',
+    'how.step4.desc': 'No therapy claims, no miracles: guided journaling for self-help.',
+    'faq.title': 'Questions we ask ourselves',
+    'faq.q1': 'Is this really "another AI app attempt"?',
+    'faq.a1': 'Yes, absolutely. But this attempt is built with care, clear limits, and practical value in mind.',
+    'faq.q2': 'Why DeepSeek here?',
+    'faq.a2': 'We use a custom wrapper to better control context, style, and response safety.',
+    'faq.q3': 'Do you store user data in your DB?',
+    'faq.a3': 'No. Journal data and user context stay on the phone. Full stop.',
+    'faq.q4': 'Is this a therapeutic tool?',
+    'faq.a4': 'No. It is a self-help journaling tool to put words to feelings.',
+    'cta.title': 'Veritas, with feet on the ground',
+    'cta.subtitle': 'If you want to try it, here is the published iOS version',
+    'cta.download': 'Open in App Store',
+    'cta.partner': 'Ruben Romera portfolio',
     'cta.contact': 'Contact'
   }
 };
@@ -101,6 +103,10 @@ const themeToggle = document.getElementById('themeToggle');
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') {
   document.documentElement.classList.add('dark');
+  const logoImg = document.getElementById('logoImg');
+  if (logoImg) {
+    logoImg.src = 'img/veritas/veritas-logo-dark.webp';
+  }
 }
 
 themeToggle.addEventListener('click', () => {
@@ -110,9 +116,9 @@ themeToggle.addEventListener('click', () => {
   //logo en modo oscuro
   const logoImg = document.getElementById('logoImg');
   if (isDark) {
-    logoImg.src = './img/Veritas/veritas-logo-dark.webp';
+    logoImg.src = 'img/veritas/veritas-logo-dark.webp';
   } else {
-    logoImg.src = './img/Veritas/veritas-logo.webp';
+    logoImg.src = 'img/veritas/veritas-logo.webp';
   }
 });
 
@@ -127,7 +133,7 @@ function updateLanguage() {
       el.textContent = translations[currentLang][key];
     }
   });
-  langText.textContent = currentLang === 'es' ? 'ES' : 'EN';
+  langText.textContent = currentLang === 'es' ? 'EN' : 'ES';
   document.documentElement.setAttribute('lang', currentLang);
 }
 
@@ -171,3 +177,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+updateLanguage();

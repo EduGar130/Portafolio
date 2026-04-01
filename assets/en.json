@@ -30,45 +30,17 @@
 
   "experience": {
     "title": "Work Experience",
+    "liveLabel": "Total experience in the sector",
+    "timelineTitle": "Professional timeline",
+    "detailsCta": "View details",
     "minsait": {
       "title": "Software Engineer - Minsait",
-      "periodtitle": "Period",
-      "period": "April 2024 - Present",
-      "locationtitle": "Location",
-      "location": "Remote",
-      "responsibilities": {
-        "title": "Responsibilities",
-        "items": [
-          "Development of web applications using modern technologies",
-          "Implementation of backend and frontend solutions",
-          "Collaboration in agile teams",
-          "Maintenance and optimization of existing code"
-        ]
-      },
-      "technologies": {
-        "title": "Technologies Used",
-        "agile": "Agile methodologies"
-      }
+      "period": "Jan 2024 - Present"
     },
 
     "balearia": {
       "title": "Full-Stack Intern - Baleària",
-      "period": "November 2023 - January 2024",
-      "location": "Dénia (Alicante), Spain",
-      "responsibilities": {
-        "title": "Responsibilities",
-        "items": [
-          "Full-stack web application development",
-          "Implementation of REST APIs",
-          "Frontend development with modern frameworks",
-          "Working with relational databases",
-          "Application testing and debugging",
-          "Technical documentation"
-        ]
-      },
-      "technologies": {
-        "title": "Technologies Used"
-      }
+      "period": "Nov 2023 - Jan 2024"
     }
   },
 
@@ -77,8 +49,8 @@
     "inventory": "Inventory Manager",
     "portfolio": "Personal Portfolio",
     "compiler": "ADA Compiler",
-    "veritas": "Veritas - Discover Your Truth",
-    "vosvil": "Vosvil - Luxury Concierge"
+    "veritas": "Veritas Discover Your Truth",
+    "vosvil": "Vosvil Luxury Concierge"
   },
 
   "skills": {

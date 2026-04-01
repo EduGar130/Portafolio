@@ -21,7 +21,6 @@
 
   "contact": {
     "title": "Contacto",
-    "description": "¡Hablemos! Puedes contactarme por los siguientes medios:",
     "call": "Llamarme: 634 437 545",
     "whatsapp": "Enviarme un WhatsApp",
     "email": "edugar130@gmail.com",
@@ -30,53 +29,17 @@
 
   "experience": {
     "title": "Experiencia laboral",
+    "liveLabel": "Experiencia total en el sector",
+    "timelineTitle": "Cronograma profesional",
+    "detailsCta": "Ver detalle",
     "minsait": {
       "title": "Ingeniero de Software - Minsait",
-      "periodtitle": "Período",
-      "period": "Abril 2024 - Presente",
-      
-      "location": "Remoto",
-      "responsibilities": {
-        "title": "Responsabilidades",
-        "items": [
-          "Desarrollo de aplicaciones web utilizando tecnologías modernas",
-          "Implementación de soluciones backend y frontend",
-          "Colaboración en equipos ágiles",
-          "Mantenimiento y optimización de código existente"
-        ]
-      },
-      "technologies": {
-        "title": "Tecnologías utilizadas",
-        "items": [
-          "JavaScript",
-          "TypeScript",
-          "Angular",
-          "Java",
-          "SpringBoot",
-          "SQL",
-          "Metodologías ágiles"
-        ]
-      }
+      "period": "ene. 2024 - actualidad"
     },
 
   "balearia": {
         "title": "Becario Full-Stack - Baleària",
-        "period": "Noviembre 2023 - Enero 2024",
-        "location": "Dénia (Alicante), España",
-        "responsibilities": {
-          "title": "Responsabilidades",
-          "items": [
-            "Desarrollo de aplicaciones web full-stack",
-          "Implementación de APIs REST",
-          "Desarrollo frontend con frameworks modernos",
-          "Trabajo con bases de datos relacionales",
-          "Testing y debugging de aplicaciones",
-          "Documentación técnica"
-        ]
-      },
-      "technologies": {
-        "title": "Tecnologías utilizadas"
-      }
+        "period": "nov. 2023 - ene. 2024"
     }
   },
   "projects": {

@@ -1,0 +1,20 @@
+# eduardogr.com
+
+> Personal portfolio of Eduardo Garcia Romera.
+
+## Primary URLs
+- https://eduardogr.com/
+- https://eduardogr.com/veritas.html
+
+## Site scope
+- Portfolio sections are implemented in a single-page layout on the homepage.
+- The Veritas page describes an iOS journaling app project.
+- The Vosvil page describes the design of vosvil.com
+
+## Preferred citation
+- Cite Eduardo Garcia Romera as author/owner of portfolio content.
+- Prefer linking to canonical URLs above.
+
+## Contact
+- Email: edugar130@gmail.com
+- LinkedIn: https://www.linkedin.com/in/egromera/

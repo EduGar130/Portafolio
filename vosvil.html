@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vosvil | Caso real de desarrollo full-stack</title>
+    <meta name="description" content="Caso real de construccion end-to-end de Vosvil: producto, arquitectura, IA aplicada, despliegue y evolucion continua.">
+    <meta name="author" content="Eduardo Garcia Romera">
+
+    <meta property="og:title" content="Vosvil | Construido desde dentro">
+    <meta property="og:description" content="Una mirada tecnica y de producto al desarrollo completo de Vosvil para concierge de lujo en Costa Blanca.">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vosvil | Construido desde dentro">
+    <meta name="twitter:description" content="Como he llevado Vosvil desde discovery hasta una plataforma desplegada en evolucion constante.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/vosvil.css">
+</head>
+<body>
+    <div class="page-noise" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container header-content">
+            <div class="brand">
+                <img src="img/vosvil-logo.webp" alt="Logo de Vosvil" class="brand-logo" width="132" height="40">
+                <div>
+                    <p class="brand-title">Vosvil</p>
+                    <p class="brand-sub" data-i18n="header.sub">Proyecto freelance en desarrollo activo</p>
+                </div>
+            </div>
+
+            <nav class="header-links" aria-label="Atajos de seccion">
+                <a href="#impact" data-i18n="header.nav.impact">Impacto</a>
+                <a href="#blueprint" data-i18n="header.nav.arch">Arquitectura</a>
+                <a href="#roadmap" data-i18n="header.nav.roadmap">Roadmap</a>
+            </nav>
+
+            <div class="header-controls">
+                <button id="langToggle" class="btn-icon" aria-label="Cambiar idioma">
+                    <span id="langText">EN</span>
+                </button>
+                <a href="index.html" class="btn btn-outline" data-i18n="header.home">Volver al portfolio</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero reveal">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <p class="kicker" data-i18n="hero.kicker">Full-Stack Engineer · Freelance Client Build</p>
+                    <h1 class="hero-title" data-i18n="hero.title">Vosvil, producto premium construido de punta a punta</h1>
+                    <p class="hero-text" data-i18n="hero.description">Este case study resume mi trabajo real en Vosvil: discovery con cliente, arquitectura, desarrollo full-stack, integracion de IA y puesta en produccion con iteraciones continuas.</p>
+                    <div class="hero-cta">
+                        <a href="#impact" class="btn btn-primary" data-i18n="hero.cta1">Explorar caso completo</a>
+                        <a href="https://vosvil.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="hero.cta2">Ver vosvil.com</a>
+                    </div>
+                    <ul class="hero-tags" aria-label="Tecnologias">
+                        <li>Next.js</li>
+                        <li>Spring Boot</li>
+                        <li>PostgreSQL</li>
+                        <li>Railway</li>
+                        <li>Vercel</li>
+                    </ul>
+                </div>
+
+                <aside class="hero-panel">
+                    <h2 data-i18n="hero.panel.title">Alcance de mi rol</h2>
+                    <ul>
+                        <li data-i18n="hero.panel.r1">Lider tecnico unico del producto</li>
+                        <li data-i18n="hero.panel.r2">Diseno de arquitectura y modelo de negocio digital</li>
+                        <li data-i18n="hero.panel.r3">Entrega end-to-end: frontend, backend y datos</li>
+                        <li data-i18n="hero.panel.r4">Discovery, refinamiento y validacion junto al cliente</li>
+                    </ul>
+
+                    <div class="hero-mini-metrics" aria-label="Metricas del proyecto">
+                        <article>
+                            <span>01</span>
+                            <p data-i18n="hero.metric.1">Plataforma activa en produccion</p>
+                        </article>
+                        <article>
+                            <span>02</span>
+                            <p data-i18n="hero.metric.2">Arquitectura preparada para escalar servicios</p>
+                        </article>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="impact" class="section reveal">
+            <div class="container">
+                <div class="section-head">
+                    <p class="section-kicker" data-i18n="impact.kicker">Outcome</p>
+                    <h2 class="section-title" data-i18n="impact.title">Resultado de negocio y producto</h2>
+                    <p class="section-lead" data-i18n="impact.lead">El foco no fue solo lanzar una web. Se construyo un sistema operativo para gestionar experiencias premium, leads y decisiones comerciales con trazabilidad.</p>
+                </div>
+
+                <div class="impact-grid">
+                    <article class="metric-card reveal">
+                        <p class="metric-label" data-i18n="impact.m1.label">Operacion</p>
+                        <p class="metric-value" data-i18n="impact.m1.value">Centralizada</p>
+                        <p class="metric-copy" data-i18n="impact.m1.copy">Unifica captacion, clasificacion y seguimiento sin depender de flujos manuales dispersos.</p>
+                    </article>
+                    <article class="metric-card reveal">
+                        <p class="metric-label" data-i18n="impact.m2.label">Time to iteration</p>
+                        <p class="metric-value" data-i18n="impact.m2.value">Rapido</p>
+                        <p class="metric-copy" data-i18n="impact.m2.copy">La estructura permite introducir mejoras semanales con impacto visible para el cliente.</p>
+                    </article>
+                    <article class="metric-card reveal">
+                        <p class="metric-label" data-i18n="impact.m3.label">Experiencia</p>
+                        <p class="metric-value" data-i18n="impact.m3.value">Premium</p>
+                        <p class="metric-copy" data-i18n="impact.m3.copy">Interacciones conversacionales y formularios seguros reducen friccion en reservas complejas.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="blueprint" class="section section-alt reveal">
+            <div class="container blueprint-grid">
+                <div>
+                    <div class="section-head left">
+                        <p class="section-kicker" data-i18n="blueprint.kicker">Arquitectura</p>
+                        <h2 class="section-title" data-i18n="blueprint.title">Stack pensado para evolucion continua</h2>
+                        <p class="section-lead left" data-i18n="blueprint.lead">Cada capa resuelve un objetivo concreto de negocio: rapidez comercial, control operativo y mantenibilidad tecnica.</p>
+                    </div>
+                </div>
+
+                <div class="stack-lanes">
+                    <article class="lane-card reveal">
+                        <h3>Frontend</h3>
+                        <p data-i18n="blueprint.front">Next.js App Router y Tailwind CSS para interfaces flexibles, SEO tecnico y un onboarding rapido para nuevas propuestas.</p>
+                    </article>
+                    <article class="lane-card reveal">
+                        <h3>Backend</h3>
+                        <p data-i18n="blueprint.back">Spring Boot para reglas de negocio, validaciones de dominio y orquestacion de flujos con seguridad.</p>
+                    </article>
+                    <article class="lane-card reveal">
+                        <h3>Data</h3>
+                        <p data-i18n="blueprint.data">PostgreSQL con entidades orientadas a trazabilidad de solicitudes, estados de reserva y seguimiento comercial.</p>
+                    </article>
+                    <article class="lane-card reveal">
+                        <h3>Infra</h3>
+                        <p data-i18n="blueprint.infra">Despliegues en Railway y Vercel con una operativa de release continua, estable y facil de auditar.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="delivery" class="section reveal">
+            <div class="container">
+                <div class="section-head">
+                    <p class="section-kicker" data-i18n="delivery.kicker">Metodo</p>
+                    <h2 class="section-title" data-i18n="delivery.title">Cadencia de entrega en 4 ritmos</h2>
+                </div>
+
+                <div class="flow-grid">
+                    <article class="flow-card reveal">
+                        <span>01</span>
+                        <h3 data-i18n="delivery.s1.title">Discovery y alcance</h3>
+                        <p data-i18n="delivery.s1.desc">Entrevistas, objetivos de negocio y priorizacion para transformar ideas abiertas en roadmap accionable.</p>
+                    </article>
+                    <article class="flow-card reveal">
+                        <span>02</span>
+                        <h3 data-i18n="delivery.s2.title">Arquitectura y modelado</h3>
+                        <p data-i18n="delivery.s2.desc">Definicion de dominio, APIs y estructura de datos para sostener operaciones reales sin deuda temprana.</p>
+                    </article>
+                    <article class="flow-card reveal">
+                        <span>03</span>
+                        <h3 data-i18n="delivery.s3.title">Construccion iterativa</h3>
+                        <p data-i18n="delivery.s3.desc">Entrega por slices funcionales con pruebas de flujo, ajustes UX y validacion continua con cliente.</p>
+                    </article>
+                    <article class="flow-card reveal">
+                        <span>04</span>
+                        <h3 data-i18n="delivery.s4.title">Release y mejora</h3>
+                        <p data-i18n="delivery.s4.desc">Publicacion controlada, monitorizacion de feedback y nuevas iteraciones orientadas a conversion y calidad.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="ai" class="section section-light reveal">
+            <div class="container">
+                <div class="section-head">
+                    <p class="section-kicker" data-i18n="ai.kicker">IA aplicada</p>
+                    <h2 class="section-title" data-i18n="ai.title">Automatizacion util, no decorativa</h2>
+                    <p class="section-lead" data-i18n="ai.lead">La capa de IA en Vosvil fue disenada para reducir friccion operativa y mejorar calidad de contexto antes de la atencion humana.</p>
+                </div>
+
+                <div class="ai-grid">
+                    <article class="ai-card reveal">
+                        <h3 data-i18n="ai.c1.title">Wrapper propio para LLM</h3>
+                        <p data-i18n="ai.c1.desc">Control de prompts, respuestas y trazabilidad para asegurar comportamiento consistente en escenarios reales.</p>
+                    </article>
+                    <article class="ai-card reveal">
+                        <h3 data-i18n="ai.c2.title">Chatbot orientado a conversion</h3>
+                        <p data-i18n="ai.c2.desc">Conversacion guiada para resolver dudas iniciales y conducir al usuario hacia reserva o contacto cualificado.</p>
+                    </article>
+                    <article class="ai-card reveal">
+                        <h3 data-i18n="ai.c3.title">Digest y handoff seguro</h3>
+                        <p data-i18n="ai.c3.desc">Resumen automatico de leads y redireccion a formularios protegidos cuando aparece informacion sensible.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="section reveal">
+            <div class="container roadmap-box">
+                <div>
+                    <p class="section-kicker" data-i18n="roadmap.kicker">Estado actual</p>
+                    <h2 data-i18n="roadmap.title">Proyecto activo, arquitectura estable y crecimiento en curso</h2>
+                    <p data-i18n="roadmap.desc">Vosvil se encuentra en fase de consolidacion de funcionalidades y endurecimiento operacional para soportar mayor demanda con la misma experiencia premium.</p>
+                </div>
+                <div class="roadmap-actions">
+                    <a href="https://www.linkedin.com/in/eduardo-garc%C3%ADa-17539818a/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="roadmap.linkedin">Ver experiencia en LinkedIn</a>
+                    <a href="https://vosvil.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-i18n="roadmap.live">Abrir vosvil.com</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p data-i18n="footer.copy">Case study de desarrollo full-stack independiente para Vosvil.</p>
+            <p>
+                <span data-i18n="footer.by">Construido por Eduardo Garcia Romera</span>
+                <span aria-hidden="true"> · </span>
+                <span data-year></span>
+            </p>
+        </div>
+    </footer>
+
+    <button id="backToTop" class="back-to-top" aria-label="Volver arriba">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="js/vosvil.js"></script>
+</body>
+</html>
