@@ -2,6 +2,8 @@ let modalOpened = false;
 let activeSectionId = 0;
 let activeMovementCleanup = null;
 let experienceCounterInterval = null;
+let experienceHighlightDismissed = false;
+let activeTranslationData = null;
 const THEME_STORAGE_KEY = 'preferredTheme';
 const THEME_ANIMATION_MS = 760;
 let isThemeAnimating = false;
@@ -356,6 +358,85 @@ function init(){
     });
   } catch (e) {
     console.warn('certificate tile binding error', e);
+  }
+
+  const highlightTile = document.getElementById('experience-highlight-tile');
+  const highlightCloseButton = document.getElementById('minsait-highlight-close');
+  const experienceSection = document.getElementById('experience');
+
+  function setExperienceHighlightState(isOpen, animateClose = false) {
+    if (!highlightTile) return;
+    if (isOpen) {
+      highlightTile.classList.remove('is-closing');
+    }
+    highlightTile.classList.toggle('is-open', isOpen);
+    highlightTile.classList.toggle('is-visible', isOpen);
+    highlightTile.setAttribute('aria-hidden', String(!isOpen));
+
+    if (!isOpen) {
+      if (animateClose) {
+        highlightTile.classList.add('is-closing');
+        window.setTimeout(() => {
+          highlightTile.classList.remove('is-closing');
+        }, 520);
+      } else {
+        highlightTile.classList.remove('is-closing');
+      }
+    }
+  }
+
+  if (highlightCloseButton) {
+    highlightCloseButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      experienceHighlightDismissed = true;
+      setExperienceHighlightState(false, false);
+    });
+  }
+
+  const highlightCtaButton = document.getElementById('minsait-highlight-cta');
+  if (highlightCtaButton) {
+    highlightCtaButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'minsait.html';
+    });
+  }
+
+  if (experienceSection && highlightTile) {
+    const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const syncHighlight = (isActive) => {
+      const isOpen = highlightTile.classList.contains('is-open');
+
+      if (isActive && !experienceHighlightDismissed) {
+        setExperienceHighlightState(true, false);
+      } else if (isOpen && !experienceHighlightDismissed) {
+        setExperienceHighlightState(false, true);
+      } else {
+        setExperienceHighlightState(false, false);
+      }
+      if (!isActive) {
+        experienceHighlightDismissed = false;
+      }
+    };
+
+    if ('IntersectionObserver' in window) {
+      const highlightObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          syncHighlight(entry.isIntersecting && entry.intersectionRatio >= 0.35);
+        });
+      }, {
+        threshold: [0.25, 0.35, 0.5],
+        rootMargin: '0px 0px -8% 0px'
+      });
+
+      highlightObserver.observe(experienceSection);
+    } else {
+      syncHighlight(true);
+    }
+
+    if (reducedMotion && !experienceHighlightDismissed) {
+      setExperienceHighlightState(true);
+    }
   }
 
   // Hace clicables los iconos de welcome sin usar <a> para no alterar estilos.
@@ -821,8 +902,18 @@ const FALLBACK_TRANSLATIONS = {
       liveLabel: "Experiencia total en el sector",
       timelineTitle: "Cronograma profesional",
       detailsCta: "Ver detalle",
+      highlight: {
+        kicker: "Experiencia destacada",
+        title: "Minsait (Indra Group)",
+        subtitle: "Global technology consulting company - IBM Partner",
+        description: "Desarrollador full-stack en sistemas empresariales para el sector publico",
+        badge: "IBM Partner",
+        meta: "Sistemas para sector publico",
+        cta: "Quiero saber más"
+      },
       minsait: {
         title: "Ingeniero de Software - Minsait",
+        mobileTitle: "Minsait · IBM Partner",
         period: "ene. 2024 - actualidad"
       },
       balearia: {
@@ -878,8 +969,18 @@ const FALLBACK_TRANSLATIONS = {
       liveLabel: "Total experience in the sector",
       timelineTitle: "Professional timeline",
       detailsCta: "View details",
+      highlight: {
+        kicker: "Featured experience",
+        title: "Minsait (Indra Group)",
+        subtitle: "Global technology consulting company - IBM Partner",
+        description: "Full-stack developer on enterprise systems for the public sector",
+        badge: "IBM Partner",
+        meta: "Public sector systems",
+        cta: "I want to know more"
+      },
       minsait: {
         title: "Software Engineer - Minsait",
+        mobileTitle: "Minsait · IBM Partner",
         period: "Jan 2024 - Present"
       },
       balearia: {
@@ -927,6 +1028,7 @@ function loadLanguage(lang) {
 }
 
 function applyTranslations(data) {
+  activeTranslationData = data;
   const setText = (id, value) => {
     const el = document.getElementById(id);
     if (el && typeof value === 'string') {
@@ -984,8 +1086,16 @@ function applyTranslations(data) {
   setText('experience-title', data.experience.title);
   setText('experience-live-label', data.experience.liveLabel);
   setText('experience-timeline-title', data.experience.timelineTitle);
-  setText('minsait-title', data.experience.minsait.title);
-  setText('minsait-link-title', data.experience.minsait.title);
+  setText('minsait-highlight-kicker', data.experience.highlight.kicker);
+  setText('minsait-highlight-title', data.experience.highlight.title);
+  setText('minsait-highlight-subtitle', data.experience.highlight.subtitle);
+  setText('minsait-highlight-description', data.experience.highlight.description);
+  setText('minsait-highlight-badge', data.experience.highlight.badge);
+  setText('minsait-highlight-meta', data.experience.highlight.meta);
+  setText('minsait-highlight-cta', data.experience.highlight.cta);
+  setText('minsait-mobile-badge', data.experience.highlight.badge);
+  const isMobileExperience = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  setText('minsait-link-title', isMobileExperience ? data.experience.minsait.mobileTitle : data.experience.minsait.title);
   setText('balearia-title', data.experience.balearia.title);
   setText('balearia-link-title', data.experience.balearia.title);
   setText('timeline-minsait-period', data.experience.minsait.period);
@@ -1000,6 +1110,15 @@ function applyTranslations(data) {
   setText('linkedin-text', data.contact.linkedin);
 
   updateExperienceCounter();
+
+  if (!window.__experienceResponsiveCopyBound) {
+    window.__experienceResponsiveCopyBound = true;
+    window.addEventListener('resize', () => {
+      if (!activeTranslationData) return;
+      const mobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+      setText('minsait-link-title', mobile ? activeTranslationData.experience.minsait.mobileTitle : activeTranslationData.experience.minsait.title);
+    }, { passive: true });
+  }
 
 }
 

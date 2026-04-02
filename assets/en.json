@@ -37,8 +37,18 @@
     "liveLabel": "Total experience in the sector",
     "timelineTitle": "Professional timeline",
     "detailsCta": "View details",
+    "highlight": {
+      "kicker": "Featured experience",
+      "title": "Minsait (Indra Group)",
+      "subtitle": "Global technology consulting company - IBM Partner",
+      "description": "Full-stack developer on enterprise systems for the public sector",
+      "badge": "IBM Partner",
+      "meta": "Public sector systems",
+      "cta": "I want to know more"
+    },
     "minsait": {
       "title": "Software Engineer - Minsait",
+      "mobileTitle": "Minsait · IBM Partner",
       "period": "Jan 2024 - Present"
     },
 

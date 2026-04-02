@@ -1,6 +1,6 @@
 # Contexto del Proyecto: Portafolio Personal
 
-Fecha de actualizacion: 2026-03-31
+Fecha de actualizacion: 2026-04-02
 
 ## Vision general
 
@@ -23,6 +23,7 @@ Implementado y operativo:
 - Fondo tipo papel/cuadricula por capas (patron + textura + ruido).
 - Tema claro/oscuro con rueda visual dedicada.
 - Selector de idioma ES/EN con rueda visual dedicada.
+- Tarjeta destacada de experiencia con estetica de papel, badge IBM Partner, entrada por interseccion y CTA al modal de Minsait.
 
 ## Arquitectura tecnica
 
@@ -32,7 +33,7 @@ Implementado y operativo:
   - `assets/es.json`
   - `assets/en.json`
 - Scripts principales:
-  - `js/script.js` (navegacion, i18n, tema, SEO dinamico, modales, scroll)
+  - `js/script.js` (navegacion, i18n, tema, SEO dinamico, modales, scroll, reveal de tarjeta destacada)
   - `js/veritas.js` (logica de `veritas.html`)
   - `js/loadSections.js` (actualmente minimal/stub)
 - Estilos:
