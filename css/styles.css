@@ -1903,6 +1903,28 @@ main {
     align-items: flex-start;
   }
 
+  .experience-highlight-top {
+    gap: 12px;
+  }
+
+  .ibm-proof-image {
+    width: min(74px, 24vw);
+    max-width: 74px;
+  }
+
+  .minsait-proof-image {
+    width: min(78px, 30vw);
+    max-width: 78px;
+  }
+
+  .ibm-link {
+    font-size: 0.7rem;
+  }
+
+  .experience-highlight-footer {
+    gap: 0.5rem 0.7rem;
+  }
+
   .experience-mobile-badge {
     display: inline-flex;
     align-items: center;
@@ -1917,7 +1939,29 @@ main {
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    box-shadow: 0 4px 10px rgba(73, 49, 0, 0.12);
+    box-shadow:
+      0 5px 12px rgba(73, 49, 0, 0.12),
+      0 0 0 1px rgba(132, 92, 0, 0.08),
+      0 0 18px rgba(255, 222, 96, 0.12);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.22s ease,
+      filter 0.22s ease;
+    will-change: transform, box-shadow, filter;
+  }
+
+  .experience-mobile-badge:hover {
+    transform: translateY(-1px) scale(1.05);
+    box-shadow:
+      0 8px 16px rgba(73, 49, 0, 0.16),
+      0 0 0 1px rgba(132, 92, 0, 0.12),
+      0 0 22px rgba(255, 222, 96, 0.18);
+    filter: brightness(1.02);
+  }
+
+  .experience-mobile-badge:active {
+    transform: translateY(0) scale(1.02);
   }
 
   section > .about,
@@ -2008,26 +2052,105 @@ main {
 .modal {
   display: none;
   position: fixed;
+  inset: 0;
   z-index: 1500;
-  left: 0;
-  top: 0;
-  width:100%;
+  width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  animation: fadeIn 0.3s ease;
+  padding: clamp(1rem, 3vw, 2rem);
+  background-color: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px) saturate(115%);
+  -webkit-backdrop-filter: blur(10px) saturate(115%);
+  isolation: isolate;
+  overflow: auto;
+  will-change: opacity, backdrop-filter;
+  animation: modalBackdropIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.modal::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.32));
+  pointer-events: none;
+}
+
+.modal.modal-depth {
+  background-color: rgba(0, 0, 0, 0.34);
 }
 
 .modal-content {
-  background-color: var(--main-bg-color);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 28%, rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, rgba(255, 247, 194, 0.98) 0%, rgba(255, 232, 132, 0.98) 100%);
   margin: 5% auto;
   padding: 15px;
   border-radius: 15px;
   width: 80%;
   max-width: 600px;
   position: relative;
-  box-shadow: var(--shadow-l);
-  animation: slideIn 0.8s ease;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.28),
+    0 10px 24px rgba(0, 0, 0, 0.16),
+    0 1px 0 rgba(255, 255, 255, 0.42) inset;
+  transform: translateY(-2px) scale(1.01);
+  transform-origin: center top;
+  will-change: transform, opacity, box-shadow, filter;
+  filter: saturate(1.03) brightness(1.01);
+  animation: modalNoteIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
   color: var(--text-color);
+}
+
+.modal-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.16) 14%, rgba(255, 255, 255, 0) 36%);
+  pointer-events: none;
+}
+
+.modal-content::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(15px - 1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -12px 18px rgba(180, 140, 0, 0.06);
+  pointer-events: none;
+}
+
+.modal-enhanced {
+  will-change: transform, opacity, box-shadow, filter;
+}
+
+.modal-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open > :not(.modal) {
+  transform: scale(0.98);
+  opacity: 0.78;
+  filter: saturate(0.94);
+  transform-origin: center center;
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease,
+    filter 0.28s ease;
+}
+
+.modal-content:hover {
+  box-shadow:
+    0 30px 74px rgba(0, 0, 0, 0.3),
+    0 12px 26px rgba(0, 0, 0, 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.45) inset;
 }
 
 
@@ -2077,14 +2200,25 @@ main {
   to { opacity: 1; }
 }
 
-@keyframes slideIn {
+@keyframes modalBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalNoteIn {
   from {
-    transform: translateY(100px);
+    transform: translateY(12px) scale(0.95);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(-2px) scale(1.01);
     opacity: 1;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .modal {
+    background-color: rgba(0, 0, 0, 0.42);
   }
 }
 
@@ -2135,7 +2269,7 @@ main {
 .experience-highlight-sheet {
   position: relative;
   overflow: hidden;
-  padding: clamp(1.15rem, 2.8vw, 1.8rem);
+  padding: clamp(0.9rem, 2.2vw, 1.25rem) clamp(1rem, 2.4vw, 1.35rem) clamp(1rem, 2.6vw, 1.35rem);
   border-radius: 0;
   border: 1px solid rgba(141, 109, 20, 0.35);
   background:
@@ -2160,10 +2294,10 @@ main {
 
 .experience-highlight-top {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.55rem;
 }
 
 .experience-highlight-logo {
@@ -2187,41 +2321,132 @@ main {
 }
 
 .experience-highlight-badge-row {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0;
+  gap: 0.45rem;
   margin-bottom: 0;
   flex-wrap: nowrap;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
-.experience-highlight-badge {
+.minsait-proof {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  gap: 0.35rem;
-  padding: 0.42rem 1rem 0.42rem 0.78rem;
-  border-radius: 999px;
-  border: 1px solid rgba(132, 92, 0, 0.14);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 242, 150, 0.92)),
-    linear-gradient(180deg, rgba(255, 252, 224, 1), rgba(255, 236, 118, 0.98));
-  color: #2d1d00;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.minsait-proof-image {
+  display: block;
+  width: min(94px, 24vw);
+  max-width: 94px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(73, 49, 0, 0.18));
+}
+
+.ibm-badge-sticker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.ibm-badge-sticker::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 76%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.247)62%, rgba(255, 255, 255, 0.185) 100%);
+  box-shadow:
+    0 2px 8px rgba(73, 49, 0, 0.16),
+    inset 0 0 0 1px rgba(95, 63, 0, 0.16);
+}
+
+.ibm-badge-sticker:hover,
+.ibm-badge-sticker:focus-visible {
+  transform: rotate(-1deg) scale(1.03);
+  opacity: 0.92;
+}
+
+.ibm-proof-image {
+  display: block;
+  width: min(120px, 28vw);
+  max-width: 120px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(73, 49, 0, 0.16));
+}
+
+.ibm-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(78, 53, 0, 0.78);
   font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 1.04rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-  box-shadow: 0 12px 22px rgba(73, 49, 0, 0.24);
+  font-size: 0.79rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.16em;
+  text-decoration-color: rgba(78, 53, 0, 0.34);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease, opacity 0.2s ease;
 }
 
-.experience-highlight-badge-text {
-  display: inline-flex;
-  align-items: center;
-  line-height: 1;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
+.ibm-link:hover,
+.ibm-link:focus-visible {
+  color: rgba(62, 39, 0, 0.92);
+  text-decoration-color: rgba(62, 39, 0, 0.78);
+}
+
+.ibm-link i {
+  font-size: 0.72rem;
+}
+
+.ibm-link:focus-visible,
+.ibm-badge-sticker:focus-visible {
+  outline: 3px solid rgba(110, 75, 0, 0.32);
+  outline-offset: 3px;
+}
+
+.experience-highlight-badge,
+.experience-highlight-badge-text,
+.experience-highlight-logo-badge {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .experience-highlight-rip {
@@ -2253,7 +2478,7 @@ main {
 }
 
 .experience-highlight-subtitle {
-  margin: 0.55rem 0 0;
+  margin: 0.42rem 0 0;
   color: rgba(57, 40, 0, 0.92);
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: clamp(0.98rem, 1.8vw, 1.08rem);
@@ -2261,7 +2486,7 @@ main {
 }
 
 .experience-highlight-description {
-  margin: 0.72rem 0 0;
+  margin: 0.58rem 0 0;
   color: rgba(48, 33, 0, 0.88);
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 0.95rem;
@@ -2271,17 +2496,23 @@ main {
 .experience-highlight-footer {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 1.1rem;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0.6rem 1rem;
+  margin-top: 0.82rem;
 }
 
 .experience-highlight-meta {
   padding-left: 0.1rem;
   font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 0.92rem;
-  color: rgba(84, 57, 0, 0.9);
+  font-size: 0.88rem;
+  color: rgba(84, 57, 0, 0.78);
+  flex: 1 1 100%;
+}
+
+.ibm-link-inline {
+  order: 2;
+  opacity: 0.92;
 }
 
 .experience-highlight-action {
@@ -2297,6 +2528,8 @@ main {
   cursor: pointer;
   box-shadow: 0 8px 16px rgba(73, 49, 0, 0.15);
   transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  margin-left: auto;
+  order: 3;
 }
 
 .experience-highlight-action:hover {
@@ -2314,7 +2547,7 @@ main {
   border: 0;
   width: 34px;
   height: 34px;
-  margin-left: auto;
+  margin-left: 0.25rem;
   border-radius: 50%;
   background: rgba(255, 249, 221, 0.9);
   color: #6b4a00;

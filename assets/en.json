@@ -40,11 +40,12 @@
     "highlight": {
       "kicker": "Featured experience",
       "title": "Minsait (Indra Group)",
-      "subtitle": "Global technology consulting company - IBM Partner",
-      "description": "Full-stack developer on enterprise systems for the public sector",
+      "subtitle": "Large-scale technology focused on quality, security, and steady delivery.",
+      "description": "I work on enterprise systems for the public sector, taking care of every detail so the product is solid, useful, and maintainable.",
       "badge": "IBM Partner",
-      "meta": "Public sector systems",
-      "cta": "I want to know more"
+      "meta": "Public sector · high-impact software",
+      "cta": "I want to know more",
+      "ibmLink": "View IBM partner profile"
     },
     "minsait": {
       "title": "Software Engineer - Minsait",

@@ -905,11 +905,12 @@ const FALLBACK_TRANSLATIONS = {
       highlight: {
         kicker: "Experiencia destacada",
         title: "Minsait (Indra Group)",
-        subtitle: "Global technology consulting company - IBM Partner",
-        description: "Desarrollador full-stack en sistemas empresariales para el sector publico",
+        subtitle: "Tecnología de gran escala con foco en calidad, seguridad y entrega constante.",
+        description: "Trabajo en sistemas empresariales para sector público, cuidando cada detalle para que el producto sea sólido, útil y mantenible.",
         badge: "IBM Partner",
-        meta: "Sistemas para sector publico",
-        cta: "Quiero saber más"
+        meta: "Sector público · software de alto impacto",
+        cta: "Quiero saber más",
+        ibmLink: "Ver perfil de partner de IBM"
       },
       minsait: {
         title: "Ingeniero de Software - Minsait",
@@ -972,11 +973,12 @@ const FALLBACK_TRANSLATIONS = {
       highlight: {
         kicker: "Featured experience",
         title: "Minsait (Indra Group)",
-        subtitle: "Global technology consulting company - IBM Partner",
-        description: "Full-stack developer on enterprise systems for the public sector",
+        subtitle: "Large-scale technology focused on quality, security, and steady delivery.",
+        description: "I work on enterprise systems for the public sector, taking care of every detail so the product is solid, useful, and maintainable.",
         badge: "IBM Partner",
-        meta: "Public sector systems",
-        cta: "I want to know more"
+        meta: "Public sector · high-impact software",
+        cta: "I want to know more",
+        ibmLink: "View IBM partner profile"
       },
       minsait: {
         title: "Software Engineer - Minsait",
@@ -1093,6 +1095,7 @@ function applyTranslations(data) {
   setText('minsait-highlight-badge', data.experience.highlight.badge);
   setText('minsait-highlight-meta', data.experience.highlight.meta);
   setText('minsait-highlight-cta', data.experience.highlight.cta);
+  setText('minsait-ibm-link-text', data.experience.highlight.ibmLink);
   setText('minsait-mobile-badge', data.experience.highlight.badge);
   const isMobileExperience = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
   setText('minsait-link-title', isMobileExperience ? data.experience.minsait.mobileTitle : data.experience.minsait.title);
@@ -1203,13 +1206,38 @@ function initExperienceCounter() {
 }
 
 // Funciones para controlar los modals
+function getOpenModals() {
+  return Array.from(document.querySelectorAll('.modal')).filter((modal) => modal.style.display === 'block');
+}
+
+function syncModalVisualState() {
+  const openModals = getOpenModals();
+  const isAnyModalOpen = openModals.length > 0;
+
+  modalOpened = isAnyModalOpen;
+  document.body.classList.toggle('modal-open', isAnyModalOpen);
+
+  try {
+    document.body.style.overflow = isAnyModalOpen ? 'hidden' : '';
+  } catch (e) {}
+
+  document.querySelectorAll('.modal').forEach((modal) => {
+    const isOpen = openModals.includes(modal);
+    modal.classList.toggle('modal-depth', isOpen);
+    modal.classList.toggle('modal-enhanced', isOpen);
+
+    const content = modal.querySelector('.modal-content');
+    if (content) {
+      content.classList.toggle('modal-enhanced', isOpen);
+    }
+  });
+}
+
 function openModal(modalId) {
-  modalOpened = true;
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.style.display = 'block';
-    // Evitar scroll del body mientras el modal está abierto
-    try { document.body.style.overflow = 'hidden'; } catch (e) {}
+    syncModalVisualState();
     // Foco accesible en el modal
     try {
       const focusable = modal.querySelector('button, a, [tabindex]');
@@ -1221,33 +1249,29 @@ function openModal(modalId) {
 }
 
 function closeModal(modalId) {
-  modalOpened = false;
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.style.display = 'none';
+    modal.classList.remove('modal-depth', 'modal-enhanced');
+    const content = modal.querySelector('.modal-content');
+    if (content) {
+      content.classList.remove('modal-enhanced');
+    }
   }
-  // restaurar scroll del body
-  try { document.body.style.overflow = 'auto'; } catch (e) {}
+  syncModalVisualState();
 }
 
 // Cerrar modal al hacer clic fuera de él
 window.addEventListener('click', function(event) {
   if (event.target.classList.contains('modal')) {
-    event.target.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    closeModal(event.target.id);
   }
 });
 
 // Cerrar modal con la tecla Escape
 window.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => {
-      if (modal.style.display === 'block') {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-    });
+    getOpenModals().forEach((modal) => closeModal(modal.id));
   }
 });
 
