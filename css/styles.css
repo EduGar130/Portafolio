@@ -1766,7 +1766,14 @@ main {
   }
 
   main > section:not(:first-of-type) {
-    min-height: 100dvh;
+    min-height: 100lvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  main > section:not(:first-of-type) > * {
+    width: 100%;
   }
 
   section + section {
