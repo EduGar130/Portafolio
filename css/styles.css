@@ -1752,6 +1752,10 @@ main {
     min-height: calc(100dvh - var(--mobile-sidebar-height) - env(safe-area-inset-bottom, 0px));
   }
 
+  main > section:not(:first-of-type) {
+    min-height: 100dvh;
+  }
+
   section + section {
     margin-top: 0;
   }
