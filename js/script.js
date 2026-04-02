@@ -52,6 +52,20 @@ function getRevealRadius(x, y) {
   return Math.hypot(farthestX, farthestY);
 }
 
+function updateViewportHeightVar() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+function bindViewportHeightFallback() {
+  updateViewportHeightVar();
+  window.addEventListener('resize', updateViewportHeightVar, { passive: true });
+  window.addEventListener('orientationchange', updateViewportHeightVar);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', updateViewportHeightVar);
+  }
+}
+
 function applySidebarWaveRhythm() {
   const docEl = document.documentElement;
   const primaryButtons = Array.from(document.querySelectorAll('#sidebar li'));
@@ -165,6 +179,7 @@ function activateMovementMode() {
 
 function init(){
   const enlaceCV = document.querySelector('#cv-link .cv-link') || document.querySelector('a.cv-link[download]');
+  bindViewportHeightFallback();
   const initialTheme = getInitialThemePreference();
   applyThemeState(initialTheme === 'dark', false);
 
@@ -499,6 +514,7 @@ function init(){
     });
   }
   window.addEventListener("resize", function(){
+    updateViewportHeightVar();
     activateMovementMode();
 
     setTimeout(() => {

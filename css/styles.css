@@ -1,4 +1,5 @@
 :root {
+  --vh: 1vh;
   --bg-light: #03a9f4;
   --bg-dark: #01579B;
   --theme-reveal-color: var(--bg-light);
@@ -219,6 +220,8 @@ body p {
 
 body {
   margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
   font-family: 'Patrick Hand', 'Segoe Print', cursive;
   background-color: var(--sidebar-color);
   /* blend modes: gradient overlays, grid draws normally, noise multiplies slightly for texture */
@@ -1626,6 +1629,7 @@ main {
 @media screen and (max-width: 768px) {
   :root {
     --mobile-gutter: 12px;
+    --mobile-sidebar-height: calc(var(--vh, 1vh) * 8);
     --mobile-sidebar-height: 8dvh;
   }
 
@@ -1639,6 +1643,9 @@ main {
   #root {
     overflow-x: clip;
     overflow-y: auto;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
   }
 
   body::-webkit-scrollbar {
@@ -1686,15 +1693,18 @@ main {
 
   #sidebar {
     position: fixed;
-    top: 100%;
+    top: auto;
+    bottom: 0;
     left: 0;
-    transform: translateY(-100%);
+    right: 0;
+    transform: none;
     z-index: 200000;
     display: flex;
     justify-content: center;
     align-items: center;
     height: var(--mobile-sidebar-height);
     width: 100%;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     box-shadow: var(--shadow-l);
     background-color: var(--sidebar-color);
   }
@@ -1721,6 +1731,9 @@ main {
     width: 100%;
     max-width: 100dvw;
     margin-left: 0px;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
     padding-bottom: calc(var(--mobile-sidebar-height) + env(safe-area-inset-bottom, 0px));
   }
 

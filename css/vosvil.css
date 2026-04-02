@@ -51,6 +51,7 @@ body {
   color: var(--text-main);
   line-height: 1.65;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 :root.light body {
