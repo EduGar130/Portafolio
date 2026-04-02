@@ -1762,7 +1762,7 @@ main {
   }
 
   main > section:first-of-type {
-    min-height: calc(100dvh - var(--mobile-sidebar-height) - env(safe-area-inset-bottom, 0px));
+    min-height: calc(100svh - var(--mobile-sidebar-height) - env(safe-area-inset-bottom, 0px));
   }
 
   main > section:not(:first-of-type) {
