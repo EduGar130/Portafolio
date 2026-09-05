@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://www.googletagmanager.com">
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;700&family=Patrick+Hand&family=Playfair+Display:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@600;700;800&family=Patrick+Hand&family=Playfair+Display:wght@500;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     .work-card { margin-top: 18px; display:flex; justify-content:center; }
@@ -139,6 +139,15 @@
   </script>
 </head>
 <body>
+
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden;">
+  <defs>
+    <filter id="inkWobble" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.04" numOctaves="2" seed="7" result="noise"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </defs>
+</svg>
 
 <div id="root">
 
@@ -257,30 +266,36 @@
 
             <h3 id="experience-timeline-title" class="experience-timeline-title">Cronograma profesional</h3>
             <div class="experience-timeline" aria-label="Cronograma de experiencia profesional">
-              <a class="timeline-item experience-link current" href="minsait.html" aria-label="Ver experiencia detallada en Minsait">
-                <span class="experience-link-logo" aria-hidden="true">
-                  <img src="img/minsait.webp" alt="">
-                </span>
-                <span class="experience-link-copy">
-                  <p class="timeline-date" id="timeline-minsait-period">ene. 2024 - actualidad</p>
-                  <h3 id="minsait-link-title">Ingeniero de Software - Minsait</h3>
-                  <span class="experience-mobile-badge" id="minsait-mobile-badge">IBM Partner</span>
-                  <small id="minsait-link-cta">Ver detalle</small>
-                </span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </a>
+              <div class="timeline-row">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <a class="timeline-item experience-link current" href="minsait.html" aria-label="Ver experiencia detallada en Minsait">
+                  <span class="experience-link-logo" aria-hidden="true">
+                    <img src="img/minsait.webp" alt="">
+                  </span>
+                  <span class="experience-link-copy">
+                    <p class="timeline-date" id="timeline-minsait-period">ene. 2024 - actualidad</p>
+                    <h3 id="minsait-link-title">Ingeniero de Software - Minsait</h3>
+                    <span class="experience-mobile-badge" id="minsait-mobile-badge">IBM Partner</span>
+                    <small id="minsait-link-cta">Ver detalle</small>
+                  </span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
 
-              <a class="timeline-item experience-link" href="balearia.html" aria-label="Ver experiencia detallada en Baleària">
-                <span class="experience-link-logo" aria-hidden="true">
-                  <img src="img/balearia.webp" alt="">
-                </span>
-                <span class="experience-link-copy">
-                  <p class="timeline-date" id="timeline-balearia-period">nov. 2023 - ene. 2024</p>
-                  <h3 id="balearia-link-title">Becario Full-Stack - Baleària</h3>
-                  <small id="balearia-link-cta">Ver detalle</small>
-                </span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </a>
+              <div class="timeline-row">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <a class="timeline-item experience-link" href="balearia.html" aria-label="Ver experiencia detallada en Baleària">
+                  <span class="experience-link-logo" aria-hidden="true">
+                    <img src="img/balearia.webp" alt="">
+                  </span>
+                  <span class="experience-link-copy">
+                    <p class="timeline-date" id="timeline-balearia-period">nov. 2023 - ene. 2024</p>
+                    <h3 id="balearia-link-title">Becario Full-Stack - Baleària</h3>
+                    <small id="balearia-link-cta">Ver detalle</small>
+                  </span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
             </div>
         </div>
       </section>
@@ -360,6 +375,14 @@
                   <img src="img/vosvil-logo.webp" alt="">
                 </span>
                 <h3 id="vosvil">Vosvil Concierge de lujo</h3>
+              </a>
+            </div>
+            <div class="certificate-tile themed-project-btn arribaia-btn">
+              <a href="https://arribaia.com" target="_blank" rel="noopener noreferrer" aria-label="Ir a ArribaIA">
+                <span class="project-btn-logo" aria-hidden="true">
+                  <img src="img/arribaia-logo.svg" alt="">
+                </span>
+                <h3 id="arribaia">ArribaIA Posicionamiento en IA</h3>
               </a>
             </div>
           </div>

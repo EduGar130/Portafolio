@@ -927,7 +927,8 @@ const FALLBACK_TRANSLATIONS = {
       inventory: "Gestor de Inventario Web",
       compiler: "Compilador ADA",
       veritas: "Veritas - Descubre tu Verdad",
-      vosvil: "Vosvil - Concierge de lujo"
+      vosvil: "Vosvil - Concierge de lujo",
+      arribaia: "ArribaIA - Posicionamiento en IA"
     },
     skills: {
       title: "Habilidades",
@@ -995,7 +996,8 @@ const FALLBACK_TRANSLATIONS = {
       inventory: "Inventory Manager",
       compiler: "ADA Compiler",
       veritas: "Veritas Discover Your Truth",
-      vosvil: "Vosvil Luxury Concierge"
+      vosvil: "Vosvil Luxury Concierge",
+      arribaia: "ArribaIA GEO"
     },
     skills: {
       title: "Skills",
@@ -1053,6 +1055,7 @@ function applyTranslations(data) {
   setText('compilador', data.projects.compiler);
   setText('veritas', data.projects.veritas);
   setText('vosvil', data.projects.vosvil);
+  setText('arribaia', data.projects.arribaia);
 
   setText('certificates-title', data.certificates.title);
   setText('ef-set', data.certificates.efset);

@@ -49,6 +49,7 @@
   --btn-bg-normal: var(--tiles-color);
   --btn-bg-alt: var(--main-bg-color);
   --btn-font-size: 0.96rem;
+  --ink-color: rgba(19, 49, 71, 0.55);
 
   /* Unified shadow system (three levels) */
   --shadow-s: inset 0 1px 2px rgba(255,255,255,0.12), 0 1px 2px rgba(0,0,0,0.30), 0 2px 4px rgba(0,0,0,0.12);
@@ -124,6 +125,7 @@
   --icons-color: var(--icons-color-dark);
   --icon-base-color: var(--icon-base-color-dark);
   --icons-redraw: var(--icons-redraw-dark);
+  --ink-color: rgba(255, 255, 255, 0.4);
   /* sombra fuerte hacia la izquierda para las secciones en modo oscuro */
   --section-shadow-left: -36px 0 72px rgba(0,0,0,0.60);
   /* Dark-mode shadow adjustments: softer highlights, stronger dark shadow */
@@ -222,7 +224,7 @@ body {
   margin: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  font-family: 'Patrick Hand', 'Segoe Print', cursive;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   background-color: var(--sidebar-color);
   /* blend modes: gradient overlays, grid draws normally, noise multiplies slightly for texture */
   background-blend-mode: overlay, normal, multiply;
@@ -250,16 +252,17 @@ body.dark {
   }
 }
 
-h1,
+h1 {
+  font-family: 'Caveat', 'Segoe Print', cursive;
+  letter-spacing: 0.02em;
+}
+
 h2,
 h3,
-.cv-link,
-.contact-links a,
-.certificate-title h3,
-.certificate-tile h3,
-.work-card-content strong {
-  font-family: 'Caveat', 'Segoe Print', cursive;
-  letter-spacing: 0.03em;
+.experience-timeline-title {
+  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.005em;
 }
 
 h1 {
@@ -270,11 +273,36 @@ h1 {
 h2 {
   font-size: clamp(1.9rem, 3.5vw, 2.9rem);
   margin-bottom: 0.7rem;
+  position: relative;
 }
 
 h3 {
   font-size: clamp(1.45rem, 2.4vw, 2.05rem);
   margin: 0;
+}
+
+/* Plain project/certificate tile titles: the base h3 size was tuned for the
+   old cursive font - bold Montserrat at the same size reads oversized. */
+.certificate-tile h3 {
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+}
+
+/* Hand-drawn underline accent beneath section titles: a professional
+   heading with a sketched flourish, tying headings to the notebook motif. */
+h2::after {
+  content: '';
+  display: block;
+  width: 78px;
+  height: 11px;
+  margin: 0.4rem auto 0;
+  background-color: var(--accent-color);
+  opacity: 0.82;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='78' height='11'><path d='M2 6.5 C16 2, 28 10, 40 5.5 C52 1.5, 62 9, 76 4.5' stroke='black' stroke-width='2.6' fill='none' stroke-linecap='round'/></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='78' height='11'><path d='M2 6.5 C16 2, 28 10, 40 5.5 C52 1.5, 62 9, 76 4.5' stroke='black' stroke-width='2.6' fill='none' stroke-linecap='round'/></svg>") no-repeat center / contain;
+}
+
+.modal-header h2::after {
+  display: none;
 }
 
 body p,
@@ -302,8 +330,9 @@ body p,
   min-height: var(--btn-min-height);
   padding: var(--btn-padding-y) var(--btn-padding-x);
   box-sizing: border-box;
-  border-radius: var(--btn-radius);
-  border: var(--btn-border-width) dashed var(--btn-border-color);
+  position: relative;
+  border-radius: 13px 10px 12px 9px / 9px 12px 10px 13px;
+  border: var(--btn-border-width) solid transparent;
   text-decoration: none;
   color: var(--text-color);
   font-size: var(--btn-font-size);
@@ -313,12 +342,33 @@ body p,
   word-break: break-word;
   box-shadow: var(--shadow-s);
   background-color: var(--btn-bg-normal);
-  transition: box-shadow 0.25s ease, background-color 0.5s ease, border-color 0.25s ease;
+  transition: box-shadow 0.25s ease, background-color 0.5s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-alt,
 .work-card-link {
   background-color: var(--main-bg-color);
+}
+
+/* Hand-inked outline: a sketched stroke sits on top of the crisp fill/box-shadow
+   via an SVG turbulence filter, so borders wobble like pen strokes while text,
+   icons and logos underneath stay perfectly readable. */
+.btn-normal::after,
+.btn-alt::after,
+.cv-link::after,
+.tile a::after,
+.contact-links a::after,
+.certificate-tile::after,
+.certificate-download-trigger::after {
+  content: '';
+  position: absolute;
+  /* inset slightly rather than 0: these elements clip overflow, and the
+     ink filter displaces the stroke a few px in both directions */
+  inset: 1.5px;
+  border-radius: inherit;
+  border: 1.6px solid var(--ink-color);
+  filter: url(#inkWobble);
+  pointer-events: none;
 }
 
 button:hover,
@@ -422,12 +472,23 @@ button:hover,
 }
 
 .experience-live-panel {
+  position: relative;
   width: min(760px, 100%);
   padding: 14px 20px;
-  border-radius: 14px;
-  border: 2px dashed rgba(19, 49, 71, 0.28);
+  border-radius: 12px 15px 11px 16px / 15px 11px 16px 12px;
+  border: 2px solid transparent;
   background: rgba(255, 255, 255, 0.38);
   box-shadow: var(--shadow-s);
+}
+
+.experience-live-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.7px solid var(--ink-color);
+  filter: url(#inkWobble);
+  pointer-events: none;
 }
 
 .experience-live-panel p {
@@ -459,64 +520,110 @@ button:hover,
   width: min(760px, 100%);
   position: relative;
   display: grid;
-  gap: 12px;
-  padding-left: 26px;
+  gap: 10px;
+  padding-left: 34px;
 }
 
+/* Hand-sketched connecting line: a wobbly pen stroke instead of a ruled
+   line. The mask itself carries the top/bottom fade (intersected with the
+   wave shape) so the line's own alpha fades out - no painted-over patch
+   that has to fight the paper texture behind it. */
 .experience-timeline::before {
   content: '';
   position: absolute;
-  left: 10.5px;
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  background: color-mix(in srgb, var(--accent-color) 64%, transparent);
+  left: 4px;
+  top: -16px;
+  bottom: -16px;
+  width: 18px;
+  background-color: color-mix(in srgb, var(--accent-color) 74%, transparent);
+  -webkit-mask-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='36'><path d='M9 0 C3 5, 15 9, 9 14 C3 19, 15 23, 9 28 C5 30, 12 33, 9 36' stroke='black' stroke-width='2.4' fill='none' stroke-linecap='round'/></svg>"),
+    linear-gradient(to bottom, transparent 0, black 26px, black calc(100% - 26px), transparent 100%);
+  -webkit-mask-repeat: repeat-y, no-repeat;
+  -webkit-mask-size: 18px 36px, 100% 100%;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='36'><path d='M9 0 C3 5, 15 9, 9 14 C3 19, 15 23, 9 28 C5 30, 12 33, 9 36' stroke='black' stroke-width='2.4' fill='none' stroke-linecap='round'/></svg>"),
+    linear-gradient(to bottom, transparent 0, black 26px, black calc(100% - 26px), transparent 100%);
+  mask-repeat: repeat-y, no-repeat;
+  mask-size: 18px 36px, 100% 100%;
+  mask-composite: intersect;
+}
+
+.timeline-row {
+  position: relative;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -26px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 13px;
+  height: 13px;
+  border-radius: 48% 52% 47% 53% / 53% 47% 53% 47%;
+  background: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+}
+
+.timeline-row:has(.timeline-item.current) .timeline-dot {
+  background: #1f9d63;
 }
 
 .timeline-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-align: left;
   position: relative;
-  border: 2px dashed rgba(19, 49, 71, 0.24);
-  border-radius: 12px;
+  border: 2px solid transparent;
+  border-radius: 13px 10px 12px 9px / 9px 12px 10px 13px;
   background: rgba(255, 255, 255, 0.34);
-  padding: 10px 12px 10px 14px;
+  padding: 8px 10px 8px 12px;
   color: var(--text-color);
   text-decoration: none;
+  box-shadow: var(--shadow-s);
+  transition: box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.5s ease;
 }
 
-.timeline-item::before {
+.timeline-item::after {
   content: '';
   position: absolute;
-  left: -22px;
-  top: 18px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.75);
+  inset: 0;
+  border-radius: inherit;
+  border: 1.7px solid var(--ink-color);
+  filter: url(#inkWobble);
+  pointer-events: none;
 }
 
-.timeline-item.current::before {
-  background: #1f9d63;
+.timeline-row:nth-child(odd) .timeline-item {
+  transform: rotate(-0.5deg);
+}
+
+.timeline-row:nth-child(even) .timeline-item {
+  transform: rotate(0.5deg);
+}
+
+.timeline-item:hover {
+  transform: rotate(0deg) translateY(-3px);
+  box-shadow: var(--shadow-m);
 }
 
 .timeline-item h3 {
-  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+  font-size: clamp(1.02rem, 1.6vw, 1.24rem);
 }
 
 .timeline-date {
-  margin: 0 0 3px 0;
-  font-size: 0.95rem;
+  margin: 0 0 2px 0;
+  font-size: 0.86rem;
   opacity: 0.86;
 }
 
 .experience-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   justify-content: space-between;
   text-align: left;
 }
@@ -526,9 +633,9 @@ button:hover,
 }
 
 .experience-link-logo {
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
   overflow: hidden;
   flex: 0 0 auto;
   border: 1px solid rgba(19, 49, 71, 0.28);
@@ -553,11 +660,11 @@ button:hover,
 }
 
 .experience-link-copy h3 {
-  font-size: clamp(1.15rem, 2.1vw, 1.45rem);
+  font-size: clamp(1.02rem, 1.75vw, 1.24rem);
 }
 
 .experience-link-copy small {
-  font-size: 0.92rem;
+  font-size: 0.84rem;
   opacity: 0.8;
 }
   
@@ -727,11 +834,22 @@ section {
 }
 
 .welcome-icons li {
-  border: 2px dashed rgba(19, 49, 71, 0.4);
-  border-radius: 14px;
+  position: relative;
+  border: 2px solid transparent;
+  border-radius: 12px 15px 11px 16px / 15px 11px 16px 12px;
   background: rgba(255, 255, 255, 0.35);
   padding: 9px 9px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-icons li::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.6px solid var(--ink-color);
+  filter: url(#inkWobble);
+  pointer-events: none;
 }
 
 .welcome-icons li:nth-child(odd) {
@@ -876,8 +994,9 @@ section {
   width: fit-content;
   min-height: 36px;
   padding: 0.35rem 0.8rem;
+  position: relative;
   border-radius: 999px;
-  border: 1px dashed var(--btn-border-color);
+  border: 1px solid transparent;
   background-color: var(--main-bg-color);
   color: var(--text-color);
   text-decoration: none;
@@ -938,6 +1057,7 @@ section {
   background-size: cover, cover;
   background-position: center;
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), inset 0 -6px 10px rgba(119, 90, 43, 0.18), 0 2px 7px rgba(49, 32, 13, 0.28);
+  --ink-color: rgba(90, 62, 26, 0.55);
 }
 
 .veritas-btn h3 {
@@ -974,6 +1094,7 @@ section {
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 2px, rgba(0, 0, 0, 0) 2px 6px),
     linear-gradient(145deg, #0f1011, #1f2327 45%, #3a4149 100%);
   box-shadow: inset 0 1px 0 rgba(255, 247, 222, 0.21), 0 2px 8px rgba(0, 0, 0, 0.45);
+  --ink-color: rgba(230, 200, 140, 0.38);
 }
 
 .vosvil-btn h3 {
@@ -993,6 +1114,36 @@ section {
     radial-gradient(circle at 14% 10%, rgba(255, 229, 166, 0.33), rgba(0, 0, 0, 0) 35%),
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.045) 0 2px, rgba(0, 0, 0, 0) 2px 6px),
     linear-gradient(150deg, #0a0b0d, #171a1e 48%, #2b2f35 100%);
+}
+
+/* ArribaIA: plain white card, black text - a handful of pixel accents
+   (from the site's own WebGL palette, components/pixel-effect/palette.ts)
+   tucked into all four corners so they never sit under the type. */
+.arribaia-btn {
+  border: none;
+  background-color: #ffffff;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><rect x='0' y='0' width='10' height='10' fill='%23E0A526'/><rect x='10' y='0' width='10' height='10' fill='%231D5FA6'/><rect x='0' y='10' width='10' height='10' fill='%23D64550'/><rect x='20' y='10' width='10' height='10' fill='%232F9E44'/><rect x='10' y='20' width='10' height='10' fill='%230EA5A5'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><rect x='20' y='0' width='10' height='10' fill='%237C3AED'/><rect x='10' y='0' width='10' height='10' fill='%232F9E44'/><rect x='20' y='10' width='10' height='10' fill='%23E0A526'/><rect x='0' y='10' width='10' height='10' fill='%231D5FA6'/><rect x='10' y='20' width='10' height='10' fill='%23D64550'/><rect x='20' y='20' width='10' height='10' fill='%230EA5A5'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><rect x='20' y='0' width='10' height='10' fill='%237C3AED'/><rect x='10' y='0' width='10' height='10' fill='%232F9E44'/><rect x='20' y='10' width='10' height='10' fill='%23E0A526'/><rect x='0' y='10' width='10' height='10' fill='%231D5FA6'/><rect x='10' y='20' width='10' height='10' fill='%23D64550'/><rect x='20' y='20' width='10' height='10' fill='%230EA5A5'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><rect x='0' y='0' width='10' height='10' fill='%23E0A526'/><rect x='10' y='0' width='10' height='10' fill='%231D5FA6'/><rect x='0' y='10' width='10' height='10' fill='%23D64550'/><rect x='20' y='10' width='10' height='10' fill='%232F9E44'/><rect x='10' y='20' width='10' height='10' fill='%230EA5A5'/></svg>");
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: top -3px left -3px, top -3px right -3px, bottom -3px left -3px, bottom -3px right -3px;
+  background-size: 26px 26px, 26px 26px, 26px 26px, 26px 26px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -3px 8px rgba(20, 19, 15, 0.06), 0 2px 8px rgba(20, 19, 15, 0.22);
+  --ink-color: rgba(20, 19, 15, 0.4);
+}
+
+.arribaia-btn h3 {
+  color: #14130F;
+  font-family: 'Anton', 'Montserrat', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  font-size: clamp(1.02rem, 1.55vw, 1.3rem);
+}
+
+.dark-mode .arribaia-btn {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -4px 10px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -1035,14 +1186,15 @@ section {
 
 /* Sticker look for standalone icons that are not button labels */
 section a:has(> i:only-child) > i {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 2.35em;
   height: 2.35em;
   margin: 24px;
-  border-radius: 16px;
-  border: 2px dashed color-mix(in srgb, var(--icon-base-color) 45%, transparent);
+  border-radius: 13px 17px 12px 18px / 17px 12px 18px 13px;
+  border: 2px solid transparent;
   background:
     radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.55), transparent 42%),
     color-mix(in srgb, var(--tiles-color) 86%, white 14%);
@@ -1050,6 +1202,16 @@ section a:has(> i:only-child) > i {
     0 1px 0 rgba(255, 255, 255, 0.7) inset,
     0 8px 16px rgba(0, 0, 0, 0.16),
     0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+section a:has(> i:only-child) > i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.7px solid color-mix(in srgb, var(--icon-base-color) 45%, transparent);
+  filter: url(#inkWobble);
+  pointer-events: none;
 }
 
 section a:has(> i:only-child):nth-child(odd) > i {
@@ -1061,10 +1223,13 @@ section a:has(> i:only-child):nth-child(even) > i {
 }
 
 .dark-mode section a:has(> i:only-child) > i {
-  border-color: color-mix(in srgb, var(--icons-color) 52%, transparent);
   background:
     radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.1), transparent 42%),
     color-mix(in srgb, var(--main-bg-color) 84%, black 16%);
+}
+
+.dark-mode section a:has(> i:only-child) > i::after {
+  border-color: color-mix(in srgb, var(--icons-color) 52%, transparent);
 }
 
 #social a i:hover,
@@ -1769,6 +1934,9 @@ main {
 
   main > section:first-of-type {
     min-height: calc(100svh - var(--mobile-sidebar-height) - env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   main > section:not(:first-of-type) {
@@ -1778,7 +1946,7 @@ main {
     justify-content: center;
   }
 
-  main > section:not(:first-of-type) > * {
+  main > section > * {
     width: 100%;
   }
 
@@ -2240,8 +2408,8 @@ body.modal-open > :not(.modal) {
   margin: 0;
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%) rotate(-18deg) scale(0.32);
-  transform-origin: center top;
+  transform: perspective(1400px) translate(-50%, -62%) rotateX(-72deg) rotateZ(-3deg) scale(0.88);
+  transform-origin: 50% 0%;
   transition: opacity 0.18s ease, transform 0.46s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
   z-index: 180000;
   will-change: transform, filter, opacity;
@@ -2251,15 +2419,15 @@ body.modal-open > :not(.modal) {
 .experience-highlight-tile.is-visible {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) rotate(-1deg) scale(1);
+  transform: perspective(1400px) translate(-50%, -50%) rotateX(0deg) rotateZ(-1.4deg) scale(1);
 }
 
 .experience-highlight-tile.is-open {
-  animation: experience-highlight-enter 720ms cubic-bezier(0.12, 1.02, 0.2, 1) both;
+  animation: experience-highlight-enter 640ms cubic-bezier(0.16, 0.9, 0.2, 1) both;
 }
 
 .experience-highlight-tile.is-closing {
-  animation: experience-highlight-exit 460ms cubic-bezier(0.22, 0.8, 0.18, 1) both;
+  animation: experience-highlight-exit 480ms cubic-bezier(0.4, 0, 0.65, 1) both;
 }
 
 .experience-highlight-tile:hover {
@@ -2270,9 +2438,10 @@ body.modal-open > :not(.modal) {
   position: relative;
   overflow: hidden;
   padding: clamp(0.9rem, 2.2vw, 1.25rem) clamp(1rem, 2.4vw, 1.35rem) clamp(1rem, 2.6vw, 1.35rem);
-  border-radius: 0;
+  border-radius: 1px 7px 2px 8px / 8px 2px 7px 1px;
   border: 1px solid rgba(141, 109, 20, 0.35);
   background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0, rgba(255, 255, 255, 0.34) 9px, transparent 9px),
     linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.06)),
     repeating-linear-gradient(180deg, rgba(132, 92, 0, 0) 0 24px, rgba(132, 92, 0, 0.08) 24px 25px),
     linear-gradient(180deg, #ffe76a 0%, #ffd94a 52%, #ffc93a 100%);
@@ -2289,6 +2458,23 @@ body.modal-open > :not(.modal) {
   background:
     radial-gradient(circle at 15% 18%, rgba(255, 255, 255, 0.52), transparent 23%),
     radial-gradient(circle at 84% 8%, rgba(255, 255, 255, 0.35), transparent 18%);
+  pointer-events: none;
+}
+
+/* Peeled corner: the classic sticky-note tell, a curled triangle
+   revealing its shaded underside at the bottom-right. */
+.experience-highlight-sheet::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  background:
+    linear-gradient(135deg, transparent 50%, rgba(58, 36, 0, 0.16) 51%, rgba(58, 36, 0, 0.26) 66%, transparent 67%),
+    linear-gradient(315deg, #fff2b0 0%, #f6c94a 55%, #dba52a 100%);
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  box-shadow: -3px -3px 8px rgba(58, 36, 0, 0.22);
   pointer-events: none;
 }
 
@@ -2403,7 +2589,7 @@ body.modal-open > :not(.modal) {
   border: 0;
   background: transparent;
   color: rgba(78, 53, 0, 0.78);
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   font-size: 0.79rem;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -2459,7 +2645,7 @@ body.modal-open > :not(.modal) {
 
 .experience-highlight-kicker {
   margin: 0 0 0.35rem;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -2480,7 +2666,7 @@ body.modal-open > :not(.modal) {
 .experience-highlight-subtitle {
   margin: 0.42rem 0 0;
   color: rgba(57, 40, 0, 0.92);
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   font-size: clamp(0.98rem, 1.8vw, 1.08rem);
   line-height: 1.45;
 }
@@ -2488,7 +2674,7 @@ body.modal-open > :not(.modal) {
 .experience-highlight-description {
   margin: 0.58rem 0 0;
   color: rgba(48, 33, 0, 0.88);
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   font-size: 0.95rem;
   line-height: 1.55;
 }
@@ -2504,7 +2690,7 @@ body.modal-open > :not(.modal) {
 
 .experience-highlight-meta {
   padding-left: 0.1rem;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   font-size: 0.88rem;
   color: rgba(84, 57, 0, 0.78);
   flex: 1 1 100%;
@@ -2522,7 +2708,7 @@ body.modal-open > :not(.modal) {
   padding: 0.72rem 1rem;
   background: linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255, 236, 142, 0.75));
   color: #473100;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   font-size: 0.92rem;
   font-weight: 700;
   cursor: pointer;
@@ -2571,37 +2757,39 @@ body.modal-open > :not(.modal) {
   display: none;
 }
 
+/* Post-it peel: the note unrolls down from its top edge as if pulled off
+   a pad, with a little paper-wobble as it settles onto the page. */
 @keyframes experience-highlight-enter {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(-20deg) scale(0.24);
+    transform: perspective(1400px) translate(-50%, -64%) rotateX(-78deg) rotateZ(-3deg) scale(0.86);
   }
-  55% {
+  50% {
     opacity: 1;
-    transform: translate(-50%, -50%) rotate(3deg) scale(1.1);
+    transform: perspective(1400px) translate(-50%, -48%) rotateX(10deg) rotateZ(2.4deg) scale(1.035);
   }
-  76% {
+  74% {
     opacity: 1;
-    transform: translate(-50%, -50%) rotate(-1.6deg) scale(0.98);
+    transform: perspective(1400px) translate(-50%, -50.6%) rotateX(-3deg) rotateZ(-2.4deg) scale(0.99);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) rotate(-1deg) scale(1);
+    transform: perspective(1400px) translate(-50%, -50%) rotateX(0deg) rotateZ(-1.4deg) scale(1);
   }
 }
 
 @keyframes experience-highlight-exit {
   0% {
     opacity: 1;
-    transform: translate(-50%, -50%) rotate(-1deg) scale(1);
+    transform: perspective(1400px) translate(-50%, -50%) rotateX(0deg) rotateZ(-1.4deg) scale(1);
   }
-  35% {
+  28% {
     opacity: 1;
-    transform: translate(-50%, -50%) rotate(4deg) scale(1.04);
+    transform: perspective(1400px) translate(-50%, -46%) rotateX(22deg) rotateZ(3deg) scale(1.03);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(-16deg) scale(0.26);
+    transform: perspective(1400px) translate(-50%, -68%) rotateX(-82deg) rotateZ(5deg) scale(0.84);
   }
 }
 
@@ -2612,11 +2800,11 @@ body.modal-open > :not(.modal) {
 @media (max-width: 768px) {
   .experience-live-panel,
   .experience-timeline {
-    width: min(94vw, 100%);
+    width: min(92vw, 100%);
   }
 
   .experience-board {
-    padding-inline: 8px;
+    padding-inline: 16px;
     box-sizing: border-box;
   }
 
@@ -2625,12 +2813,31 @@ body.modal-open > :not(.modal) {
   }
 
   .experience-timeline {
-    gap: 14px;
-    padding: 0 4px 0 28px;
+    gap: 12px;
+    padding: 0 10px 0 30px;
+  }
+
+  .experience-timeline::before {
+    left: 3px;
+  }
+
+  .timeline-dot {
+    left: -23px;
   }
 
   .timeline-item {
-    padding: 12px 14px 12px 16px;
+    padding: 10px 12px 10px 13px;
+    gap: 10px;
+  }
+
+  .timeline-row:nth-child(odd) .timeline-item,
+  .timeline-row:nth-child(even) .timeline-item {
+    transform: none;
+  }
+
+  .timeline-item:hover,
+  .timeline-item:active {
+    transform: translateY(0);
   }
 
   #experience-live-counter {
@@ -2638,12 +2845,12 @@ body.modal-open > :not(.modal) {
   }
 
   .experience-link-copy small {
-    font-size: 0.86rem;
+    font-size: 0.84rem;
   }
 
   .experience-link-logo {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 8px;
   }
 
