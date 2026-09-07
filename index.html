@@ -363,8 +363,18 @@
       <div class="projects">
             <h2>Proyectos destacados</h2>
           <div class="certificates-container">
-            <div class="certificate-tile"><a href="https://github.com/EduGar130/TFG-LSI" target="_blank" rel="noopener noreferrer"><h3 id="tfg">Gestor de Inventario Web</h3></a></div>
-            <div class="certificate-tile"><a href="https://github.com/EduGar130/Compilador-ADA" target="_blank" rel="noopener noreferrer"><h3 id="compilador">Compilador ADA</h3></a></div>
+            <div class="certificate-tile themed-project-btn inventory-btn">
+              <a href="https://github.com/EduGar130/TFG-LSI" target="_blank" rel="noopener noreferrer" aria-label="Ir a Gestor de Inventario">
+                <span class="project-btn-logo" aria-hidden="true"><i class="fa-solid fa-boxes-stacked"></i></span>
+                <h3 id="tfg">Gestor de Inventario</h3>
+              </a>
+            </div>
+            <div class="certificate-tile themed-project-btn compiler-btn">
+              <a href="https://github.com/EduGar130/Compilador-ADA" target="_blank" rel="noopener noreferrer" aria-label="Ir a Compilador ADA">
+                <span class="project-btn-logo" aria-hidden="true"><i class="fa-solid fa-terminal"></i></span>
+                <h3 id="compilador">Compilador ADA</h3>
+              </a>
+            </div>
             <div class="certificate-tile themed-project-btn veritas-btn">
               <a href="veritas.html" aria-label="Ir a Veritas">
                 <span class="project-btn-logo" aria-hidden="true">
@@ -386,7 +396,7 @@
                 <span class="project-btn-logo" aria-hidden="true">
                   <img src="img/arribaia-logo.svg" alt="">
                 </span>
-                <h3 id="arribaia">ArribaIA Posicionamiento en IA</h3>
+                <h3 id="arribaia">ArribaIA GEO</h3>
               </a>
             </div>
           </div>
@@ -397,48 +407,46 @@
         <div class="certificates">
           <h2 id="certificates-title">Mis Certificados</h2>
           <div class="certificates-container">
-            <div class="certificate-tile" onclick="openModal('modal-c1')">
+            <div class="certificate-tile" onclick="openPostit('c1-postit', event)">
               <h3 id="ef-set">C1 Inglés</h3>
             </div>
             <div class="certificate-tile"><a href="https://www.freecodecamp.org/certification/EdGardian/responsive-web-design" target="_blank" rel="noopener noreferrer"><h3 id="responsive-web-design">Responsive Web Design</h3></a></div>
             <div class="certificate-tile"><a href="https://platzi.com/p/EduGar02/ruta/7-arquitecto-frontend-old/diploma/detalle/" target="_blank" rel="noopener noreferrer"><h3 id="arquitectura-frontend">Arquitectura Frontend</h3></a></div>
-            <div class="certificate-tile" onclick="openModal('modal-degree')">
+            <div class="certificate-tile" onclick="openPostit('degree-postit', event)">
               <h3 id="degree-uned">Graduado en Ingeniería Informática - UNED</h3>
             </div>
             </div>
           </div>
     </section>
 
-    <!-- Modal para certificado C1 -->
-    <div id="modal-c1" class="modal" style="z-index: 1000000;">
-      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="c1-modal-title">
-        <div class="modal-header">
-          <h2 id="c1-modal-title">Certificado Inglés C1</h2>
-          <span class="close" onclick="closeModal('modal-c1')">&times;</span>
+    <!-- Post-it del certificado C1, mismo componente que la experiencia destacada -->
+    <article class="experience-highlight-tile postit-popup" id="c1-postit" aria-hidden="true" aria-labelledby="c1-modal-title" aria-describedby="c1-modal-desc">
+      <div class="experience-highlight-sheet">
+        <div class="experience-highlight-top">
+          <button type="button" class="experience-highlight-close" id="c1-postit-close" aria-label="Cerrar">×</button>
         </div>
-        <div class="modal-body">
-          <p id="c1-modal-desc" style="margin-top:0;">Por privacidad no puedo exponer en internet mi certificado de Inglés C1. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.</p>
-          <p style="margin-top:16px;">
-            <button id="c1-modal-dismiss" class="btn-alt" type="button" onclick="closeModal('modal-c1')">Entendido</button>
-          </p>
+        <p class="experience-highlight-kicker">Certificado</p>
+        <h3 id="c1-modal-title">Certificado Inglés C1</h3>
+        <p class="experience-highlight-description" id="c1-modal-desc">Por privacidad no puedo exponer en internet mi certificado de Inglés C1. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.</p>
+        <div class="experience-highlight-footer">
+          <button type="button" class="experience-highlight-action" id="c1-modal-dismiss">Entendido</button>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div id="modal-degree" class="modal" style="z-index: 1000000;">
-      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="degree-modal-title">
-        <div class="modal-header">
-          <h2 id="degree-modal-title">Titulo de Ingenieria Informatica</h2>
-          <span class="close" onclick="closeModal('modal-degree')">&times;</span>
+    <article class="experience-highlight-tile postit-popup" id="degree-postit" aria-hidden="true" aria-labelledby="degree-modal-title" aria-describedby="degree-modal-desc">
+      <div class="experience-highlight-sheet">
+        <div class="experience-highlight-top">
+          <button type="button" class="experience-highlight-close" id="degree-postit-close" aria-label="Cerrar">×</button>
         </div>
-        <div class="modal-body">
-          <p id="degree-modal-desc" style="margin-top:0;">Por privacidad no puedo exponer en internet mi titulo de Ingenieria Informatica. En un proceso avanzado de entrevista estare encantado de adjuntarlo.</p>
-          <p style="margin-top:16px;">
-            <button id="degree-modal-dismiss" class="btn-alt" type="button" onclick="closeModal('modal-degree')">Entendido</button>
-          </p>
+        <p class="experience-highlight-kicker">Título</p>
+        <h3 id="degree-modal-title">Título de Ingeniería Informática</h3>
+        <p class="experience-highlight-description" id="degree-modal-desc">Por privacidad no puedo exponer en internet mi título de Ingeniería Informática. En un proceso avanzado de entrevista estaré encantado de adjuntarlo.</p>
+        <div class="experience-highlight-footer">
+          <button type="button" class="experience-highlight-action" id="degree-modal-dismiss">Entendido</button>
         </div>
       </div>
-    </div>
+    </article>
 
     <section id="contact">
       <div class="contact">

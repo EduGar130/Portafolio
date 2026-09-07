@@ -339,19 +339,19 @@ function init(){
     });
   }
 
-  // Garantizar que los .certificate-tile con onclick llamen a openModal incluso si el inline handler falla
+  // Garantizar que los .certificate-tile con onclick llamen a openPostit incluso si el inline handler falla
   try {
     const certTiles = document.querySelectorAll('.certificate-tile[onclick]');
     certTiles.forEach(tile => {
       // evitar agregar múltiples listeners si init se ejecuta varias veces
       if (tile.dataset.modalListenerAttached) return;
       const onclick = tile.getAttribute('onclick') || '';
-      const match = onclick.match(/openModal\(['"]([^'\"]+)['"]\)/);
+      const match = onclick.match(/openPostit\(['"]([^'"]+)['"]/);
       if (match && match[1]) {
-        const modalId = match[1];
+        const postitId = match[1];
         tile.addEventListener('click', (e) => {
           e.preventDefault();
-          try { openModal(modalId); } catch(err) { console.warn('openModal call failed', err); }
+          try { openPostit(postitId); } catch(err) { console.warn('openPostit call failed', err); }
         });
         tile.dataset.modalListenerAttached = '1';
       }
@@ -924,11 +924,11 @@ const FALLBACK_TRANSLATIONS = {
     },
     projects: {
       title: "Proyectos destacados",
-      inventory: "Gestor de Inventario Web",
+      inventory: "Gestor de Inventario",
       compiler: "Compilador ADA",
       veritas: "Veritas - Descubre tu Verdad",
       vosvil: "Vosvil - Concierge de lujo",
-      arribaia: "ArribaIA - Posicionamiento en IA"
+      arribaia: "ArribaIA GEO"
     },
     skills: {
       title: "Habilidades",
@@ -1208,73 +1208,74 @@ function initExperienceCounter() {
   experienceCounterInterval = setInterval(updateExperienceCounter, 1000);
 }
 
-// Funciones para controlar los modals
-function getOpenModals() {
-  return Array.from(document.querySelectorAll('.modal')).filter((modal) => modal.style.display === 'block');
-}
-
-function syncModalVisualState() {
-  const openModals = getOpenModals();
-  const isAnyModalOpen = openModals.length > 0;
-
-  modalOpened = isAnyModalOpen;
-  document.body.classList.toggle('modal-open', isAnyModalOpen);
-
+// Popups estilo post-it: reutilizan la animación de "experiencia destacada"
+// (peel-in/out) para el certificado C1 y el título de grado. Sin overlay de
+// fondo, igual que el post-it de experiencia, pero pausan la paginación por
+// secciones mientras están abiertos.
+function updatePostitOpenState() {
+  const anyOpen = document.querySelector('.postit-popup.is-open') !== null;
+  modalOpened = anyOpen;
   try {
-    document.body.style.overflow = isAnyModalOpen ? 'hidden' : '';
+    document.body.style.overflow = anyOpen ? 'hidden' : '';
   } catch (e) {}
-
-  document.querySelectorAll('.modal').forEach((modal) => {
-    const isOpen = openModals.includes(modal);
-    modal.classList.toggle('modal-depth', isOpen);
-    modal.classList.toggle('modal-enhanced', isOpen);
-
-    const content = modal.querySelector('.modal-content');
-    if (content) {
-      content.classList.toggle('modal-enhanced', isOpen);
-    }
-  });
 }
 
-function openModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.style.display = 'block';
-    syncModalVisualState();
-    // Foco accesible en el modal
-    try {
-      const focusable = modal.querySelector('button, a, [tabindex]');
-      if (focusable) focusable.focus();
-    } catch (e) {}
-  } else {
-    console.warn('openModal: modal not found', modalId);
+function openPostit(id, event) {
+  if (event) event.stopPropagation();
+  const tile = document.getElementById(id);
+  if (!tile) return;
+  tile.classList.remove('is-closing');
+  tile.classList.add('is-open', 'is-visible');
+  tile.setAttribute('aria-hidden', 'false');
+  updatePostitOpenState();
+  try {
+    const focusable = tile.querySelector('button, a, [tabindex]');
+    if (focusable) focusable.focus();
+  } catch (e) {}
+}
+
+function closePostit(id) {
+  const tile = document.getElementById(id);
+  if (!tile || !tile.classList.contains('is-open')) return;
+  tile.classList.remove('is-open', 'is-visible');
+  tile.classList.add('is-closing');
+  tile.setAttribute('aria-hidden', 'true');
+  updatePostitOpenState();
+  window.setTimeout(() => {
+    tile.classList.remove('is-closing');
+  }, 520);
+}
+
+document.querySelectorAll('.postit-popup').forEach((tile) => {
+  const closeBtn = tile.querySelector('.experience-highlight-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      closePostit(tile.id);
+    });
   }
-}
-
-function closeModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.style.display = 'none';
-    modal.classList.remove('modal-depth', 'modal-enhanced');
-    const content = modal.querySelector('.modal-content');
-    if (content) {
-      content.classList.remove('modal-enhanced');
-    }
-  }
-  syncModalVisualState();
-}
-
-// Cerrar modal al hacer clic fuera de él
-window.addEventListener('click', function(event) {
-  if (event.target.classList.contains('modal')) {
-    closeModal(event.target.id);
+  const actionBtn = tile.querySelector('.experience-highlight-action');
+  if (actionBtn) {
+    actionBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      closePostit(tile.id);
+    });
   }
 });
 
-// Cerrar modal con la tecla Escape
+// Cerrar al pulsar fuera de la nota
+window.addEventListener('click', function(event) {
+  document.querySelectorAll('.postit-popup.is-open').forEach((tile) => {
+    if (!tile.contains(event.target)) {
+      closePostit(tile.id);
+    }
+  });
+});
+
+// Cerrar con la tecla Escape
 window.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') {
-    getOpenModals().forEach((modal) => closeModal(modal.id));
+    document.querySelectorAll('.postit-popup.is-open').forEach((tile) => closePostit(tile.id));
   }
 });
 
